@@ -5,10 +5,13 @@
   "description": "History, cache, cookie, and storage cleaner Chrome extension scaffolded in the style of CleanReload.",
   "scripts": {
     "generate-icons": "node scripts/generate-icons.js",
-    "build": "npm run generate-icons",
+    "generate-screenshots": "node webstore/generate-screenshots.js",
+    "build": "npm run generate-icons && npm run generate-screenshots",
     "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
+    "chrome-webstore-upload-cli": "^3.3.2",
+    "puppeteer": "^24.37.5",
     "sharp": "^0.33.5"
   },
   "keywords": [

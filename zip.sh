@@ -15,7 +15,6 @@ cp manifest.json temp-build/
 cp popup.html temp-build/
 cp options.html temp-build/
 cp -R _locales temp-build/
-cp -R fonts temp-build/
 cp -R icons temp-build/
 cp -R src temp-build/
 

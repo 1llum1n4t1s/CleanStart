@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1280px; height: 800px;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F2D4A 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Segoe UI', 'Yu Gothic UI', 'Meiryo', sans-serif;
+    overflow: hidden;
+  }
+  .container {
+    display: flex; align-items: center; gap: 80px;
+  }
+  .left {
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .title {
+    font-size: 52px; font-weight: 800;
+    color: #F1F5F9;
+    line-height: 1.2;
+  }
+  .title span { color: #38BDF8; }
+  .title span.green { color: #34D399; }
+  .desc {
+    font-size: 22px; color: #94A3B8;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+  .tags {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .tag {
+    padding: 8px 18px;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 20px;
+    color: #38BDF8;
+    font-size: 16px; font-weight: 500;
+  }
+  .popup-mock {
+    width: 360px;
+    background: linear-gradient(180deg, #f8fbff 0%, #eef3fb 50%, #dfe8f5 100%);
+    border-radius: 16px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+    overflow: hidden;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .mock-header {
+    text-align: center;
+    padding: 4px 0 8px;
+  }
+  .mock-eyebrow {
+    color: #2f59c0; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .mock-h1 {
+    color: #1a2743; font-size: 22px; font-weight: 800; margin-top: 4px;
+    letter-spacing: -0.04em;
+  }
+  .mock-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(32,61,134,0.12);
+    border-radius: 18px;
+    box-shadow: 0 12px 24px rgba(24,41,83,0.08);
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .clean-button {
+    width: 100%; min-height: 56px;
+    border: 0; border-radius: 16px;
+    background: linear-gradient(135deg, #26b66a, #1794d2);
+    color: white; font-size: 20px; font-weight: 700;
+    box-shadow: 0 14px 24px rgba(24, 151, 198, 0.30);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .summary-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px;
+  }
+  .summary-key {
+    color: #5a6b89; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .chip {
+    display: inline-flex; align-items: center;
+    height: 22px; padding: 0 9px; border-radius: 999px;
+    background: rgba(47,89,192,0.12); color: #24449f;
+    font-size: 11px; font-weight: 700;
+  }
+  .chip.period { background: rgba(38,182,106,0.16); color: #146d42; }
+  .chip-list { display: flex; gap: 4px; flex-wrap: wrap; max-width: 200px; justify-content: flex-end; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="title">
+        <span>履歴</span>・<span>キャッシュ</span>・<span class="green">Cookie</span><br>
+        ぜんぶワンクリック<br>
+        で一掃
+      </div>
+      <div class="desc">
+        12 種のデータを期間指定で削除。
+        2 段階タップで誤操作も防止。
+      </div>
+      <div class="tags">
+        <span class="tag">🧹 12種類対応</span>
+        <span class="tag">⏱️ 期間指定</span>
+        <span class="tag">🛡️ 2段階確認</span>
+        <span class="tag">⚡ 起動時自動削除</span>
+      </div>
+    </div>
+    <div class="popup-mock">
+      <div class="mock-header">
+        <div class="mock-eyebrow">HISTORY &amp; CACHE CLEANER</div>
+        <div class="mock-h1">Clean Start</div>
+      </div>
+      <div class="mock-card">
+        <div class="clean-button">Clear</div>
+        <div class="summary-row">
+          <span class="summary-key">対象期間</span>
+          <span class="chip period">1時間以内</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-key">削除する項目</span>
+          <div class="chip-list">
+            <span class="chip">履歴</span>
+            <span class="chip">Cache</span>
+            <span class="chip">Cookies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

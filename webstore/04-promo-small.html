@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 440px; height: 280px;
+    background: linear-gradient(135deg, #1A56C7 0%, #0FB3B8 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Segoe UI', 'Yu Gothic UI', 'Meiryo', sans-serif;
+    overflow: hidden;
+  }
+  .container {
+    display: flex; align-items: center; gap: 24px;
+  }
+  .icon-box {
+    width: 96px; height: 96px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-box svg { width: 70px; height: 70px; }
+  .right {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .title {
+    font-size: 28px; font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon-box">
+      <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg2" x1="14" y1="12" x2="116" y2="118" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#102A72"/><stop offset="0.56" stop-color="#1A56C7"/><stop offset="1" stop-color="#0FB3B8"/>
+          </linearGradient>
+          <linearGradient id="lid2" x1="39" y1="34" x2="88" y2="50" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#8CE6FF"/><stop offset="1" stop-color="#5CB7FF"/>
+          </linearGradient>
+          <linearGradient id="body2" x1="41" y1="46" x2="83" y2="94" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#EAF2FF"/>
+          </linearGradient>
+        </defs>
+        <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#bg2)"/>
+        <rect x="49" y="28" width="30" height="8" rx="4" fill="white" opacity="0.96"/>
+        <rect x="36" y="36" width="56" height="11" rx="5.5" fill="url(#lid2)"/>
+        <path d="M39 44H89L84 92.5C83.6 96.4 80.3 99.4 76.4 99.4H51.6C47.7 99.4 44.4 96.4 44 92.5L39 44Z" fill="url(#body2)"/>
+        <rect x="50" y="55" width="8" height="30" rx="4" fill="#6B8DF0"/>
+        <rect x="60" y="55" width="8" height="30" rx="4" fill="#89A6FA"/>
+        <rect x="70" y="55" width="8" height="30" rx="4" fill="#6B8DF0"/>
+        <path d="M92 30L94.6 36.4L101 39L94.6 41.6L92 48L89.4 41.6L83 39L89.4 36.4L92 30Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="right">
+      <div class="title">Clean Start</div>
+      <div class="subtitle">履歴・キャッシュ・Cookie を<br>ワンクリックで一掃</div>
+    </div>
+  </div>
+</body>
+</html>

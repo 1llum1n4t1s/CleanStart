@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1400px; height: 560px;
+    background: linear-gradient(135deg, #102A72 0%, #1A56C7 50%, #0FB3B8 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Segoe UI', 'Yu Gothic UI', 'Meiryo', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+  .deco1 {
+    position: absolute; top: -80px; left: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .deco2 {
+    position: absolute; bottom: -100px; right: -60px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .container {
+    display: flex; align-items: center; gap: 80px;
+    position: relative; z-index: 1;
+  }
+  .icon-box {
+    width: 200px; height: 200px;
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.30);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-box svg { width: 150px; height: 150px; }
+  .right {
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .title {
+    font-size: 56px; font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    font-size: 24px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
+  .tags {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .tag {
+    padding: 8px 20px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    color: rgba(255,255,255,0.95);
+    font-size: 16px; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="deco1"></div>
+  <div class="deco2"></div>
+  <div class="container">
+    <div class="icon-box">
+      <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg3" x1="14" y1="12" x2="116" y2="118" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#102A72"/><stop offset="0.56" stop-color="#1A56C7"/><stop offset="1" stop-color="#0FB3B8"/>
+          </linearGradient>
+          <linearGradient id="lid3" x1="39" y1="34" x2="88" y2="50" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#8CE6FF"/><stop offset="1" stop-color="#5CB7FF"/>
+          </linearGradient>
+          <linearGradient id="body3" x1="41" y1="46" x2="83" y2="94" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#EAF2FF"/>
+          </linearGradient>
+        </defs>
+        <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#bg3)"/>
+        <rect x="49" y="28" width="30" height="8" rx="4" fill="white" opacity="0.96"/>
+        <rect x="36" y="36" width="56" height="11" rx="5.5" fill="url(#lid3)"/>
+        <path d="M39 44H89L84 92.5C83.6 96.4 80.3 99.4 76.4 99.4H51.6C47.7 99.4 44.4 96.4 44 92.5L39 44Z" fill="url(#body3)"/>
+        <rect x="50" y="55" width="8" height="30" rx="4" fill="#6B8DF0"/>
+        <rect x="60" y="55" width="8" height="30" rx="4" fill="#89A6FA"/>
+        <rect x="70" y="55" width="8" height="30" rx="4" fill="#6B8DF0"/>
+        <path d="M92 30L94.6 36.4L101 39L94.6 41.6L92 48L89.4 41.6L83 39L89.4 36.4L92 30Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="right">
+      <div class="title">Clean Start</div>
+      <div class="subtitle">履歴・キャッシュ・Cookie・サイト保存データを<br>ワンクリックで一掃するクリーンアップ拡張</div>
+      <div class="tags">
+        <span class="tag">🧹 12種類対応</span>
+        <span class="tag">⏱️ 期間指定</span>
+        <span class="tag">🛡️ 2段階確認</span>
+        <span class="tag">⚡ 起動時自動削除</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

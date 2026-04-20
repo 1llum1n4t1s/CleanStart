@@ -1,0 +1,85 @@
+name: Publish to Chrome Web Store
+
+on:
+  push:
+    branches:
+      - 'release/**'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Chrome Web Store 公開
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        # actions/checkout v5.0.0 (commit SHA で固定)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: バージョンを取得
+        id: version
+        run: |
+          version=$(grep -oP '(?<="version": ")[^"]+' manifest.json)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "📦 公開対象バージョン: $version"
+
+      - name: ブランチ名とバージョンの整合性を確認
+        env:
+          BRANCH_VERSION: ${{ github.ref_name }}
+          MANIFEST_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          expected="release/${MANIFEST_VERSION}"
+          if [ "$BRANCH_VERSION" != "$expected" ]; then
+            echo "::error::ブランチ名 ($BRANCH_VERSION) と manifest.json のバージョン ($MANIFEST_VERSION) が一致しません。期待値: $expected"
+            exit 1
+          fi
+          echo "✅ ブランチ名と manifest バージョン一致: $expected"
+
+      - name: Node セットアップ
+        # actions/setup-node v5 (commit SHA で固定)
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 依存インストール
+        # lockfile 整合性を強制するため npm ci のみ。
+        run: npm ci
+
+      - name: アイコン生成
+        run: node scripts/generate-icons.js
+
+      - name: テスト実行
+        run: npm test
+
+      - name: zip パッケージを作成
+        run: |
+          # manifest.json から key フィールドを除去 (key はローカル開発専用、ストアアップロード時は不要)
+          BUILD_DIR=$(mktemp -d)
+          node -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('$BUILD_DIR/manifest.json',JSON.stringify(m,null,2))"
+          mkdir -p "$BUILD_DIR/icons"
+          cp icons/icon-16.png icons/icon-48.png icons/icon-128.png "$BUILD_DIR/icons/"
+          cp popup.html options.html "$BUILD_DIR/"
+          cp -r _locales src "$BUILD_DIR/"
+          (cd "$BUILD_DIR" && zip -r "$OLDPWD/clean-start.zip" . -x "*.DS_Store" "*.swp" "*~")
+          rm -rf "$BUILD_DIR"
+          ls -lh clean-start.zip
+
+      - name: Chrome Web Store にアップロード & 公開
+        # chrome-webstore-upload-cli はローカル devDep にインストール済 (package.json で固定)
+        # secrets を持つステップで npm レジストリから未検証コードを取得しない方針。
+        env:
+          CWS_CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CWS_CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          CWS_REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+          CWS_EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
+        run: |
+          npx --no-install chrome-webstore-upload-cli upload \
+            --source clean-start.zip \
+            --extension-id "$CWS_EXTENSION_ID" \
+            --client-id "$CWS_CLIENT_ID" \
+            --client-secret "$CWS_CLIENT_SECRET" \
+            --refresh-token "$CWS_REFRESH_TOKEN" \
+            --auto-publish
+          echo "🎉 Chrome Web Store への公開リクエストを送信したよ〜"
