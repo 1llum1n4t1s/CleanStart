@@ -15,15 +15,14 @@
 
 - `manifest.json`
 - `popup.html`
-- `options.html`
 - `src/background`
 - `src/popup`
-- `src/options`
 - `src/shared`
 - `icons`
 - `scripts`
 - `docs`
 - `webstore`
+- `tests`
 
 ## 開発メモ
 

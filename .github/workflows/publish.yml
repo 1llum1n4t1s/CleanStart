@@ -60,7 +60,7 @@ jobs:
           node -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('$BUILD_DIR/manifest.json',JSON.stringify(m,null,2))"
           mkdir -p "$BUILD_DIR/icons"
           cp icons/icon-16.png icons/icon-48.png icons/icon-128.png "$BUILD_DIR/icons/"
-          cp popup.html options.html "$BUILD_DIR/"
+          cp popup.html "$BUILD_DIR/"
           cp -r _locales src "$BUILD_DIR/"
           (cd "$BUILD_DIR" && zip -r "$OLDPWD/clean-start.zip" . -x "*.DS_Store" "*.swp" "*~")
           rm -rf "$BUILD_DIR"

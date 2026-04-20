@@ -37,7 +37,6 @@ New-Item -ItemType Directory -Path $tempDir | Out-Null
 
 Copy-Item "manifest.json" -Destination $tempDir
 Copy-Item "popup.html" -Destination $tempDir
-Copy-Item "options.html" -Destination $tempDir
 Copy-Item "_locales" -Destination $tempDir -Recurse
 Copy-Item "icons" -Destination $tempDir -Recurse
 Copy-Item "src" -Destination $tempDir -Recurse

@@ -41,9 +41,6 @@
   "popup_nothing_selected": {
     "message": "何も選択されていません"
   },
-  "options_header": {
-    "message": "OPTIONS"
-  },
   "options_common": {
     "message": "共通設定"
   },
