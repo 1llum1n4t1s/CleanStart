@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Clear history, cache, cookies, and site storage from Chrome with configurable options."
+  },
+  "popup_brand_subtitle": {
+    "message": "History & Cache Cleaner"
+  },
+  "popup_hint": {
+    "message": "Clear browser data from the current profile with one click."
+  },
+  "popup_clear": {
+    "message": "Clear"
+  },
+  "popup_confirm": {
+    "message": "Tap again to confirm"
+  },
+  "popup_clearing": {
+    "message": "Clearing..."
+  },
+  "popup_clean": {
+    "message": "Done"
+  },
+  "popup_manage": {
+    "message": "Options"
+  },
+  "popup_label_rate": {
+    "message": "Please Rate Us!"
+  },
+  "popup_current_settings": {
+    "message": "Current Clean Target"
+  },
+  "popup_current_hint": {
+    "message": "These settings will be used when you press Clean."
+  },
+  "popup_selected_data": {
+    "message": "Deletes"
+  },
+  "popup_nothing_selected": {
+    "message": "Nothing selected"
+  },
+  "options_header": {
+    "message": "OPTIONS"
+  },
+  "options_common": {
+    "message": "Common settings"
+  },
+  "options_common_1": {
+    "message": "Automatically reload the active tab after clearing"
+  },
+  "options_common_2": {
+    "message": "Clear automatically when Chrome starts"
+  },
+  "options_clearonstartup_warning": {
+    "message": "Warning: enabling this will automatically erase every selected data type each time Chrome starts. You may be signed out of websites and lose session data."
+  },
+  "options_remove": {
+    "message": "Data to Remove"
+  },
+  "options_time_period": {
+    "message": "Time Period"
+  },
+  "options_last_hour": {
+    "message": "Last Hour"
+  },
+  "options_last_day": {
+    "message": "Last Day"
+  },
+  "options_last_week": {
+    "message": "Last Week"
+  },
+  "options_last_month": {
+    "message": "Last Month"
+  },
+  "options_everything": {
+    "message": "Everything"
+  },
+  "options_remove_appcache": {
+    "message": "App Cache"
+  },
+  "options_remove_appcache_desc": {
+    "message": "Removes offline data saved by very old web apps using App Cache. Most modern sites no longer use this. It does not remove your normal files, bookmarks, or saved passwords."
+  },
+  "options_remove_cache": {
+    "message": "Cache"
+  },
+  "options_remove_cache_desc": {
+    "message": "Removes temporary files such as images, CSS, and JavaScript that Chrome saved to make sites load faster. Pages may load a little slower the next time, but your logins and saved form entries usually remain."
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "Removes Cache Storage data used by modern web apps and PWAs for offline support and faster loading. It does not remove bookmarks or saved passwords, but some sites may need to download app resources again or rebuild offline data."
+  },
+  "options_remove_cookies": {
+    "message": "Cookies"
+  },
+  "options_remove_cookies_desc": {
+    "message": "Removes cookies that store sign-in sessions, site preferences, shopping cart state, and similar data. This may sign you out of websites or reset site settings. It does not delete your saved passwords themselves."
+  },
+  "options_remove_downloads": {
+    "message": "Downloads"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Clears Chrome's download history list only. It does not delete the actual files saved on your computer."
+  },
+  "options_remove_fsys": {
+    "message": "File Systems"
+  },
+  "options_remove_fsys_desc": {
+    "message": "Removes site data created by old browser file system APIs. This does not delete your normal local files or documents. In modern Chrome, this affects only a small number of older web apps."
+  },
+  "options_remove_forms": {
+    "message": "Form Data"
+  },
+  "options_remove_forms_desc": {
+    "message": "Removes saved form suggestions such as names, addresses, and previously entered values. This can reduce autocomplete suggestions, but it does not directly delete your saved passwords or current sign-in sessions."
+  },
+  "options_remove_history": {
+    "message": "History"
+  },
+  "options_remove_history_desc": {
+    "message": "Deletes records of pages you visited in the selected time range. Address bar suggestions and the History page will lose those entries. It does not close your current tabs."
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "Deletes IndexedDB databases created by websites and web apps. This can remove offline data, cached app state, or work-in-progress data stored locally by some sites. You may need to sign in again or let the site resync."
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "Clears Local Storage data saved by websites, such as small settings, UI preferences, and lightweight session state. Some sites may reset display options or forget locally stored state."
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "Removes Service Worker registrations that sites use for background updates, notifications, and offline behavior. Many sites will recreate them on the next visit, but offline features, push behavior, or app state may need to initialize again."
+  },
+  "options_remove_sql": {
+    "message": "Web SQL"
+  },
+  "options_remove_sql_desc": {
+    "message": "Deletes data stored by older sites that still use Web SQL. Modern sites rarely rely on it, but older web apps may lose local settings or locally stored work."
+  }
+}

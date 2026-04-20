@@ -1,0 +1,16 @@
+Clean Start
+
+Short description:
+Clean history, cache, cookies, and site storage with flexible filters and one-click cleanup.
+
+Overview:
+Clean Start is a Chrome extension that recreates the behavior of a lightweight browser data cleaner. It provides:
+
+- quick cleanup from the popup
+- configurable removal targets
+- time-range selection
+- optional tab auto-refresh
+- two-tap confirm to prevent accidental cleanup
+
+Privacy:
+All cleanup runs locally in Chrome. No remote code is loaded and no personal data is sent to external servers.

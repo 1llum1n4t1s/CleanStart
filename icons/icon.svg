@@ -1,0 +1,37 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="14" y1="12" x2="116" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102A72"/>
+      <stop offset="0.56" stop-color="#1A56C7"/>
+      <stop offset="1" stop-color="#0FB3B8"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="32" y1="28" x2="98" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="lid" x1="39" y1="34" x2="88" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CE6FF"/>
+      <stop offset="1" stop-color="#5CB7FF"/>
+    </linearGradient>
+    <linearGradient id="body" x1="41" y1="46" x2="83" y2="94" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAF2FF"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#bg)"/>
+  <circle cx="64" cy="65" r="34" fill="url(#plate)"/>
+  <path d="M26 20H80C60 31 46 47 36 68C28 87 22 102 8 108V38C8 28.0589 16.0589 20 26 20Z" fill="white" opacity="0.08"/>
+
+  <rect x="49" y="28" width="30" height="8" rx="4" fill="white" opacity="0.96"/>
+  <rect x="36" y="36" width="56" height="11" rx="5.5" fill="url(#lid)"/>
+  <path d="M41 47H87L82 96C81.5802 100.114 78.1198 103.25 74 103.25H54C49.8802 103.25 46.4198 100.114 46 96L41 47Z" fill="#10378D" opacity="0.22"/>
+  <path d="M39 44H89L84 92.5C83.5961 96.4186 80.2996 99.4 76.36 99.4H51.64C47.7004 99.4 44.4039 96.4186 44 92.5L39 44Z" fill="url(#body)"/>
+  <path d="M39 44H89L87.9 54H40.1L39 44Z" fill="white" opacity="0.82"/>
+
+  <rect x="50" y="55" width="8" height="30" rx="4" fill="#6B8DF0"/>
+  <rect x="60" y="55" width="8" height="30" rx="4" fill="#89A6FA"/>
+  <rect x="70" y="55" width="8" height="30" rx="4" fill="#6B8DF0"/>
+
+  <path d="M92 30L94.6 36.4L101 39L94.6 41.6L92 48L89.4 41.6L83 39L89.4 36.4L92 30Z" fill="white"/>
+</svg>

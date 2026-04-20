@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Chrome の履歴、キャッシュ、Cookie、サイト保存データを細かく選んで削除できる拡張機能です。"
+  },
+  "popup_brand_subtitle": {
+    "message": "History & Cache Cleaner"
+  },
+  "popup_hint": {
+    "message": "現在の Chrome プロファイル内の閲覧データをワンクリックで整理します。"
+  },
+  "popup_clear": {
+    "message": "Clear"
+  },
+  "popup_confirm": {
+    "message": "もう一度タップで削除"
+  },
+  "popup_clearing": {
+    "message": "Clearing..."
+  },
+  "popup_clean": {
+    "message": "Done"
+  },
+  "popup_manage": {
+    "message": "Options"
+  },
+  "popup_label_rate": {
+    "message": "Please Rate Us!"
+  },
+  "popup_current_settings": {
+    "message": "現在の削除対象"
+  },
+  "popup_current_hint": {
+    "message": "いま下の Clean を押すと、この設定で削除します。"
+  },
+  "popup_selected_data": {
+    "message": "削除する項目"
+  },
+  "popup_nothing_selected": {
+    "message": "何も選択されていません"
+  },
+  "options_header": {
+    "message": "OPTIONS"
+  },
+  "options_common": {
+    "message": "共通設定"
+  },
+  "options_common_1": {
+    "message": "削除後にアクティブタブを自動で再読み込みする"
+  },
+  "options_common_2": {
+    "message": "Chrome起動時に削除する"
+  },
+  "options_clearonstartup_warning": {
+    "message": "注意: 有効にすると Chrome 起動のたびに、選択したすべてのデータが自動削除されます。各サイトからログアウトされ、セッション情報が失われることがあります。"
+  },
+  "options_remove": {
+    "message": "削除対象データ"
+  },
+  "options_time_period": {
+    "message": "対象期間"
+  },
+  "options_last_hour": {
+    "message": "1時間以内"
+  },
+  "options_last_day": {
+    "message": "24時間以内"
+  },
+  "options_last_week": {
+    "message": "1週間以内"
+  },
+  "options_last_month": {
+    "message": "4週間以内"
+  },
+  "options_everything": {
+    "message": "すべて"
+  },
+  "options_remove_appcache": {
+    "message": "App Cache"
+  },
+  "options_remove_appcache_desc": {
+    "message": "かなり古い仕組みの Web アプリが保存していたオフライン用データを削除します。現在の多くのサイトではほとんど使われていません。通常のファイルやブックマーク、保存したパスワードが消えることはありません。"
+  },
+  "options_remove_cache": {
+    "message": "Cache"
+  },
+  "options_remove_cache_desc": {
+    "message": "画像、CSS、JavaScript など、サイトを速く開くために一時保存されたファイルを削除します。次回の表示は一度だけ少し遅くなることがありますが、ログイン情報や保存した入力内容そのものは通常消えません。"
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "主に PWA や最近の Web アプリが、オフライン表示や高速化のために保存したキャッシュ領域を削除します。通常のブックマークや保存済みパスワードは消えませんが、サイトによってはオフラインデータや再利用用のリソースをもう一度取得し直します。"
+  },
+  "options_remove_cookies": {
+    "message": "Cookies"
+  },
+  "options_remove_cookies_desc": {
+    "message": "ログイン状態、サイトごとの設定、カート情報、セッション情報などを保存している Cookie を削除します。これを消すとサイトからログアウトされたり、言語設定や表示設定が初期化されたりすることがあります。保存済みパスワードそのものは、この項目では削除されません。"
+  },
+  "options_remove_downloads": {
+    "message": "Downloads"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Chrome のダウンロード履歴一覧だけを削除します。PC に保存された実際のファイル本体は削除しません。『ダウンロードした記録だけを消したい』場合の項目です。"
+  },
+  "options_remove_fsys": {
+    "message": "File Systems"
+  },
+  "options_remove_fsys_desc": {
+    "message": "一部の古いサイトや Web アプリが、ブラウザ内に保存していたファイルシステム系データを削除します。通常のローカルファイルや、PC 上のドキュメントを直接消すものではありません。現在では影響するケースはかなり少なめです。"
+  },
+  "options_remove_forms": {
+    "message": "Form Data"
+  },
+  "options_remove_forms_desc": {
+    "message": "フォームに入力した名前、住所、検索語句などの候補履歴を削除します。フォーム入力時のサジェストが減りますが、保存済みパスワードそのものや現在のログイン状態を直接消す項目ではありません。"
+  },
+  "options_remove_history": {
+    "message": "History"
+  },
+  "options_remove_history_desc": {
+    "message": "閲覧したページの履歴を削除します。アドレスバーの候補や履歴画面に出る訪問記録が減ります。開いているタブそのものは閉じませんが、あとから『どのページを見たか』を辿りにくくなります。"
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "Web アプリが大きめのデータをブラウザ内に保存するために使う IndexedDB を削除します。オフラインデータ、作業途中の情報、サイト内の一時保存内容が消えることがあります。サイトによっては再ログインや再同期が必要になります。"
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "サイトがブラウザに保存した小さな設定データや状態情報を削除します。テーマ設定、表示設定、簡易的なログイン状態、入力途中の値などが初期化されることがあります。"
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "サイトがバックグラウンド更新、通知、オフライン動作などに使う Service Worker の登録を削除します。多くのサイトでは次回アクセス時に再登録されますが、一時的に通知やオフライン機能が効かなくなったり、Web アプリが再初期化されたりすることがあります。"
+  },
+  "options_remove_sql": {
+    "message": "Web SQL"
+  },
+  "options_remove_sql_desc": {
+    "message": "古い Web SQL という仕組みでサイトが保存していたローカルデータを削除します。現在は利用サイトが少ないですが、古めの Web アプリでは設定や一時保存内容が消える可能性があります。"
+  }
+}

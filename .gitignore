@@ -1,0 +1,5 @@
+node_modules/
+*.zip
+webstore/images/
+.serena/
+
