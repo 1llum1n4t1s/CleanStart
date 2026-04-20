@@ -1,5 +1,155 @@
 ============================================================
-Chrome Web Store 掲載情報（コピペ用）
+Chrome Web Store Listing (Copy-paste reference)
+============================================================
+
+Default language: English
+Additional language: Japanese (日本語)
+
+Set the default listing language to "English" in the Developer
+Dashboard, then add "Japanese" as an additional language and
+paste the Japanese section below.
+
+============================================================
+ENGLISH (default)
+============================================================
+
+[Store Listing]
+------------------------------------------------------------
+
+■ Name (max 30 chars)
+Clean Start
+
+■ Summary (max 132 chars)
+One-click cleanup for history, cache, cookies, and site data. 12 data types, 5 time ranges, two-tap confirm to prevent accidents.
+
+■ Description (max 16,000 chars)
+A simple, safe cleanup extension for tidying up Chrome's browsing data.
+Click the toolbar icon, choose what to delete and over which time range,
+then tap the button twice — that's it.
+
+■ Key features
+
+- One-click bulk cleanup
+  Run a full cleanup with the current settings directly from the popup.
+  No need to navigate through nested settings screens.
+
+- Pick from 12 data types
+  History, Cache, Cache Storage, Cookies, Downloads, File Systems,
+  Form Data, IndexedDB, Local Storage, Service Workers, Web SQL, App Cache.
+  Combine them freely.
+
+- Time-range selection
+  Choose from "Last hour", "Last 24 hours", "Last week", "Last 4 weeks",
+  or "Everything" for the deletion window.
+
+- Two-tap confirm to prevent accidents
+  The Clear button switches to a "Tap again to confirm" state on the
+  first tap. The second tap within 5 seconds runs the actual cleanup.
+  Greatly reduces the risk of accidentally wiping sessions.
+
+- Optional auto-clear on Chrome startup
+  Enable "Clear automatically when Chrome starts" to wipe data on every
+  launch. A warning banner appears in the popup so you don't enable it
+  accidentally.
+
+- Auto-reload startup tabs
+  When auto-clear runs cache- or cookie-related deletions on startup,
+  open web tabs are reloaded in batches so you immediately see fresh
+  pages.
+
+- Optional active-tab reload after Clear
+  Enable "Reload the active tab after clearing" and the current tab
+  refreshes automatically once cleanup completes.
+
+- Local-only, zero network
+  All processing happens inside the browser. No network calls, no
+  external API integration, no tracking, no telemetry.
+
+■ How to use
+
+1. Install from the Chrome Web Store.
+2. Click the Clean Start icon in the toolbar.
+3. Tick the data types you want to delete under "Deletes".
+4. Pick a time range under "Time Period".
+5. Tap the Clear button. When it changes to "Tap again to confirm",
+   tap it again within 5 seconds.
+6. Done!
+
+All settings live inside the popup. Your selections are stored locally
+and remain in place the next time you open the popup.
+
+■ Category
+Productivity
+
+■ Languages
+English, 日本語 (Japanese)
+
+
+[Privacy Practices]
+------------------------------------------------------------
+
+■ Single purpose
+Yes
+
+■ Single purpose description
+Bulk-deletes Chrome's history, cache, cookies, and site storage
+based on the user's selected data types and time range.
+
+■ Data usage disclosures
+
+  - Personally identifiable information collected? No
+  - User data handled? No (only local settings, never leaves the browser)
+
+  - User data handling commitments
+    - Will not sell user data
+    - Will not use or transfer user data for purposes unrelated to the
+      item's single purpose
+    - Will not use or transfer user data to determine creditworthiness
+      or for lending purposes
+
+■ Permission justifications
+
+  storage:
+  Used to persist the user's choices locally via chrome.storage.local:
+  selected data types (dataToRemove), time range (timePeriod), the
+  "auto-reload after clear" flag (autorefresh), and the "clear on Chrome
+  startup" flag (clearonstartup). Nothing is transmitted externally.
+
+  browsingData:
+  Core feature. Calls chrome.browsingData.remove() to delete the data
+  types the user selected (history, cache, cookies, IndexedDB, service
+  workers, etc.) for the chosen time range.
+
+  activeTab:
+  Used only when the user has enabled "Reload the active tab after
+  clearing". After the Clear button is tapped, the active tab is
+  reloaded so the user sees a fresh state. Never used to inspect
+  background tabs.
+
+■ External server communication
+None. The extension does not talk to any external server. All work is
+done locally through chrome.browsingData / chrome.tabs / chrome.runtime
+standard APIs.
+
+■ Remote code
+No.
+All code is bundled inside the extension package; no remote scripts are
+loaded. Content Security Policy is set explicitly to
+`script-src 'self'; object-src 'self'`.
+
+
+[Distribution]
+------------------------------------------------------------
+
+■ Visibility
+Public
+
+■ Regions
+All regions
+
+
+============================================================
+日本語 (additional language)
 ============================================================
 
 【ストアの掲載情報】タブ
@@ -60,25 +210,6 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 
 ------------------------------------------------------------
 
-【画像素材】タブ
-------------------------------------------------------------
-
-■ ストアアイコン（128x128）
-→ icons/icon-128.png
-
-■ スクリーンショット（1280x800）※最大5枚、最低1枚
-  1枚目: webstore/images/01-feature-overview-1280x800.png
-  2枚目: webstore/images/02-how-to-use-1280x800.png
-  3枚目: webstore/images/03-hero-promo-1280x800.png
-
-■ プロモーション タイル（小）（440x280）※任意
-→ webstore/images/promo-small-440x280.png
-
-■ マーキー プロモーション タイル（1400x560）※任意
-→ webstore/images/promo-marquee-1400x560.png
-
-------------------------------------------------------------
-
 【プライバシーへの取り組み】タブ
 ------------------------------------------------------------
 
@@ -129,3 +260,22 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 
 ■ 対象国
 すべての地域
+
+
+============================================================
+Image assets (shared across both languages)
+============================================================
+
+■ Store icon (128x128) — auto-loaded from manifest
+icons/icon-128.png
+
+■ Screenshots (1280x800) — at least 1 required, up to 5
+webstore/images/01-feature-overview-1280x800.png
+webstore/images/02-how-to-use-1280x800.png
+webstore/images/03-hero-promo-1280x800.png
+
+■ Small promo tile (440x280) — optional
+webstore/images/promo-small-440x280.png
+
+■ Marquee promo tile (1400x560) — optional
+webstore/images/promo-marquee-1400x560.png
