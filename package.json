@@ -1,6 +1,6 @@
 {
   "name": "clean-start",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "commonjs",
   "description": "History, cache, cookie, and storage cleaner Chrome extension scaffolded in the style of CleanReload.",
   "scripts": {
