@@ -57,38 +57,28 @@
 
     <section class="settings-card surface-card">
       <h2 class="settings-title" data-i18n="options_time_period">Time Period</h2>
-      <ul class="plain-list time-list" id="time-period">
-        <li>
-          <label class="radio-row" for="last_hour">
-            <input type="radio" name="timeperiod" value="last_hour" id="last_hour">
-            <span data-i18n="options_last_hour">Last Hour</span>
-          </label>
-        </li>
-        <li>
-          <label class="radio-row" for="last_day">
-            <input type="radio" name="timeperiod" value="last_day" id="last_day">
-            <span data-i18n="options_last_day">Last Day</span>
-          </label>
-        </li>
-        <li>
-          <label class="radio-row" for="last_week">
-            <input type="radio" name="timeperiod" value="last_week" id="last_week">
-            <span data-i18n="options_last_week">Last Week</span>
-          </label>
-        </li>
-        <li>
-          <label class="radio-row" for="last_month">
-            <input type="radio" name="timeperiod" value="last_month" id="last_month">
-            <span data-i18n="options_last_month">Last Month</span>
-          </label>
-        </li>
-        <li>
-          <label class="radio-row" for="everything">
-            <input type="radio" name="timeperiod" value="everything" id="everything">
-            <span data-i18n="options_everything">Everything</span>
-          </label>
-        </li>
-      </ul>
+      <div class="time-chip-grid" id="time-period">
+        <label class="time-chip-label" for="last_hour">
+          <input type="radio" name="timeperiod" value="last_hour" id="last_hour">
+          <span class="time-chip" data-i18n="options_last_hour">Last Hour</span>
+        </label>
+        <label class="time-chip-label" for="last_day">
+          <input type="radio" name="timeperiod" value="last_day" id="last_day">
+          <span class="time-chip" data-i18n="options_last_day">Last Day</span>
+        </label>
+        <label class="time-chip-label" for="last_week">
+          <input type="radio" name="timeperiod" value="last_week" id="last_week">
+          <span class="time-chip" data-i18n="options_last_week">Last Week</span>
+        </label>
+        <label class="time-chip-label" for="last_month">
+          <input type="radio" name="timeperiod" value="last_month" id="last_month">
+          <span class="time-chip" data-i18n="options_last_month">Last Month</span>
+        </label>
+        <label class="time-chip-label" for="everything">
+          <input type="radio" name="timeperiod" value="everything" id="everything">
+          <span class="time-chip" data-i18n="options_everything">Everything</span>
+        </label>
+      </div>
     </section>
 
     <section class="settings-card surface-card">

@@ -61,7 +61,7 @@
   const DEFAULT_RAW_SETTINGS = Object.freeze({
     autorefresh: false,
     clearonstartup: false,
-    dataToRemove: JSON.stringify(["history", "cache"]),
+    dataToRemove: JSON.stringify(["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]),
     timePeriod: "last_hour"
   });
 

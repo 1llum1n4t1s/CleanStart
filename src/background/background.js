@@ -86,27 +86,27 @@ async function reloadStartupTabs() {
   }
 }
 
-async function resolveTargetTab(fallbackTab) {
-  if (fallbackTab?.id) {
-    return fallbackTab;
+async function reloadAllTabs() {
+  const tabs = await queryTabs({});
+  const targets = tabs.filter(isStartupReloadTarget);
+
+  for (let i = 0; i < targets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
+    const batch = targets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
+    await Promise.all(batch.map((tab) => reloadTab(tab.id)));
+
+    if (i + STARTUP_RELOAD_BATCH_SIZE < targets.length) {
+      await sleep(STARTUP_RELOAD_INTERVAL_MS);
+    }
   }
-
-  const [activeTab] = await queryTabs({
-    active: true,
-    currentWindow: true
-  });
-
-  return activeTab || null;
 }
 
-async function clearDataForTab(targetTab) {
+async function clearDataForTab() {
   const settings = await CleanStartSettings.load();
-  return clearDataWithSettings(settings, targetTab, { allowReload: true });
+  return clearDataWithSettings(settings, { allowReload: true });
 }
 
-async function clearDataWithSettings(settings, targetTab, options = {}) {
+async function clearDataWithSettings(settings, options = {}) {
   const { allowReload = true } = options;
-  const tab = allowReload ? await resolveTargetTab(targetTab) : null;
   const removeObject = CleanStartSettings.toRemoveObject(settings.dataToRemove);
   const shouldReloadStartupTabs = settings.dataToRemove.some((dataType) =>
     CleanStartSettings.STARTUP_RELOAD_DATA_TYPES.has(dataType)
@@ -119,8 +119,8 @@ async function clearDataWithSettings(settings, targetTab, options = {}) {
     );
   }
 
-  if (allowReload && settings.autorefresh && tab?.id) {
-    await reloadTab(tab.id);
+  if (allowReload && settings.autorefresh) {
+    await reloadAllTabs();
   }
 
   return {
@@ -148,7 +148,7 @@ chrome.runtime.onStartup.addListener(() => {
         return null;
       }
 
-      return clearDataWithSettings(settings, null, { allowReload: false })
+      return clearDataWithSettings(settings, { allowReload: false })
         .then((result) => {
           if (!result?.shouldReloadStartupTabs) {
             return null;
@@ -175,7 +175,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.type === "clear-active-tab") {
     // message.tab は信用しない。background 側で activeTab を解決する。
-    clearDataForTab(null)
+    clearDataForTab()
       .then((result) => sendResponse(result))
       .catch((error) => {
         console.warn("Clean Start clear failed:", error.message);

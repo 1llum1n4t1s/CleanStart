@@ -128,17 +128,17 @@ describe("normalizeDataToRemove", () => {
 
   test("不正 JSON は default にフォールバック", () => {
     const result = CleanStartSettings.normalizeDataToRemove("not-json{{");
-    assert.deepEqual(result, ["cache", "history"]);
+    assert.deepEqual(result, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
   });
 
   test("undefined は default", () => {
     const result = CleanStartSettings.normalizeDataToRemove(undefined);
-    assert.deepEqual(result, ["cache", "history"]);
+    assert.deepEqual(result, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
   });
 
   test("null は default", () => {
     const result = CleanStartSettings.normalizeDataToRemove(null);
-    assert.deepEqual(result, ["cache", "history"]);
+    assert.deepEqual(result, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
   });
 
   test("空配列は空配列", () => {
@@ -196,8 +196,9 @@ describe("toRemoveObject", () => {
   test("undefined / null も安全にデフォルトへ", () => {
     const objNull = CleanStartSettings.toRemoveObject(null);
     const objUndef = CleanStartSettings.toRemoveObject(undefined);
-    assert.deepEqual(objNull, { cache: true, history: true });
-    assert.deepEqual(objUndef, { cache: true, history: true });
+    const expected = { appcache: true, cache: true, cacheStorage: true, fileSystems: true, indexedDB: true, webSQL: true };
+    assert.deepEqual(objNull, expected);
+    assert.deepEqual(objUndef, expected);
   });
 });
 
@@ -210,7 +211,7 @@ describe("normalizeSettings", () => {
     const settings = CleanStartSettings.normalizeSettings({});
     assert.equal(settings.autorefresh, false);
     assert.equal(settings.clearonstartup, false);
-    assert.deepEqual(settings.dataToRemove, ["cache", "history"]);
+    assert.deepEqual(settings.dataToRemove, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
     assert.equal(settings.timePeriod, "last_hour");
   });
 
@@ -364,11 +365,11 @@ describe("ensureDefaults", () => {
     const settings = await CleanStartSettings.ensureDefaults();
     assert.equal(mock.storage.autorefresh, false);
     assert.equal(mock.storage.clearonstartup, false);
-    assert.equal(mock.storage.dataToRemove, JSON.stringify(["history", "cache"]));
+    assert.equal(mock.storage.dataToRemove, JSON.stringify(["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]));
     assert.equal(mock.storage.timePeriod, "last_hour");
     assert.equal(settings.autorefresh, false);
     assert.equal(settings.timePeriod, "last_hour");
-    assert.deepEqual(settings.dataToRemove, ["cache", "history"]);
+    assert.deepEqual(settings.dataToRemove, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
   });
 
   test("一部既存: 欠損のみ書き込み", async () => {
@@ -380,7 +381,7 @@ describe("ensureDefaults", () => {
     assert.equal(mock.storage.timePeriod, "everything");
     // 欠損キーは補完
     assert.equal(mock.storage.clearonstartup, false);
-    assert.equal(mock.storage.dataToRemove, JSON.stringify(["history", "cache"]));
+    assert.equal(mock.storage.dataToRemove, JSON.stringify(["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]));
     // 返り値は正規化済み
     assert.equal(settings.autorefresh, true);
     assert.equal(settings.timePeriod, "everything");
@@ -415,7 +416,7 @@ describe("load", () => {
     const settings = await CleanStartSettings.load();
     assert.equal(mock.calls.set.length, 0);
     assert.equal(settings.autorefresh, false);
-    assert.deepEqual(settings.dataToRemove, ["cache", "history"]);
+    assert.deepEqual(settings.dataToRemove, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
     assert.equal(settings.timePeriod, "last_hour");
   });
 
@@ -432,7 +433,7 @@ describe("load", () => {
   test("不正な JSON 文字列は dataToRemove default にフォールバック", async () => {
     mock.storage.dataToRemove = "garbage{{";
     const settings = await CleanStartSettings.load();
-    assert.deepEqual(settings.dataToRemove, ["cache", "history"]);
+    assert.deepEqual(settings.dataToRemove, ["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]);
   });
 
   test("不正な timePeriod は last_hour", async () => {
