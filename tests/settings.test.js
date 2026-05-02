@@ -31,21 +31,30 @@ describe("getSince", () => {
   });
 
   test("last_day: 24 時間前", () => {
+    const before = Date.now();
     const since = CleanStartSettings.getSince("last_day");
-    const expected = Date.now() - 24 * 60 * 60 * 1000;
-    assert.ok(Math.abs(since - expected) < 100);
+    const after = Date.now();
+    const offset = 24 * 60 * 60 * 1000;
+    assert.ok(since >= before - offset);
+    assert.ok(since <= after - offset + 5);
   });
 
   test("last_week: 7 日前", () => {
+    const before = Date.now();
     const since = CleanStartSettings.getSince("last_week");
-    const expected = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    assert.ok(Math.abs(since - expected) < 100);
+    const after = Date.now();
+    const offset = 7 * 24 * 60 * 60 * 1000;
+    assert.ok(since >= before - offset);
+    assert.ok(since <= after - offset + 5);
   });
 
   test("last_month: 28 日前", () => {
+    const before = Date.now();
     const since = CleanStartSettings.getSince("last_month");
-    const expected = Date.now() - 28 * 24 * 60 * 60 * 1000;
-    assert.ok(Math.abs(since - expected) < 100);
+    const after = Date.now();
+    const offset = 28 * 24 * 60 * 60 * 1000;
+    assert.ok(since >= before - offset);
+    assert.ok(since <= after - offset + 5);
   });
 
   test("everything: 0 を返す", () => {

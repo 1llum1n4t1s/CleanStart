@@ -24,7 +24,9 @@ docs/                  # privacy-policy.md
 npm test                     # テスト実行
 npm run generate-icons        # アイコン生成
 npm run generate-screenshots  # スクリーンショット生成
-bash zip.sh                  # 配布用 zip 作成
+bash zip.sh                  # 配布用 zip 作成 (Linux/Mac/Git Bash + zip コマンド)
+# Windows ネイティブで zip コマンドが無い場合は zip.ps1 を使う:
+# powershell -ExecutionPolicy Bypass -File zip.ps1
 ```
 
 ## バージョン管理

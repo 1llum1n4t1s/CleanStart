@@ -11,7 +11,8 @@ rm -f clean-start.zip
 rm -rf temp-build
 
 mkdir -p temp-build
-cp manifest.json temp-build/
+# manifest.json から key フィールドを除去してから配置 (key はローカル開発専用)。
+node -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('temp-build/manifest.json',JSON.stringify(m,null,2))"
 cp popup.html temp-build/
 cp -R _locales temp-build/
 cp -R icons temp-build/

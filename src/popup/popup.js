@@ -222,6 +222,8 @@
   const localization = new Localize();
   localization.apply();
   setClearButtonStateExtended("idle");
+  // popup が閉じている間に SW がセットしたクリア完了バッジ (✓) を消す。
+  // background.js:showClearedBadge との対称契約。
   clearActionBadge();
   chrome.storage.onChanged.addListener(handleStorageChange);
 

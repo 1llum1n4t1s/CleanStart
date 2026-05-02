@@ -3,6 +3,10 @@
 (function initializeLocalize(global) {
   class Localize {
     apply() {
+      // SW などで誤ロードされた場合は noop で抜ける（コメントだけのガードは事故源）。
+      if (typeof document === "undefined") {
+        return;
+      }
       document.querySelectorAll("[data-i18n]").forEach((element) => {
         const key = element.getAttribute("data-i18n");
         const message = chrome.i18n.getMessage(key);

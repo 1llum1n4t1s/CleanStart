@@ -21,7 +21,13 @@ function createChromeMock(initialStorage) {
         get(keys, cb) {
           calls.get.push(keys);
           if (state.lastError) {
-            queueMicrotask(() => cb({}));
+            // 実 Chrome は callback 中だけ lastError を見せ、戻ったら自動クリアする。
+            // モックも同じ振る舞いに揃えてテスト前提を実環境に近づける。
+            const errSnapshot = state.lastError;
+            queueMicrotask(() => {
+              state.lastError = errSnapshot;
+              try { cb({}); } finally { state.lastError = null; }
+            });
             return;
           }
           const result = {};
@@ -54,8 +60,13 @@ function createChromeMock(initialStorage) {
         set(payload, cb) {
           calls.set.push(Object.assign({}, payload));
           if (state.lastError) {
-            // set は失敗しても storage を変更しない
-            queueMicrotask(() => cb());
+            // set は失敗しても storage を変更しない。
+            // get と同様に lastError は callback 内のみ有効、戻ったら自動クリア。
+            const errSnapshot = state.lastError;
+            queueMicrotask(() => {
+              state.lastError = errSnapshot;
+              try { cb(); } finally { state.lastError = null; }
+            });
             return;
           }
           Object.assign(storage, payload);
