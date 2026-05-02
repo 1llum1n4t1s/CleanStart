@@ -95,9 +95,24 @@
     };
   }
 
-  function sendRuntimeMessage(message) {
+  // SW 終了→cold-start で sendMessage が失敗する稀ケースに備え、
+  // 1 度だけ短いリトライを挟む。タイムアウトも合わせて設けることで、
+  // popup が "busy" 状態のまま固着する事故を避ける。
+  const SEND_MESSAGE_TIMEOUT_MS = 15000;
+
+  function sendRuntimeMessageOnce(message) {
     return new Promise((resolve) => {
+      let settled = false;
+      const timer = setTimeout(() => {
+        if (settled) return;
+        settled = true;
+        resolve({ ok: false, error: "timeout" });
+      }, SEND_MESSAGE_TIMEOUT_MS);
+
       chrome.runtime.sendMessage(message, (response) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
         if (chrome.runtime.lastError) {
           resolve({
             ok: false,
@@ -105,10 +120,29 @@
           });
           return;
         }
-
         resolve(response || { ok: true });
       });
     });
+  }
+
+  async function sendRuntimeMessage(message) {
+    const first = await sendRuntimeMessageOnce(message);
+    if (first?.ok) {
+      return first;
+    }
+    // SW cold-start 中で配送失敗した可能性のあるエラーのみリトライ。
+    const retryablePatterns = [
+      "Could not establish connection",
+      "message port was closed",
+      "Receiving end does not exist",
+      "timeout"
+    ];
+    const message_str = typeof first?.error === "string" ? first.error : "";
+    if (!retryablePatterns.some((p) => message_str.includes(p))) {
+      return first;
+    }
+    await new Promise((r) => setTimeout(r, 500));
+    return sendRuntimeMessageOnce(message);
   }
 
   function updateStoreLink() {
