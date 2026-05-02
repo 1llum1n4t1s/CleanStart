@@ -1,4 +1,5 @@
 importScripts("../shared/settings.js");
+importScripts("../shared/security.js");
 
 // 起動直後はタブ一覧の取得タイミングがブラウザ側で確定していない。
 // 1.2s と 2.5s の 2 回に分けて discovery することで、後から復元される
@@ -187,9 +188,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return undefined;
   }
 
-  // 自拡張内 (popup/options) からのメッセージのみ受け付ける。
-  // content script からのメッセージは sender.tab が設定されるため拒否する。
-  if (sender.id !== chrome.runtime.id || sender.tab) {
+  // sender 検証は security.js の pure function に委譲（テスト可能化）。
+  if (!CleanStartSecurity.isAuthorizedSender(sender, chrome.runtime.id)) {
     return undefined;
   }
 
