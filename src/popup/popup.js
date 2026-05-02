@@ -204,9 +204,21 @@
     }
   }
 
-  // 別タブの popup や SW が storage を更新したとき、UI を即座に追従させる。
+  // chrome.storage.onChanged は自分の write でも発火する。
+  // ユーザー操作が連続したとき N+1 で storage read が走り UI ちらつきの原因になるため、
+  // 自身の write 直後 200ms は無視する止血を入れる。
+  // 外部からの変更 (SW の ensureDefaults 等) のみ反映する想定。
+  const SELF_WRITE_SUPPRESS_MS = 200;
+  let selfWriteSuppressUntil = 0;
+  function markSelfWrite() {
+    selfWriteSuppressUntil = Date.now() + SELF_WRITE_SUPPRESS_MS;
+  }
+
   function handleStorageChange(changes, areaName) {
     if (areaName !== "local") {
+      return;
+    }
+    if (Date.now() < selfWriteSuppressUntil) {
       return;
     }
     loadSettingsIntoPopup().catch((error) => {
@@ -229,6 +241,7 @@
     }
 
     currentSettings.autorefresh = event.target.checked;
+    markSelfWrite();
     await CleanStartSettings.setFlag("autorefresh", event.target.checked);
   }));
   clearOnStartup.addEventListener("change", safeAsync(async (event) => {
@@ -238,6 +251,7 @@
 
     currentSettings.clearonstartup = event.target.checked;
     updateClearOnStartupWarning();
+    markSelfWrite();
     await CleanStartSettings.setFlag("clearonstartup", event.target.checked);
   }));
   removeInputs.forEach((input) => {
@@ -250,6 +264,7 @@
         .filter((item) => item.checked)
         .map((item) => item.value);
 
+      markSelfWrite();
       await CleanStartSettings.setDataToRemove(currentSettings.dataToRemove);
       updateSelectionSummary();
     }));
@@ -261,6 +276,7 @@
       }
 
       currentSettings.timePeriod = event.target.value;
+      markSelfWrite();
       await CleanStartSettings.setTimePeriod(event.target.value);
       updateSelectionSummary();
     }));
