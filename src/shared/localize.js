@@ -1,3 +1,5 @@
+// このモジュールは DOM (document) を前提とするため popup / options 専用。
+// Service Worker からは絶対にロードしないこと（apply() 内の document が爆発する）。
 (function initializeLocalize(global) {
   class Localize {
     apply() {

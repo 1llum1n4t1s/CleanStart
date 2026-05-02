@@ -1,6 +1,7 @@
 (function initializeCleanStartSettings(global) {
+  // appcache (Chrome 93 で削除) と webSQL (Chrome 119 で削除) は browsingData
+  // 側でも実体が無いため、UI に表示しても誤解を招くので除外している。
   const DATA_TYPES = Object.freeze([
-    "appcache",
     "cache",
     "cacheStorage",
     "cookies",
@@ -10,27 +11,23 @@
     "history",
     "indexedDB",
     "localStorage",
-    "serviceWorkers",
-    "webSQL"
+    "serviceWorkers"
   ]);
 
   // DATA_TYPES のうち、削除後にタブのリロードを必要とするもの。
   // downloads / formData / history はリロード不要。
   const STARTUP_RELOAD_DATA_TYPES = Object.freeze(new Set([
-    "appcache",
     "cache",
     "cacheStorage",
     "cookies",
     "fileSystems",
     "indexedDB",
     "localStorage",
-    "serviceWorkers",
-    "webSQL"
+    "serviceWorkers"
   ]));
 
   // DATA_TYPES の各キーに対応する i18n メッセージキー。
   const DATA_TYPE_MESSAGE_KEYS = Object.freeze({
-    appcache: "options_remove_appcache",
     cache: "options_remove_cache",
     cacheStorage: "options_remove_cache_storage",
     cookies: "options_remove_cookies",
@@ -40,8 +37,7 @@
     history: "options_remove_history",
     indexedDB: "options_remove_db",
     localStorage: "options_remove_storage",
-    serviceWorkers: "options_remove_service_workers",
-    webSQL: "options_remove_sql"
+    serviceWorkers: "options_remove_service_workers"
   });
 
   const TIME_PERIODS = Object.freeze([
@@ -61,7 +57,7 @@
   const DEFAULT_RAW_SETTINGS = Object.freeze({
     autorefresh: false,
     clearonstartup: false,
-    dataToRemove: JSON.stringify(["appcache", "cache", "cacheStorage", "fileSystems", "indexedDB", "webSQL"]),
+    dataToRemove: JSON.stringify(["cache", "cacheStorage", "fileSystems", "indexedDB"]),
     timePeriod: "last_hour"
   });
 
@@ -187,6 +183,8 @@
       case "last_week":
         return now - 7 * 24 * 60 * 60 * 1000;
       case "last_month":
+        // Chrome 標準の "Last 4 weeks" と同じ 28 日基準（実月数ではない）。
+        // 月またぎでも結果が一定になるよう固定日数を採用。
         return now - 28 * 24 * 60 * 60 * 1000;
       case "everything":
       default:

@@ -23,9 +23,6 @@
   "popup_clean": {
     "message": "Done"
   },
-  "popup_manage": {
-    "message": "Options"
-  },
   "popup_label_rate": {
     "message": "Please Rate Us!"
   },
@@ -73,12 +70,6 @@
   },
   "options_everything": {
     "message": "Everything"
-  },
-  "options_remove_appcache": {
-    "message": "App Cache"
-  },
-  "options_remove_appcache_desc": {
-    "message": "Removes offline data saved by very old web apps using App Cache. Most modern sites no longer use this. It does not remove your normal files, bookmarks, or saved passwords."
   },
   "options_remove_cache": {
     "message": "Cache"
@@ -139,11 +130,5 @@
   },
   "options_remove_service_workers_desc": {
     "message": "Removes Service Worker registrations that sites use for background updates, notifications, and offline behavior. Many sites will recreate them on the next visit, but offline features, push behavior, or app state may need to initialize again."
-  },
-  "options_remove_sql": {
-    "message": "Web SQL"
-  },
-  "options_remove_sql_desc": {
-    "message": "Deletes data stored by older sites that still use Web SQL. Modern sites rarely rely on it, but older web apps may lose local settings or locally stored work."
   }
 }

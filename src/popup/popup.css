@@ -206,13 +206,11 @@ body {
   list-style: none;
 }
 
-.compact-list li + li,
-.time-list li + li {
+.compact-list li + li {
   margin-top: 10px;
 }
 
-.checkbox-row,
-.radio-row {
+.checkbox-row {
   display: inline-flex;
   align-items: flex-start;
   gap: 10px;
@@ -221,8 +219,7 @@ body {
   line-height: 1.45;
 }
 
-.checkbox-row input,
-.radio-row input {
+.checkbox-row input {
   margin: 3px 0 0;
   accent-color: var(--primary);
 }

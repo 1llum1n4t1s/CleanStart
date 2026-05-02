@@ -198,9 +198,32 @@
     render(settings);
   }
 
+  // popup が閉じている間に SW がクリア完了させたときの ✓ バッジを消す。
+  function clearActionBadge() {
+    try {
+      chrome.action.setBadgeText({ text: "" }, () => {
+        void chrome.runtime.lastError;
+      });
+    } catch (_error) {
+      // chrome.action 未対応環境では無視
+    }
+  }
+
+  // 別タブの popup や SW が storage を更新したとき、UI を即座に追従させる。
+  function handleStorageChange(changes, areaName) {
+    if (areaName !== "local") {
+      return;
+    }
+    loadSettingsIntoPopup().catch((error) => {
+      console.warn("Clean Start storage sync failed:", error?.message || error);
+    });
+  }
+
   const localization = new Localize();
   localization.apply();
   setClearButtonStateExtended("idle");
+  clearActionBadge();
+  chrome.storage.onChanged.addListener(handleStorageChange);
 
   clearButton.addEventListener("click", safeAsync(handleClearClick));
   autorefresh.addEventListener("change", safeAsync(async (event) => {

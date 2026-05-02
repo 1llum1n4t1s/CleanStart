@@ -1,6 +1,11 @@
 importScripts("../shared/settings.js");
 
+// 起動直後はタブ一覧の取得タイミングがブラウザ側で確定していない。
+// 1.2s と 2.5s の 2 回に分けて discovery することで、後から復元される
+// セッションタブも漏らさず拾う（実測ベースの値、Chrome 120 系で安定）。
 const STARTUP_RELOAD_DISCOVERY_DELAYS = Object.freeze([1200, 2500]);
+// reloadAllTabs / reloadStartupTabs のバッチ間スリープ。
+// あまり短いと chrome.tabs.reload が瞬間的にスロットリングされる。
 const STARTUP_RELOAD_INTERVAL_MS = 250;
 const STARTUP_RELOAD_BATCH_SIZE = 5;
 
@@ -49,11 +54,26 @@ function sleep(ms) {
   });
 }
 
+// popup が閉じている間にクリアが完了した場合のフィードバック手段。
+// popup 起動時に setBadgeText("") でリセットされる（popup.js 側）。
+function showClearedBadge() {
+  try {
+    chrome.action.setBadgeBackgroundColor({ color: "#4caf50" }, () => {
+      void chrome.runtime.lastError;
+    });
+    chrome.action.setBadgeText({ text: "✓" }, () => {
+      void chrome.runtime.lastError;
+    });
+  } catch (_error) {
+    // chrome.action 未対応環境では静かに失敗
+  }
+}
+
 function getTabNavigationUrl(tab) {
   return String(tab?.pendingUrl || tab?.url || "").trim();
 }
 
-function isStartupReloadTarget(tab) {
+function isHttpTab(tab) {
   if (!tab?.id) {
     return false;
   }
@@ -69,7 +89,7 @@ async function reloadStartupTabs() {
 
     const tabs = await queryTabs({});
     const reloadTargets = tabs.filter((tab) =>
-      isStartupReloadTarget(tab) && !reloadedTabs.has(tab.id)
+      isHttpTab(tab) && !reloadedTabs.has(tab.id)
     );
 
     for (let i = 0; i < reloadTargets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
@@ -88,7 +108,7 @@ async function reloadStartupTabs() {
 
 async function reloadAllTabs() {
   const tabs = await queryTabs({});
-  const targets = tabs.filter(isStartupReloadTarget);
+  const targets = tabs.filter(isHttpTab);
 
   for (let i = 0; i < targets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
     const batch = targets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
@@ -100,7 +120,7 @@ async function reloadAllTabs() {
   }
 }
 
-async function clearDataForTab() {
+async function clearDataWithCurrentSettings() {
   const settings = await CleanStartSettings.load();
   return clearDataWithSettings(settings, { allowReload: true });
 }
@@ -122,6 +142,8 @@ async function clearDataWithSettings(settings, options = {}) {
   if (allowReload && settings.autorefresh) {
     await reloadAllTabs();
   }
+
+  showClearedBadge();
 
   return {
     ok: true,
@@ -173,7 +195,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.type === "clear-active-tab") {
     // message.tab は信用しない。background 側で activeTab を解決する。
-    clearDataForTab()
+    clearDataWithCurrentSettings()
       .then((result) => sendResponse(result))
       .catch((error) => {
         console.warn("Clean Start clear failed:", error.message);

@@ -23,9 +23,6 @@
   "popup_clean": {
     "message": "Done"
   },
-  "popup_manage": {
-    "message": "Options"
-  },
   "popup_label_rate": {
     "message": "Please Rate Us!"
   },
@@ -73,12 +70,6 @@
   },
   "options_everything": {
     "message": "すべて"
-  },
-  "options_remove_appcache": {
-    "message": "App Cache"
-  },
-  "options_remove_appcache_desc": {
-    "message": "かなり古い仕組みの Web アプリが保存していたオフライン用データを削除します。現在の多くのサイトではほとんど使われていません。通常のファイルやブックマーク、保存したパスワードが消えることはありません。"
   },
   "options_remove_cache": {
     "message": "Cache"
@@ -139,11 +130,5 @@
   },
   "options_remove_service_workers_desc": {
     "message": "サイトがバックグラウンド更新、通知、オフライン動作などに使う Service Worker の登録を削除します。多くのサイトでは次回アクセス時に再登録されますが、一時的に通知やオフライン機能が効かなくなったり、Web アプリが再初期化されたりすることがあります。"
-  },
-  "options_remove_sql": {
-    "message": "Web SQL"
-  },
-  "options_remove_sql_desc": {
-    "message": "古い Web SQL という仕組みでサイトが保存していたローカルデータを削除します。現在は利用サイトが少ないですが、古めの Web アプリでは設定や一時保存内容が消える可能性があります。"
   }
 }

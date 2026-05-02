@@ -20,7 +20,7 @@ jobs:
       - name: バージョンを取得
         id: version
         run: |
-          version=$(grep -oP '(?<="version": ")[^"]+' manifest.json)
+          version=$(node -p "require('./manifest.json').version")
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "📦 公開対象バージョン: $version"
 
