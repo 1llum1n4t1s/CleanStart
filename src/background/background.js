@@ -107,18 +107,17 @@ async function reloadStartupTabs() {
   }
 }
 
-async function reloadAllTabs() {
-  const tabs = await queryTabs({});
-  const targets = tabs.filter(isHttpTab);
-
-  for (let i = 0; i < targets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
-    const batch = targets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
-    await Promise.all(batch.map((tab) => reloadTab(tab.id)));
-
-    if (i + STARTUP_RELOAD_BATCH_SIZE < targets.length) {
-      await sleep(STARTUP_RELOAD_INTERVAL_MS);
-    }
+// 手動クリア後のリロードはアクティブタブのみ。
+// 全タブを巻き込むと作業中の Google Docs / WebRTC 通話 / フォーム入力が
+// 不意に reload されてしまうため、`activeTab` 権限の範囲で抑える。
+// （起動時クリアの reloadStartupTabs は別途、復元タブを順次対象にする）
+async function reloadActiveTab() {
+  const tabs = await queryTabs({ active: true, currentWindow: true });
+  const target = tabs.find(isHttpTab);
+  if (!target) {
+    return;
   }
+  await reloadTab(target.id);
 }
 
 async function clearDataWithCurrentSettings() {
@@ -141,7 +140,7 @@ async function clearDataWithSettings(settings, options = {}) {
   }
 
   if (allowReload && settings.autorefresh) {
-    await reloadAllTabs();
+    await reloadActiveTab();
   }
 
   showClearedBadge();
