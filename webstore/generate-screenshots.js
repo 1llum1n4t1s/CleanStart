@@ -87,9 +87,11 @@ async function main() {
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
+  // --no-sandbox は CI のコンテナ環境でのみ必要。
+  // ローカル端末では Chrome のサンドボックスを有効に保つ。
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: process.env.CI ? ['--no-sandbox', '--disable-setuid-sandbox'] : [],
     protocolTimeout: 300000
   });
 

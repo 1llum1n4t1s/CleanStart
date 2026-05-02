@@ -58,11 +58,21 @@ function sleep(ms) {
 // popup が閉じている間にクリアが完了した場合のフィードバック手段。
 // popup 起動時に setBadgeText("") でリセットされる（popup.js 側）。
 function showClearedBadge() {
+  setBadge("✓", "#4caf50");
+}
+
+// エラーが起きたことをユーザーに気付かせるための赤バッジ。
+// console.warn だけでは popup を開かないユーザーが永久に異常に気付けない。
+function showErrorBadge() {
+  setBadge("!", "#d32f2f");
+}
+
+function setBadge(text, color) {
   try {
-    chrome.action.setBadgeBackgroundColor({ color: "#4caf50" }, () => {
+    chrome.action.setBadgeBackgroundColor({ color }, () => {
       void chrome.runtime.lastError;
     });
-    chrome.action.setBadgeText({ text: "✓" }, () => {
+    chrome.action.setBadgeText({ text }, () => {
       void chrome.runtime.lastError;
     });
   } catch (_error) {
@@ -82,28 +92,40 @@ function isHttpTab(tab) {
   return /^https?:\/\//i.test(getTabNavigationUrl(tab));
 }
 
+// onInstalled と onStartup の二重発火等で並走しないよう SW モジュールスコープでガード。
+let reloadStartupTabsRunning = false;
+
 async function reloadStartupTabs() {
-  const reloadedTabs = new Set();
+  if (reloadStartupTabsRunning) {
+    return;
+  }
+  reloadStartupTabsRunning = true;
+  try {
+    const reloadedTabs = new Set();
 
-  for (const delayMs of STARTUP_RELOAD_DISCOVERY_DELAYS) {
-    await sleep(delayMs);
+    for (const delayMs of STARTUP_RELOAD_DISCOVERY_DELAYS) {
+      await sleep(delayMs);
 
-    const tabs = await queryTabs({});
-    const reloadTargets = tabs.filter((tab) =>
-      isHttpTab(tab) && !reloadedTabs.has(tab.id)
-    );
+      // url パターンで API 側フィルタ → JS 側の isHttpTab は重複排除のフォールバック扱い
+      const tabs = await queryTabs({ url: ["http://*/*", "https://*/*"] });
+      const reloadTargets = tabs.filter((tab) =>
+        isHttpTab(tab) && !reloadedTabs.has(tab.id)
+      );
 
-    for (let i = 0; i < reloadTargets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
-      const batch = reloadTargets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
-      await Promise.all(batch.map((tab) => {
-        reloadedTabs.add(tab.id);
-        return reloadTab(tab.id);
-      }));
+      for (let i = 0; i < reloadTargets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
+        const batch = reloadTargets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
+        await Promise.all(batch.map((tab) => {
+          reloadedTabs.add(tab.id);
+          return reloadTab(tab.id);
+        }));
 
-      if (i + STARTUP_RELOAD_BATCH_SIZE < reloadTargets.length) {
-        await sleep(STARTUP_RELOAD_INTERVAL_MS);
+        if (i + STARTUP_RELOAD_BATCH_SIZE < reloadTargets.length) {
+          await sleep(STARTUP_RELOAD_INTERVAL_MS);
+        }
       }
     }
+  } finally {
+    reloadStartupTabsRunning = false;
   }
 }
 
@@ -179,6 +201,7 @@ chrome.runtime.onStartup.addListener(async () => {
     }
   } catch (error) {
     console.warn("Clean Start startup clear failed:", error.message);
+    showErrorBadge();
   }
 });
 
@@ -198,6 +221,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       .then((result) => sendResponse(result))
       .catch((error) => {
         console.warn("Clean Start clear failed:", error.message);
+        showErrorBadge();
         sendResponse({
           ok: false,
           error: error.message

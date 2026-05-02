@@ -66,7 +66,7 @@
     "message": "Last Week"
   },
   "options_last_month": {
-    "message": "Last Month"
+    "message": "Last 4 weeks"
   },
   "options_everything": {
     "message": "Everything"
