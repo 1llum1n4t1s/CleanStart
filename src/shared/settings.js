@@ -68,8 +68,14 @@
   const STORAGE_KEYS = Object.freeze(Object.keys(DEFAULT_RAW_SETTINGS));
 
   function getStorage(keys) {
-    return new Promise((resolve) => {
-      chrome.storage.local.get(keys, (items) => resolve(items || {}));
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get(keys, (items) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+          return;
+        }
+        resolve(items || {});
+      });
     });
   }
 

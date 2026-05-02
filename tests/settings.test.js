@@ -441,6 +441,44 @@ describe("load", () => {
     const settings = await CleanStartSettings.load();
     assert.equal(settings.timePeriod, "last_hour");
   });
+
+  test("ストレージ読み取りエラーは reject される", async () => {
+    mock.setLastError("Storage read failed");
+    await assert.rejects(
+      () => CleanStartSettings.load(),
+      (error) => {
+        assert.equal(error.message, "Storage read failed");
+        return true;
+      }
+    );
+    mock.setLastError(null);
+  });
+});
+
+// ----------------------------------------------------------------------------
+// ensureDefaults — ストレージエラー
+// ----------------------------------------------------------------------------
+
+describe("ensureDefaults — ストレージエラー", () => {
+  test("ストレージ読み取りエラーは reject される（既存設定を上書きしない）", async () => {
+    mock.storage.autorefresh = true;
+    mock.storage.timePeriod = "everything";
+    const setCountBefore = mock.calls.set.length;
+    mock.setLastError("Disk quota exceeded");
+    await assert.rejects(
+      () => CleanStartSettings.ensureDefaults(),
+      (error) => {
+        assert.equal(error.message, "Disk quota exceeded");
+        return true;
+      }
+    );
+    // エラー時に set が呼ばれていないこと（既存設定の上書きを防止）
+    assert.equal(mock.calls.set.length, setCountBefore);
+    // 既存設定が保持されていること
+    assert.equal(mock.storage.autorefresh, true);
+    assert.equal(mock.storage.timePeriod, "everything");
+    mock.setLastError(null);
+  });
 });
 
 // ----------------------------------------------------------------------------

@@ -20,6 +20,10 @@ function createChromeMock(initialStorage) {
       local: {
         get(keys, cb) {
           calls.get.push(keys);
+          if (state.lastError) {
+            queueMicrotask(() => cb({}));
+            return;
+          }
           const result = {};
           let keysToFetch;
 

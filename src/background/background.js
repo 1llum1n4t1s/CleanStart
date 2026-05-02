@@ -139,27 +139,25 @@ chrome.runtime.onInstalled.addListener((details) => {
   });
 });
 
-chrome.runtime.onStartup.addListener(() => {
+chrome.runtime.onStartup.addListener(async () => {
   // 更新直後の初回起動では onInstalled と同時発火しうるため、
   // 自身でも ensureDefaults を呼んで race を回避する（冪等）。
-  CleanStartSettings.ensureDefaults()
-    .then((settings) => {
-      if (!settings.clearonstartup) {
-        return null;
-      }
+  // 全処理は ~5 秒で完了し、SW の 30 秒猶予期間内に収まる。
+  try {
+    const settings = await CleanStartSettings.ensureDefaults();
 
-      return clearDataWithSettings(settings, { allowReload: false })
-        .then((result) => {
-          if (!result?.shouldReloadStartupTabs) {
-            return null;
-          }
+    if (!settings.clearonstartup) {
+      return;
+    }
 
-          return reloadStartupTabs();
-        });
-    })
-    .catch((error) => {
-      console.warn("Clean Start startup clear failed:", error.message);
-    });
+    const result = await clearDataWithSettings(settings, { allowReload: false });
+
+    if (result?.shouldReloadStartupTabs) {
+      await reloadStartupTabs();
+    }
+  } catch (error) {
+    console.warn("Clean Start startup clear failed:", error.message);
+  }
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
