@@ -517,6 +517,12 @@ describe("公開定数", () => {
     assert.deepEqual(keys, types);
   });
 
+  test("TIME_PERIOD_MESSAGE_KEYS は TIME_PERIODS と同じキーセット", () => {
+    const keys = Object.keys(CleanStartSettings.TIME_PERIOD_MESSAGE_KEYS).sort();
+    const periods = [...CleanStartSettings.TIME_PERIODS].sort();
+    assert.deepEqual(keys, periods);
+  });
+
   test("STARTUP_RELOAD_DATA_TYPES は DATA_TYPES のサブセット", () => {
     for (const type of CleanStartSettings.STARTUP_RELOAD_DATA_TYPES) {
       assert.ok(CleanStartSettings.DATA_TYPES.includes(type));

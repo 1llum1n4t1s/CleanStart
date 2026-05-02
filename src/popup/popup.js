@@ -11,25 +11,17 @@
   const selectionTags = document.getElementById("selection-tags");
   const periodChip = document.getElementById("period-chip");
 
-  const labels = {
-    idle: chrome.i18n.getMessage("popup_clear") || "Clear",
-    busy: chrome.i18n.getMessage("popup_clearing") || "Clearing...",
-    done: chrome.i18n.getMessage("popup_clean") || "Done"
-  };
-
-  const timePeriodLabelMap = Object.freeze({
-    last_hour: "options_last_hour",
-    last_day: "options_last_day",
-    last_week: "options_last_week",
-    last_month: "options_last_month",
-    everything: "options_everything"
-  });
-
   let currentSettings = null;
 
   function getLabel(messageKey, fallback) {
     return chrome.i18n.getMessage(messageKey) || fallback;
   }
+
+  const labels = {
+    idle: getLabel("popup_clear", "Clear"),
+    busy: getLabel("popup_clearing", "Clearing..."),
+    done: getLabel("popup_clean", "Done")
+  };
 
   function createSelectionChip(text, variant) {
     const tag = document.createElement("span");
@@ -44,7 +36,11 @@
   }
 
   function updateSelectionSummary() {
-    const timeKey = timePeriodLabelMap[currentSettings.timePeriod];
+    if (!currentSettings) {
+      return;
+    }
+
+    const timeKey = CleanStartSettings.TIME_PERIOD_MESSAGE_KEYS[currentSettings.timePeriod];
     periodChip.textContent = getLabel(timeKey, currentSettings.timePeriod);
 
     selectionTags.innerHTML = "";
@@ -52,7 +48,7 @@
     if (currentSettings.dataToRemove.length === 0) {
       selectionTags.appendChild(
         createSelectionChip(
-          chrome.i18n.getMessage("popup_nothing_selected") || "Nothing selected",
+          getLabel("popup_nothing_selected", "Nothing selected"),
           "empty"
         )
       );
@@ -136,8 +132,7 @@
     clearButton.disabled = state === "busy";
 
     if (state === "confirming") {
-      clearLabel.textContent = chrome.i18n.getMessage("popup_confirm")
-        || "Tap again to clear";
+      clearLabel.textContent = getLabel("popup_confirm", "Tap again to clear");
     } else {
       clearLabel.textContent = labels[state] || labels.idle;
     }

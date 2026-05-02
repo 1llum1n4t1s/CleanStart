@@ -48,6 +48,15 @@
     "everything"
   ]);
 
+  // TIME_PERIODS の各値に対応する i18n メッセージキー。
+  const TIME_PERIOD_MESSAGE_KEYS = Object.freeze({
+    last_hour: "options_last_hour",
+    last_day: "options_last_day",
+    last_week: "options_last_week",
+    last_month: "options_last_month",
+    everything: "options_everything"
+  });
+
   // setFlag が受け付ける boolean フラグのキー。
   const SETTABLE_FLAGS = Object.freeze(new Set([
     "autorefresh",
@@ -207,6 +216,7 @@
     DATA_TYPE_MESSAGE_KEYS,
     STARTUP_RELOAD_DATA_TYPES,
     TIME_PERIODS,
+    TIME_PERIOD_MESSAGE_KEYS,
     ensureDefaults,
     getSince,
     load,
