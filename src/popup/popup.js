@@ -151,7 +151,7 @@
     const extensionId = chrome.runtime.id;
     const href = updateUrl && updateUrl.includes("microsoft")
       ? "https://microsoftedge.microsoft.com/addons/detail/" + extensionId
-      : "https://chrome.google.com/webstore/detail/" + extensionId;
+      : "https://chromewebstore.google.com/detail/" + extensionId;
 
     storeLink.href = href;
   }
