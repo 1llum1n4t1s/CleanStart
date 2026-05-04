@@ -42,7 +42,7 @@
     "message": "共通設定"
   },
   "options_common_1": {
-    "message": "削除後にアクティブタブを自動で再読み込みする"
+    "message": "削除後に全 HTTP タブを自動で再読み込みする"
   },
   "options_common_2": {
     "message": "Chrome起動時に削除する"

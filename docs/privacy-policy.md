@@ -22,7 +22,7 @@ no tracking, no analytics, and no telemetry of any kind.
 The Extension stores the following preference values inside your browser
 only (`chrome.storage.local`):
 
-- Whether to auto-reload the active tab after a clear (`autorefresh`)
+- Whether to auto-reload all HTTP tabs after a clear (`autorefresh`)
 - Whether to run an automatic cleanup at Chrome startup (`clearonstartup`)
 - The list of data types selected for deletion (`dataToRemove`)
 - The selected deletion time range (`timePeriod`)
@@ -55,9 +55,11 @@ standard APIs:
 - **browsingData**: Used to delete Chrome data based on the user's
   selected data types and time range. This is the core function of the
   Extension.
-- **activeTab**: Used to reload the active tab right after a Clear
-  operation, only when the user has enabled "Reload the active tab
-  after clearing". Never used to monitor or inspect background tabs.
+- **tabs**: Used to enumerate open HTTP/HTTPS tabs and reload them
+  right after a Clear operation, only when the user has enabled
+  "Reload all HTTP tabs after clearing". Tab URLs and titles are read
+  only to filter HTTP/HTTPS targets; they are never logged, stored,
+  or transmitted anywhere.
 
 ### Host permissions
 
@@ -97,7 +99,7 @@ reflected on this page.
 
 本拡張機能は、以下の設定データをユーザーの端末内（`chrome.storage.local`）にのみ保存します。
 
-- 削除後にアクティブタブを自動再読み込みするかどうかのフラグ（`autorefresh`）
+- 削除後に全 HTTP タブを自動再読み込みするかどうかのフラグ（`autorefresh`）
 - Chrome 起動時に自動削除を実行するかどうかのフラグ（`clearonstartup`）
 - 削除対象データ型のリスト（`dataToRemove`）
 - 削除対象期間（`timePeriod`）
@@ -123,7 +125,7 @@ reflected on this page.
 
 - **storage**: 上記のローカル設定値を保存・読み出すために使用します。
 - **browsingData**: ユーザーが選択した期間・データ型に基づいて Chrome のデータを削除するために使用します。本拡張機能の中核機能です。
-- **activeTab**: ユーザーが「削除後にアクティブタブを再読み込み」を有効にした場合、Clear 操作直後にアクティブタブを再読み込みするために使用します。バックグラウンドで他タブを監視・操作するためには使用しません。
+- **tabs**: ユーザーが「削除後に全 HTTP タブを再読み込み」を有効にした場合、開いている HTTP/HTTPS タブを列挙して Clear 操作直後に再読み込みするために使用します。タブの URL やタイトルは HTTP/HTTPS フィルタのために参照するのみで、ログ出力・保存・外部送信は一切行いません。
 
 ### ホスト権限について
 

@@ -42,7 +42,7 @@
     "message": "Common settings"
   },
   "options_common_1": {
-    "message": "Automatically reload the active tab after clearing"
+    "message": "Automatically reload all HTTP tabs after clearing"
   },
   "options_common_2": {
     "message": "Clear automatically when Chrome starts"
