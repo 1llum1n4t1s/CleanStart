@@ -55,14 +55,9 @@ function sleep(ms) {
   });
 }
 
-// popup が閉じている間にクリアが完了した場合のフィードバック手段。
-// popup 起動時に setBadgeText("") でリセットされる（popup.js 側）。
-function showClearedBadge() {
-  setBadge("✓", "#4caf50");
-}
-
 // エラーが起きたことをユーザーに気付かせるための赤バッジ。
 // console.warn だけでは popup を開かないユーザーが永久に異常に気付けない。
+// popup 起動時に setBadgeText("") でリセットされる（popup.js 側）。
 function showErrorBadge() {
   setBadge("!", "#d32f2f");
 }
@@ -164,8 +159,6 @@ async function clearDataWithSettings(settings, options = {}) {
   if (allowReload && settings.autorefresh) {
     await reloadActiveTab();
   }
-
-  showClearedBadge();
 
   return {
     ok: true,

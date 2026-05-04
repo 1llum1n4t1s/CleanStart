@@ -227,7 +227,9 @@
     render(settings);
   }
 
-  // popup が閉じている間に SW がクリア完了させたときの ✓ バッジを消す。
+  // SW がエラー時にセットした ! バッジを popup を開いたタイミングで消す。
+  // ユーザーが popup を開いた = 「異常に気付いた」と見なせるので、
+  // 見たという acknowledge と同義として扱う。
   function clearActionBadge() {
     try {
       chrome.action.setBadgeText({ text: "" }, () => {
@@ -263,8 +265,8 @@
   const localization = new Localize();
   localization.apply();
   setClearButtonStateExtended("idle");
-  // popup が閉じている間に SW がセットしたクリア完了バッジ (✓) を消す。
-  // background.js:showClearedBadge との対称契約。
+  // SW がセットしたエラーバッジ (!) を popup 起動時に消す。
+  // background.js:showErrorBadge との対称契約。
   clearActionBadge();
   chrome.storage.onChanged.addListener(handleStorageChange);
 
