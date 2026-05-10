@@ -12,19 +12,19 @@
     "message": "現在の Chrome プロファイル内の閲覧データをワンクリックで整理します。"
   },
   "popup_clear": {
-    "message": "Clear"
+    "message": "削除する"
   },
   "popup_confirm": {
     "message": "もう一度タップで削除"
   },
   "popup_clearing": {
-    "message": "Clearing..."
+    "message": "削除中…"
   },
   "popup_clean": {
-    "message": "Done"
+    "message": "完了"
   },
   "popup_label_rate": {
-    "message": "Please Rate Us!"
+    "message": "評価をお願いします！"
   },
   "popup_current_settings": {
     "message": "現在の削除対象"
