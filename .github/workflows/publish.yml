@@ -46,7 +46,7 @@ jobs:
         # actions/setup-node v5 (commit SHA で固定)
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
 
       - name: 依存インストール
