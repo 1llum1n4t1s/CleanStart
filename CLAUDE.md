@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code and other coding agents working in this repository.
 
 ## 概要
 
@@ -21,7 +21,7 @@ powershell -ExecutionPolicy Bypass -File zip.ps1   # zip コマンドが無い W
 
 - テストランナーは **Node 組み込み** (`node --test`)。外部フレームワーク・ビルドステップ無しでソースをそのまま読む。
 - 拡張のロードは `chrome://extensions` →「パッケージ化されていない拡張機能を読み込む」でリポジトリ直下（`manifest.json` がルートにある）を指定する。バンドラは無いので編集後はリロードだけで反映。
-- パッケージ操作は pnpm 既定（`pnpm-lock.yaml`）。README 内の `npm install` / `npm ci` / `package-lock.json` の記述は移行前の名残。
+- パッケージ操作は pnpm を使う（`pnpm-lock.yaml`）。README 内の `npm install` / `npm ci` / `package-lock.json` の記述は移行前の名残なので pnpm 系コマンドに読み替える。
 
 ## アーキテクチャ（複数ファイルにまたがる勘所）
 
@@ -35,7 +35,7 @@ powershell -ExecutionPolicy Bypass -File zip.ps1   # zip コマンドが無い W
 | ポップアップ | [src/popup/popup.js](src/popup/popup.js) | `popup.html` の `<script>` で settings.js + localize.js |
 | Node テスト | `tests/*.test.js` | `require()`（[tests/chrome-mock.js](tests/chrome-mock.js) の `loadFreshSettings` が require.cache を破棄して都度リロード）|
 
-**注意：[src/shared/localize.js](src/shared/localize.js) は `document` 依存なので SW から絶対に importScripts しない**（apply() 内に noop ガードはあるが、popup/options 専用）。
+**注意：[src/shared/localize.js](src/shared/localize.js) は `document` 依存なので SW からは importScripts しない**（apply() 内に noop ガードはあるが popup/options 専用）。SW で共有ロジックが要るときは settings.js / security.js を使う。
 
 ### データ型の単一の真実の源
 
