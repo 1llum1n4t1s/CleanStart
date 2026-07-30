@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cleanstart.kagayoi.com/sitemap.xml

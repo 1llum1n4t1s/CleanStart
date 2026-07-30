@@ -4,3 +4,6 @@ webstore/images/
 .serena/
 temp-build/
 
+
+# wrangler のローカル状態キャッシュ (web/ のデプロイ時に生成される)
+web/.wrangler/
