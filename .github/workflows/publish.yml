@@ -73,19 +73,33 @@ jobs:
           ls -lh clean-start.zip
 
       - name: Chrome Web Store にアップロード & 公開
-        # chrome-webstore-upload-cli はローカル devDep にインストール済 (package.json で固定)
-        # secrets を持つステップで npm レジストリから未検証コードを取得しない方針。
+        # chrome-webstore-upload-cli はローカル devDep にインストール済 (package.json で固定)。
+        # secrets を持つステップでレジストリから未検証コードを取得しない方針のため
+        # `pnpm exec` を指定し、node_modules 内のローカル版だけを呼ぶ (無ければ失敗する)。
+        # v4 以降は --client-id 等の CLI フラグが廃止され、環境変数 (CLIENT_ID 等) が必須。
+        # PUBLISHER_ID も新規必須項目。コマンド (upload/publish) を省略すると
+        # upload → publish の両方が自動実行される (旧 --auto-publish 相当)。
+        # バイナリ名は `chrome-webstore-upload` (npm パッケージ名 chrome-webstore-upload-cli とは別名)。
         env:
-          CWS_CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
-          CWS_CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
-          CWS_REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
-          CWS_EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+          EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
+          PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
         run: |
-          pnpm exec chrome-webstore-upload upload \
-            --source clean-start.zip \
-            --extension-id "$CWS_EXTENSION_ID" \
-            --client-id "$CWS_CLIENT_ID" \
-            --client-secret "$CWS_CLIENT_SECRET" \
-            --refresh-token "$CWS_REFRESH_TOKEN" \
-            --auto-publish
+          # 同 version 再 push（release ブランチ再 push 等）では既にアップロード/審査中で
+          # cli が exit 1 になる。これは無害な重複なので warning 化して CI を green に保つ。
+          set +e
+          pnpm exec chrome-webstore-upload \
+            --source clean-start.zip 2>&1 | tee /tmp/cws.log
+          rc=${PIPESTATUS[0]}
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            if grep -qiE "ITEM_NOT_UPDATABLE|pending review|ready to publish|cannot be updated|already (published|exists|uploaded)|currently in review|in_review|version already|DUPLICATE_VERSION" /tmp/cws.log; then
+              echo "::warning::Chrome Web Store に同 version が既にアップロード/公開済み。CI green 化のため exit 0 扱いに変換します"
+            else
+              echo "::error::chrome-webstore-upload が同 version 重複以外の理由で失敗しました (rc=$rc)。ログ確認要"
+              exit "$rc"
+            fi
+          fi
           echo "🎉 Chrome Web Store への公開リクエストを送信したよ〜"
