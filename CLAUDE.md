@@ -60,7 +60,7 @@ powershell -ExecutionPolicy Bypass -File zip.ps1   # zip コマンドが無い W
 
 ### セキュリティ / メッセージ境界
 
-`chrome.runtime.onMessage` は [src/shared/security.js](src/shared/security.js) の純関数 `isAuthorizedSender` でガード（自拡張の特権コンテキスト＝popup/options/SW のみ通す）。background は `message.tab` を信用せず activeTab を自前解決する。純関数化はテスト可能性のため（[tests/security.test.js](tests/security.test.js)）。
+`chrome.runtime.onMessage` は [src/shared/security.js](src/shared/security.js) の純関数 `isAuthorizedSender` でガード（自拡張の特権コンテキスト＝popup/options/SW のみ通す）。background は `message.tab` を信用せず、削除対象を `chrome.storage` の設定だけから決める（browsingData はプロファイル全体に効くため送信元タブの情報は使わない）。純関数化はテスト可能性のため（[tests/security.test.js](tests/security.test.js)）。
 
 ### エラー UX の対称契約
 

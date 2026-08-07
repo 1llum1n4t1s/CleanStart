@@ -20,7 +20,8 @@
   const labels = {
     idle: getLabel("popup_clear", "Clear"),
     busy: getLabel("popup_clearing", "Clearing..."),
-    done: getLabel("popup_clean", "Done")
+    done: getLabel("popup_clean", "Done"),
+    error: getLabel("popup_clear_failed", "Failed - tap to retry")
   };
 
   function createSelectionChip(text, variant) {
@@ -98,7 +99,10 @@
   // SW 終了→cold-start で sendMessage が失敗する稀ケースに備え、
   // 1 度だけ短いリトライを挟む。タイムアウトも合わせて設けることで、
   // popup が "busy" 状態のまま固着する事故を避ける。
-  const SEND_MESSAGE_TIMEOUT_MS = 15000;
+  // browsingData.remove とその後の全タブリロードはプロファイル規模次第で
+  // 数十秒かかるため、タイムアウトは「固着回避の最終手段」として十分長く取る。
+  // 短くすると、成功しつつある削除を失敗として表示してしまう。
+  const SEND_MESSAGE_TIMEOUT_MS = 120000;
 
   function sendRuntimeMessageOnce(message) {
     return new Promise((resolve) => {
@@ -130,12 +134,13 @@
     if (first?.ok) {
       return first;
     }
-    // SW cold-start 中で配送失敗した可能性のあるエラーのみリトライ。
+    // SW cold-start 中で「配送そのものが失敗した」と判るエラーだけリトライする。
+    // timeout は配送に成功して SW 側で処理が継続している可能性があり、
+    // 再送すると browsingData.remove と全タブリロードが二重に走るため含めない。
     const retryablePatterns = [
       "Could not establish connection",
       "message port was closed",
-      "Receiving end does not exist",
-      "timeout"
+      "Receiving end does not exist"
     ];
     const message_str = typeof first?.error === "string" ? first.error : "";
     if (!retryablePatterns.some((p) => message_str.includes(p))) {
@@ -186,8 +191,11 @@
       const result = await sendRuntimeMessage({ type: "clear-active-tab" });
 
       if (!result?.ok) {
+        // idle へ戻すと成功と区別が付かない。error 状態を残してユーザーに失敗を伝える。
+        // SW 側の showErrorBadge は popup を開いた時点で消える契約のため、
+        // popup を開いたまま失敗したケースはここでしか気付けない。
         console.warn("Clean Start clear failed:", result?.error || "Unknown error");
-        setClearButtonStateExtended("idle");
+        setClearButtonStateExtended("error");
         return;
       }
 
@@ -195,7 +203,7 @@
       window.setTimeout(() => setClearButtonStateExtended("idle"), CLEAR_DONE_DISPLAY_MS);
     } catch (error) {
       console.warn("Clean Start clear failed:", error?.message || error);
-      setClearButtonStateExtended("idle");
+      setClearButtonStateExtended("error");
     }
   }
 

@@ -57,9 +57,10 @@ then tap the button twice — that's it.
   open web tabs are reloaded in batches so you immediately see fresh
   pages.
 
-- Optional active-tab reload after Clear
-  Enable "Reload the active tab after clearing" and the current tab
-  refreshes automatically once cleanup completes.
+- Optional tab reload after Clear
+  Enable "Automatically reload all HTTP tabs after clearing" and every
+  open HTTP/HTTPS tab refreshes automatically once cleanup completes,
+  so no tab is left showing data that was just deleted.
 
 - Local-only, zero network
   All processing happens inside the browser. No network calls, no
@@ -120,11 +121,14 @@ based on the user's selected data types and time range.
   types the user selected (history, cache, cookies, IndexedDB, service
   workers, etc.) for the chosen time range.
 
-  activeTab:
-  Used only when the user has enabled "Reload the active tab after
-  clearing". After the Clear button is tapped, the active tab is
-  reloaded so the user sees a fresh state. Never used to inspect
-  background tabs.
+  tabs:
+  Used only when the user has enabled "Automatically reload all HTTP
+  tabs after clearing", and on startup auto-clear. Open tabs are
+  enumerated to filter HTTP/HTTPS targets and reload them so the user
+  sees a fresh state. chrome.browsingData clears data for the whole
+  profile, so reloading only the active tab would leave other tabs
+  showing stale content. Tab URLs and titles are never logged, stored,
+  or transmitted anywhere.
 
 ■ External server communication
 None. The extension does not talk to any external server. All work is
@@ -185,8 +189,8 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 ・起動時タブの自動リロード
   起動時自動削除でキャッシュ系・Cookie 系を消した場合、開いていた通常の Web タブをバッチで段階的にリロードして、消去後の最新状態に自動で更新。
 
-・削除後のアクティブタブ自動再読み込み（任意）
-  「削除後にアクティブタブを再読み込み」を有効にすると、Clear 押下後に開いているタブを自動でリロード。
+・削除後のタブ自動再読み込み（任意）
+  「削除後に全 HTTP タブを自動で再読み込みする」を有効にすると、Clear 押下後に開いている HTTP/HTTPS タブをまとめて自動リロード。削除済みデータを表示したままのタブが残りません。
 
 ・ローカル完結
   すべての処理はブラウザ内で完結。ネットワーク送信・外部 API 連携・トラッキング・テレメトリは一切ありません。
@@ -240,11 +244,11 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
   browsingData:
   本拡張機能の中核機能です。chrome.browsingData.remove() を呼び出して、ユーザーが指定した期間とデータ型（履歴、キャッシュ、Cookie、IndexedDB、Service Workers など）をまとめて削除するために使用します。
 
-  activeTab:
-  ユーザーがオプションで「削除後にアクティブタブを再読み込みする」を有効にした場合、Clear ボタン押下直後にアクティブタブを reload するために使用します。バックグラウンドで他タブを盗み見るためには使用しません。
+  tabs:
+  ユーザーが「削除後に全 HTTP タブを自動で再読み込みする」を有効にした場合と、起動時自動削除の後に使用します。開いているタブを列挙して HTTP/HTTPS のものだけを reload し、削除後の最新状態を表示するために使います。chrome.browsingData はプロファイル全体のデータを消すため、アクティブタブだけを reload すると他のタブが古い内容を表示したままになります。タブの URL やタイトルはログ出力・保存・外部送信を一切行いません。
 
 ■ 外部サーバーとの通信について
-本拡張機能は外部サーバーと一切通信しません。すべての処理は chrome.browsingData / chrome.cookies / chrome.tabs などのブラウザ標準 API を介してローカルで完結します。
+本拡張機能は外部サーバーと一切通信しません。すべての処理は chrome.browsingData / chrome.tabs / chrome.runtime などのブラウザ標準 API を介してローカルで完結します。
 
 ■ リモートコードを使用していますか？
 いいえ

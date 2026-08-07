@@ -266,6 +266,14 @@ h1, h2, h3, p { margin: 0; }
   animation: none;
 }
 
+/* 削除失敗。confirming と同じ赤だがパルスさせず、ラベル文言で区別する。
+   自動で idle へ戻さず、ユーザーがタップするまで失敗を残す。 */
+.clear-button[data-state="error"] {
+  background: var(--confirm);
+  color: #fff;
+  animation: none;
+}
+
 @keyframes pulse-confirm {
   0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.0); }
   50%      { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.18); }

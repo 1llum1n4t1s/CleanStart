@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title data-i18n="app_name">Clean Start</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap">
+  <!-- 外部フォント (Google Fonts) は読み込まない。
+       CSP に default-src / style-src が無いため外部 stylesheet は実際に取得されてしまい、
+       「外部サーバーと一切通信しない」というプライバシーポリシー / ストア申告と矛盾する。
+       IBM Plex Sans JP はローカルに在る場合のみ使い、無ければ popup.css の
+       --font-ui フォールバックでシステムフォントを使う。 -->
   <link rel="stylesheet" href="src/popup/popup.css">
 </head>
 <body>

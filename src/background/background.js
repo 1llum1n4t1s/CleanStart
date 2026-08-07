@@ -142,9 +142,27 @@ async function reloadAllTabs() {
   }
 }
 
-async function clearDataWithCurrentSettings() {
-  const settings = await CleanStartSettings.load();
-  return clearDataWithSettings(settings, { allowReload: true });
+// clear-active-tab が実行中に再度届いた場合（popup の再送、popup を開き直しての
+// 連打など）に browsingData.remove と全タブリロードが二重に走らないよう、
+// 実行中は同じ Promise を共有して結果だけを配る。
+// reloadStartupTabsRunning と同じく SW モジュールスコープのガード。
+let inFlightClear = null;
+
+function clearDataWithCurrentSettings() {
+  if (inFlightClear) {
+    return inFlightClear;
+  }
+
+  const run = (async () => {
+    const settings = await CleanStartSettings.load();
+    return clearDataWithSettings(settings, { allowReload: true });
+  })();
+
+  inFlightClear = run.finally(() => {
+    inFlightClear = null;
+  });
+
+  return inFlightClear;
 }
 
 async function clearDataWithSettings(settings, options = {}) {
@@ -214,7 +232,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === "clear-active-tab") {
-    // message.tab は信用しない。background 側で activeTab を解決する。
+    // message.tab は信用しない。削除対象は chrome.storage の設定だけで決まり、
+    // browsingData はプロファイル全体に効くため、送信元タブの情報は一切使わない。
     clearDataWithCurrentSettings()
       .then((result) => sendResponse(result))
       .catch((error) => {
