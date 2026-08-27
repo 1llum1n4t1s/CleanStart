@@ -2,6 +2,15 @@
 Chrome Web Store Listing (Copy-paste reference)
 ============================================================
 
+⚠️ キーワードスパム対策（2026-08-27 の違反指摘「Yellow Argon」への対応）
+   説明欄で削除対象を 12 個の技術名で列挙していたのを Google が過剰な
+   キーワードと判定した。利用者が日常語として分かる項目（履歴 / キャッシュ /
+   Cookie / ダウンロード履歴 / フォームデータ）だけ挙げ、Cache Storage /
+   IndexedDB / Service Workers / Web SQL / App Cache などの内部技術名は
+   「サイトがブラウザ内に保存したデータ」と一般名で書く。
+   ※ 権限の正当性（Permission justifications）欄は掲載されず審査官しか
+     見ないため、そちらは技術名のままにしてある。
+
 Default language: English
 Additional language: Japanese (日本語)
 
@@ -34,9 +43,8 @@ then tap the button twice — that's it.
   No need to navigate through nested settings screens.
 
 - Pick from 12 data types
-  History, Cache, Cache Storage, Cookies, Downloads, File Systems,
-  Form Data, IndexedDB, Local Storage, Service Workers, Web SQL, App Cache.
-  Combine them freely.
+  History, cache, cookies, downloads, and form data, plus the data that
+  sites keep inside the browser. Combine only the ones you need.
 
 - Time-range selection
   Choose from "Last hour", "Last 24 hours", "Last week", "Last 4 weeks",
@@ -175,7 +183,7 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
   ポップアップから現在の設定でまとめてクリーンアップ。複雑な設定画面を行き来する必要はありません。
 
 ・12 種類のデータから選択
-  履歴、キャッシュ、Cache Storage、Cookie、ダウンロード履歴、ファイルシステム、フォームデータ、IndexedDB、ローカルストレージ、Service Workers、Web SQL、App Cache のなかから自由に組み合わせ可能。
+  履歴、キャッシュ、Cookie、ダウンロード履歴、フォームデータに加え、サイトがブラウザ内に保存したデータも対象。必要な項目だけを自由に組み合わせて削除できます。
 
 ・期間指定
   「1時間以内」「24時間以内」「1週間以内」「4週間以内」「すべて」の 5 段階から削除対象期間を選べます。
