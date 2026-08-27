@@ -1,6 +1,6 @@
 # Privacy Policy / プライバシーポリシー — Clean Start
 
-**Last updated / 最終更新日:** 2026-04-21
+**Last updated / 最終更新日:** 2026-08-27
 
 ---
 
@@ -14,8 +14,10 @@ Extension handles data.
 
 ### Data we collect
 
-The Extension does **not** collect any personal information. There is
-no tracking, no analytics, and no telemetry of any kind.
+The Extension collects **no** personal information on its own. There is
+no tracking, no analytics, and no telemetry of any kind. Your email
+address and name are received only when you type them into the contact
+form and submit it (see "Contact form").
 
 ### Data stored locally
 
@@ -32,14 +34,33 @@ external server.
 
 ### Data sharing
 
-The Extension does not share any data with any third party.
+The Extension does not share any data with any third party. Contact form
+content goes to the developer's (Kagayoi) support desk and is never
+passed to advertising or analytics third parties.
+
+### Contact form
+
+Only when you press "Contact support" in the popup and submit the form
+does the Extension send the following to Kagayoi Support
+(`https://support.kagayoi.com`). No such request happens unless you
+press the button.
+
+- The email address, optional name, inquiry category, subject, and
+  message you entered
+- Product ID, extension version, and locale
+
+On first use, the six-digit code delivered by email is sent to Kagayoi
+Support to verify you. After verification, Kagayoi Support stores the
+inquiry and replies so that you and support staff can access them. Your
+cleanup settings, browsing history, and tab URLs are never sent.
 
 ### Network communication
 
-The Extension does not communicate with any external server.
+Apart from the contact form above, the Extension does not communicate
+with any external server.
 
-All operations are performed locally through the following Chrome
-standard APIs:
+All cleanup operations are performed locally through the following
+Chrome standard APIs:
 
 - `chrome.storage.local` — storing settings locally
 - `chrome.browsingData.remove` — deleting history, cache, cookies, and
@@ -63,8 +84,9 @@ standard APIs:
 
 ### Host permissions
 
-The Extension does **not** request any `host_permissions`. No broad
-host permission such as `<all_urls>` is requested.
+The Extension requests exactly one host permission,
+`https://support.kagayoi.com/*`, used only to submit the contact form.
+No broad host permission such as `<all_urls>` is requested.
 
 ### Remote code
 
@@ -93,7 +115,7 @@ reflected on this page.
 
 ### 収集するデータ
 
-本拡張機能は、個人情報を一切収集しません。トラッキング、解析、テレメトリのいずれも行いません。
+本拡張機能が自動的に個人情報を収集することはありません。トラッキング、解析、テレメトリのいずれも行いません。メールアドレスとお名前は、利用者がお問い合わせフォームに入力して送信したときだけ受け取ります（「お問い合わせフォーム」の項を参照）。
 
 ### ローカルに保存するデータ
 
@@ -108,13 +130,22 @@ reflected on this page.
 
 ### データの共有
 
-本拡張機能は、いかなるデータも第三者と共有しません。
+本拡張機能は、いかなるデータも第三者と共有しません。お問い合わせの内容は開発者（Kagayoi）のサポート窓口が受け取るもので、広告・解析目的の第三者へ渡すことはありません。
+
+### お問い合わせフォーム
+
+ポップアップの「お問い合わせ」ボタンから送信したときだけ、次の情報を Kagayoi Support（`https://support.kagayoi.com`）へ送信します。ボタンを押さない限り、この通信は発生しません。
+
+- 入力されたメールアドレス、お名前（任意）、問い合わせ種別、件名、本文
+- 製品ID、拡張機能のバージョン、ロケール
+
+初回はメールで届く6桁の確認コードを Kagayoi Support へ送信して本人確認します。認証後の問い合わせと返信は、利用者本人とサポート担当者が確認できるよう Kagayoi Support に保存します。削除設定、閲覧履歴、タブの URL は送信しません。
 
 ### ネットワーク通信
 
-本拡張機能は、外部サーバーとの通信を一切行いません。
+本拡張機能は、上記のお問い合わせフォームを除き、外部サーバーとの通信を行いません。
 
-すべての処理は、以下の Chrome 標準 API を介してブラウザ内のみで完結します。
+削除の処理は、以下の Chrome 標準 API を介してブラウザ内のみで完結します。
 
 - `chrome.storage.local` — 設定値のローカル保存
 - `chrome.browsingData.remove` — 履歴、キャッシュ、Cookie、サイト保存データの削除
@@ -129,7 +160,7 @@ reflected on this page.
 
 ### ホスト権限について
 
-本拡張機能は `host_permissions` を一切要求しません（`<all_urls>` などの広いホスト権限はありません）。
+本拡張機能が要求する `host_permissions` は `https://support.kagayoi.com/*` の 1 つだけで、お問い合わせの送信にのみ使います（`<all_urls>` などの広いホスト権限はありません）。
 
 ### リモートコードの読み込み
 

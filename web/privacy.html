@@ -25,14 +25,14 @@
 
   <main id="main" class="legal section-shell">
     <h1>プライバシー<br>ポリシー</h1>
-    <p class="legal-lead">**Last updated / 最終更新日:** 2026-04-21</p>
+    <p class="legal-lead">**Last updated / 最終更新日:** 2026-08-27</p>
       <p class="legal-lead-sub">---</p>
       <section>
         <h2>English</h2>
         <h3>Introduction</h3>
         <p>&quot;Clean Start&quot; (the &quot;Extension&quot;) respects your privacy and is committed to protecting your information. This privacy policy explains how the Extension handles data.</p>
         <h3>Data we collect</h3>
-        <p>The Extension does <strong>not</strong> collect any personal information. There is no tracking, no analytics, and no telemetry of any kind.</p>
+        <p>The Extension collects <strong>no</strong> personal information on its own. There is no tracking, no analytics, and no telemetry of any kind. Your email address and name are received only when you type them into the contact form and submit it (see "Contact form").</p>
         <h3>Data stored locally</h3>
         <p>The Extension stores the following preference values inside your browser only (<code>chrome.storage.local</code>):</p>
         <ul>
@@ -43,10 +43,17 @@
         </ul>
         <p>These values stay on your device and are <strong>never</strong> transmitted to any external server.</p>
         <h3>Data sharing</h3>
-        <p>The Extension does not share any data with any third party.</p>
+        <p>The Extension does not share any data with any third party. Contact form content goes to the developer's (Kagayoi) support desk and is never passed to advertising or analytics third parties.</p>
+        <h3>Contact form</h3>
+        <p>Only when you press "Contact support" in the popup and submit the form does the Extension send the following to Kagayoi Support (<code>https://support.kagayoi.com</code>). No such request happens unless you press the button.</p>
+        <ul>
+          <li>The email address, optional name, inquiry category, subject, and message you entered</li>
+          <li>Product ID, extension version, and locale</li>
+        </ul>
+        <p>On first use, the six-digit code delivered by email is sent to Kagayoi Support to verify you. After verification, Kagayoi Support stores the inquiry and replies so that you and support staff can access them. Your cleanup settings, browsing history, and tab URLs are never sent.</p>
         <h3>Network communication</h3>
-        <p>The Extension does not communicate with any external server.</p>
-        <p>All operations are performed locally through the following Chrome standard APIs:</p>
+        <p>Apart from the contact form above, the Extension does not communicate with any external server.</p>
+        <p>All cleanup operations are performed locally through the following Chrome standard APIs:</p>
         <p>site data</p>
         <p>cleanup (optional feature)</p>
         <p>service worker</p>
@@ -65,7 +72,7 @@
           <li><strong>tabs</strong>: Used to enumerate open HTTP/HTTPS tabs and reload them</li>
         </ul>
         <h3>Host permissions</h3>
-        <p>The Extension does <strong>not</strong> request any <code>host_permissions</code>. No broad host permission such as <code>&lt;all_urls&gt;</code> is requested.</p>
+        <p>The Extension requests exactly one host permission, <code>https://support.kagayoi.com/*</code>, used only to submit the contact form. No broad host permission such as <code>&lt;all_urls&gt;</code> is requested.</p>
         <h3>Remote code</h3>
         <p>The Extension does not load any code from external sources. The Content Security Policy is set explicitly to <code>script-src 'self'; object-src 'self'</code>, making remote script execution impossible.</p>
         <h3>Contact</h3>
@@ -79,7 +86,7 @@
         <h3>はじめに</h3>
         <p>「Clean Start」（以下「本拡張機能」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めます。本プライバシーポリシーは、本拡張機能におけるデータの取り扱いについて説明します。</p>
         <h3>収集するデータ</h3>
-        <p>本拡張機能は、個人情報を一切収集しません。トラッキング、解析、テレメトリのいずれも行いません。</p>
+        <p>本拡張機能が自動的に個人情報を収集することはありません。トラッキング、解析、テレメトリのいずれも行いません。メールアドレスとお名前は、利用者がお問い合わせフォームに入力して送信したときだけ受け取ります（「お問い合わせフォーム」の項を参照）。</p>
         <h3>ローカルに保存するデータ</h3>
         <p>本拡張機能は、以下の設定データをユーザーの端末内（<code>chrome.storage.local</code>）にのみ保存します。</p>
         <ul>
@@ -90,10 +97,17 @@
         </ul>
         <p>これらのデータは端末内にのみ保存され、外部サーバーへの送信は一切行いません。</p>
         <h3>データの共有</h3>
-        <p>本拡張機能は、いかなるデータも第三者と共有しません。</p>
+        <p>本拡張機能は、いかなるデータも第三者と共有しません。お問い合わせの内容は開発者（Kagayoi）のサポート窓口が受け取るもので、広告・解析目的の第三者へ渡すことはありません。</p>
+        <h3>お問い合わせフォーム</h3>
+        <p>ポップアップの「お問い合わせ」ボタンから送信したときだけ、次の情報を Kagayoi Support（<code>https://support.kagayoi.com</code>）へ送信します。ボタンを押さない限り、この通信は発生しません。</p>
+        <ul>
+          <li>入力されたメールアドレス、お名前（任意）、問い合わせ種別、件名、本文</li>
+          <li>製品ID、拡張機能のバージョン、ロケール</li>
+        </ul>
+        <p>初回はメールで届く6桁の確認コードを Kagayoi Support へ送信して本人確認します。認証後の問い合わせと返信は、利用者本人とサポート担当者が確認できるよう Kagayoi Support に保存します。削除設定、閲覧履歴、タブの URL は送信しません。</p>
         <h3>ネットワーク通信</h3>
-        <p>本拡張機能は、外部サーバーとの通信を一切行いません。</p>
-        <p>すべての処理は、以下の Chrome 標準 API を介してブラウザ内のみで完結します。</p>
+        <p>本拡張機能は、上記のお問い合わせフォームを除き、外部サーバーとの通信を行いません。</p>
+        <p>削除の処理は、以下の Chrome 標準 API を介してブラウザ内のみで完結します。</p>
         <ul>
           <li><code>chrome.storage.local</code> — 設定値のローカル保存</li>
           <li><code>chrome.browsingData.remove</code> — 履歴、キャッシュ、Cookie、サイト保存データの削除</li>
@@ -107,7 +121,7 @@
           <li><strong>tabs</strong>: ユーザーが「削除後に全 HTTP タブを再読み込み」を有効にした場合、開いている HTTP/HTTPS タブを列挙して Clear 操作直後に再読み込みするために使用します。タブの URL やタイトルは HTTP/HTTPS フィルタのために参照するのみで、ログ出力・保存・外部送信は一切行いません。</li>
         </ul>
         <h3>ホスト権限について</h3>
-        <p>本拡張機能は <code>host_permissions</code> を一切要求しません（<code>&lt;all_urls&gt;</code> などの広いホスト権限はありません）。</p>
+        <p>本拡張機能が要求する <code>host_permissions</code> は <code>https://support.kagayoi.com/*</code> の 1 つだけで、お問い合わせの送信にのみ使います（<code>&lt;all_urls&gt;</code> などの広いホスト権限はありません）。</p>
         <h3>リモートコードの読み込み</h3>
         <p>本拡張機能は、外部からのコード読み込みを一切行いません。Content Security Policy で <code>script-src 'self'; object-src 'self'</code> を明示し、リモートスクリプトの実行を不可能にしています。</p>
         <h3>お問い合わせ</h3>
