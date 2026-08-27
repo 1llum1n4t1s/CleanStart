@@ -26,9 +26,6 @@
   "popup_clear_failed": {
     "message": "Failed - tap to retry"
   },
-  "popup_label_rate": {
-    "message": "Please Rate Us!"
-  },
   "popup_current_settings": {
     "message": "Current Clean Target"
   },

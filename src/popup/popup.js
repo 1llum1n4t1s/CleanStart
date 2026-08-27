@@ -150,17 +150,6 @@
     return sendRuntimeMessageOnce(message);
   }
 
-  function updateStoreLink() {
-    const storeLink = document.querySelector(".teaser");
-    const updateUrl = chrome.runtime.getManifest().update_url?.toLowerCase();
-    const extensionId = chrome.runtime.id;
-    const href = updateUrl && updateUrl.includes("microsoft")
-      ? "https://microsoftedge.microsoft.com/addons/detail/" + extensionId
-      : "https://chromewebstore.google.com/detail/" + extensionId;
-
-    storeLink.href = href;
-  }
-
   // ---- 2 段階 Clear UI ----
   // idle → confirming（5秒タイマー）→ もう一度押せば busy → done → idle
   const CONFIRM_TIMEOUT_MS = 5000;
@@ -326,7 +315,7 @@
     }));
   });
 
-  updateStoreLink();
+  // お問い合わせ / 評価ボタンとストア URL の解決は <kagayoi-support-footer> が自前で行う。
   loadSettingsIntoPopup().catch((error) => {
     console.warn("Clean Start popup init failed:", error?.message || error);
   });

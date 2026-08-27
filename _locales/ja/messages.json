@@ -26,9 +26,6 @@
   "popup_clear_failed": {
     "message": "失敗しました - タップで再試行"
   },
-  "popup_label_rate": {
-    "message": "評価をお願いします！"
-  },
   "popup_current_settings": {
     "message": "現在の削除対象"
   },

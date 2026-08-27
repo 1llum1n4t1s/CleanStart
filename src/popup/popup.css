@@ -580,38 +580,14 @@ h1, h2, h3, p { margin: 0; }
 /* =====================================================================
    Teaser footer (rate us)
    ===================================================================== */
-.teaser {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px var(--space-4);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  color: var(--ink-body);
-  text-decoration: none;
-  transition:
-    background-color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    transform var(--dur) var(--ease);
+/* お問い合わせ / 評価ボタンは Kagayoi.Support の共通部品 <kagayoi-support-footer> が描画する。
+   ここは置き場所の指定だけを持ち、ボタンの見た目は共通部品側に任せる（全拡張で同じ見た目にするため）。 */
+.support-footer {
+  display: block;
 }
 
-.teaser:hover {
-  border-color: var(--border-strong);
-  background: var(--surface-soft);
-}
-
-.teaser:active { transform: translateY(1px); }
-
-.teaser-label {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.teaser-stars {
-  color: var(--star);
-  font-size: 16px;
-  letter-spacing: 0.04em;
-  font-feature-settings: normal;
+kagayoi-support-footer {
+  --kgs-radius: var(--radius-lg);
+  --kgs-star: var(--star);
+  --kgs-border: var(--border);
 }
