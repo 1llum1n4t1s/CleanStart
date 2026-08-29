@@ -4,7 +4,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-npm install --silent
+pnpm install --frozen-lockfile
 node scripts/generate-icons.js
 
 rm -f clean-start.zip

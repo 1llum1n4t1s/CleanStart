@@ -16,8 +16,8 @@ if ($scriptDir) { Set-Location $scriptDir }
 
 Write-Host "Packaging Clean Start..." -ForegroundColor Cyan
 
-npm install --silent
-if ($LASTEXITCODE -ne 0) { throw "npm install failed." }
+pnpm install --frozen-lockfile
+if ($LASTEXITCODE -ne 0) { throw "pnpm install --frozen-lockfile failed." }
 
 node scripts/generate-icons.js
 if ($LASTEXITCODE -ne 0) { throw "Icon generation failed." }
@@ -35,7 +35,8 @@ if (Test-Path $tempDir) {
 
 New-Item -ItemType Directory -Path $tempDir | Out-Null
 
-Copy-Item "manifest.json" -Destination $tempDir
+node -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('temp-build/manifest.json',JSON.stringify(m,null,2))"
+if ($LASTEXITCODE -ne 0) { throw "Manifest preparation failed." }
 Copy-Item "popup.html" -Destination $tempDir
 Copy-Item "_locales" -Destination $tempDir -Recurse
 Copy-Item "icons" -Destination $tempDir -Recurse
