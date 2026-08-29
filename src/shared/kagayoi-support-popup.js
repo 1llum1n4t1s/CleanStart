@@ -115,10 +115,6 @@
               <label for="${id}-description">お問い合わせ内容</label>
               <textarea id="${id}-description" name="description" maxlength="10000" required></textarea>
             </div>
-            <div class="trap" aria-hidden="true">
-              <label for="${id}-website">ウェブサイト</label>
-              <input id="${id}-website" name="website" type="text" tabindex="-1" autocomplete="off">
-            </div>
             <div class="verification" hidden>
               <div class="field">
                 <label for="${id}-code">6桁の確認コード</label>
@@ -170,10 +166,6 @@
     async handleSubmit() {
       if (this.busy || !this.productId) return
       if (!this.validateTicketFields()) return
-      if (this.form.elements.website.value) {
-        this.showSuccess("KGS-RECEIVED")
-        return
-      }
       if (!await this.ensureDataCollectionConsent()) return
       const session = this.sessionForCurrentEmail()
       if (session) {
