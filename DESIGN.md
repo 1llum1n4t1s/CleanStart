@@ -58,12 +58,12 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 4. 期間を `since` timestamp、対象配列を `{ type: true }` へ変換し、`chrome.browsingData.remove` を実行します。
 5. `autorefresh` が有効なら、全 HTTP(S) タブを小さい batch に分けて再読み込みします。
 
-同時に複数の削除要求が届いた場合は `inFlightClear` の同じ Promise を共有し、プロファイル全体への削除とタブ再読み込みの二重実行を防ぎます。Service Worker の cold start による配送失敗だけはポップアップ側で1回再試行し、処理継続中の可能性がある timeout は再送しません。
+手動削除と起動時削除を含め、同時に複数の削除要求が届いた場合は `inFlightClear` の同じ Promise を共有します。合流した要求の再読み込み意図も統合し、起動時の2段階 discovery を優先することで、プロファイル全体への削除とタブ再読み込みの二重実行を防ぎます。Service Worker の cold start による配送失敗だけはポップアップ側で1回再試行し、処理継続中の可能性がある timeout は再送しません。
 
 ### 起動時削除
 
 1. `onStartup` が既定値を補い、`clearonstartup` を確認します。
-2. 有効なら自動リロードを一旦抑止して削除します。
+2. 有効なら手動削除と共通の排他経路で削除します。
 3. 選択項目にキャッシュ・Cookie・サイト保存領域が含まれる場合だけ、セッション復元タブを待つ2段階の discovery 後に HTTP(S) タブを再読み込みします。
 
 ### エラー通知

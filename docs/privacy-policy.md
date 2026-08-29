@@ -1,6 +1,6 @@
 # Privacy Policy / プライバシーポリシー — Clean Start
 
-**Last updated / 最終更新日:** 2026-08-27
+**Last updated / 最終更新日:** 2026-08-29
 
 ---
 
@@ -31,6 +31,18 @@ only (`chrome.storage.local`):
 
 These values stay on your device and are **never** transmitted to any
 external server.
+
+After you successfully verify your email address in the optional contact
+form, the Extension also stores these support-session values in the
+extension origin's `localStorage`:
+
+- The verified email address
+- A support access token and its expiration timestamp
+
+This record can persist across browser restarts. When the contact form
+next reads it, an expired or invalid record is removed. While the record
+is valid, its token is sent only to Kagayoi Support to authenticate a
+later support-ticket submission without repeating email verification.
 
 ### Data sharing
 
@@ -65,8 +77,9 @@ Chrome standard APIs:
 - `chrome.storage.local` — storing settings locally
 - `chrome.browsingData.remove` — deleting history, cache, cookies, and
   site data
-- `chrome.tabs.query` / `chrome.tabs.reload` — reloading tabs after a
-  cleanup (optional feature)
+- `chrome.tabs.query` / `chrome.tabs.reload` — reloading HTTP/HTTPS tabs
+  after a manual cleanup when auto-reload is enabled, and after an
+  automatic startup cleanup for data types that require a fresh tab state
 - `chrome.runtime` — internal messaging between popup and background
   service worker
 
@@ -76,11 +89,12 @@ Chrome standard APIs:
 - **browsingData**: Used to delete Chrome data based on the user's
   selected data types and time range. This is the core function of the
   Extension.
-- **tabs**: Used to enumerate open HTTP/HTTPS tabs and reload them
-  right after a Clear operation, only when the user has enabled
-  "Reload all HTTP tabs after clearing". Tab URLs and titles are read
-  only to filter HTTP/HTTPS targets; they are never logged, stored,
-  or transmitted anywhere.
+- **tabs**: Used to enumerate open HTTP/HTTPS tabs and reload them (1)
+  after a manual Clear operation when the user has enabled "Reload all
+  HTTP tabs after clearing", and (2) after an automatic startup cleanup
+  when the selected data types require a fresh tab state. Tab URLs and
+  titles are read only to filter HTTP/HTTPS targets; they are never
+  logged, stored, or transmitted anywhere.
 
 ### Host permissions
 
@@ -128,6 +142,13 @@ reflected on this page.
 
 これらのデータは端末内にのみ保存され、外部サーバーへの送信は一切行いません。
 
+任意のお問い合わせフォームでメール確認に成功すると、次のサポートセッション情報も拡張機能オリジンの `localStorage` に保存します。
+
+- 確認済みのメールアドレス
+- サポート用アクセストークンと有効期限
+
+この記録は Chrome の再起動後も残る場合があります。次にお問い合わせフォームが読み出した際、有効期限切れまたは不正な記録は削除します。有効期間中のトークンは、メール確認を繰り返さずに後続の問い合わせを送信できるよう、Kagayoi Support への認証にだけ使用します。
+
 ### データの共有
 
 本拡張機能は、いかなるデータも第三者と共有しません。お問い合わせの内容は開発者（Kagayoi）のサポート窓口が受け取るもので、広告・解析目的の第三者へ渡すことはありません。
@@ -149,14 +170,14 @@ reflected on this page.
 
 - `chrome.storage.local` — 設定値のローカル保存
 - `chrome.browsingData.remove` — 履歴、キャッシュ、Cookie、サイト保存データの削除
-- `chrome.tabs.query` / `chrome.tabs.reload` — 削除後のタブ再読み込み（任意機能）
+- `chrome.tabs.query` / `chrome.tabs.reload` — 手動削除で自動再読み込みが有効な場合、および起動時自動削除で再読み込み対象データを削除した場合の HTTP/HTTPS タブ再読み込み
 - `chrome.runtime` — 拡張機能内部のメッセージング（popup ↔ background）
 
 ### 権限の使用目的
 
 - **storage**: 上記のローカル設定値を保存・読み出すために使用します。
 - **browsingData**: ユーザーが選択した期間・データ型に基づいて Chrome のデータを削除するために使用します。本拡張機能の中核機能です。
-- **tabs**: ユーザーが「削除後に全 HTTP タブを再読み込み」を有効にした場合、開いている HTTP/HTTPS タブを列挙して Clear 操作直後に再読み込みするために使用します。タブの URL やタイトルは HTTP/HTTPS フィルタのために参照するのみで、ログ出力・保存・外部送信は一切行いません。
+- **tabs**: ユーザーが「削除後に全 HTTP タブを再読み込み」を有効にして手動削除した場合と、起動時自動削除でキャッシュ・Cookie・サイト保存データなど再読み込み対象のデータを削除した場合に、開いている HTTP/HTTPS タブを列挙して再読み込みするために使用します。タブの URL やタイトルは HTTP/HTTPS フィルタのために参照するのみで、ログ出力・保存・外部送信は一切行いません。
 
 ### ホスト権限について
 

@@ -3,10 +3,10 @@ Chrome Web Store Listing (Copy-paste reference)
 ============================================================
 
 ⚠️ キーワードスパム対策（2026-08-27 の違反指摘「Yellow Argon」への対応）
-   説明欄で削除対象を 12 個の技術名で列挙していたのを Google が過剰な
+   説明欄で削除対象の技術名を列挙していたのを Google が過剰な
    キーワードと判定した。利用者が日常語として分かる項目（履歴 / キャッシュ /
    Cookie / ダウンロード履歴 / フォームデータ）だけ挙げ、Cache Storage /
-   IndexedDB / Service Workers / Web SQL / App Cache などの内部技術名は
+   IndexedDB / Service Workers などの内部技術名は
    「サイトがブラウザ内に保存したデータ」と一般名で書く。
    ※ 権限の正当性（Permission justifications）欄は掲載されず審査官しか
      見ないため、そちらは技術名のままにしてある。
@@ -29,7 +29,7 @@ ENGLISH (default)
 Clean Start
 
 ■ Summary (max 132 chars)
-One-click cleanup for history, cache, cookies, and site data. 12 data types, 5 time ranges, two-tap confirm to prevent accidents.
+One-click cleanup for history, cache, cookies, and site data. 10 data types, 5 time ranges, two-tap confirm to prevent accidents.
 
 ■ Description (max 16,000 chars)
 A simple, safe cleanup extension for tidying up Chrome's browsing data.
@@ -42,7 +42,7 @@ then tap the button twice — that's it.
   Run a full cleanup with the current settings directly from the popup.
   No need to navigate through nested settings screens.
 
-- Pick from 12 data types
+- Pick from 10 data types
   History, cache, cookies, downloads, and form data, plus the data that
   sites keep inside the browser. Combine only the ones you need.
 
@@ -70,9 +70,10 @@ then tap the button twice — that's it.
   open HTTP/HTTPS tab refreshes automatically once cleanup completes,
   so no tab is left showing data that was just deleted.
 
-- Local-only, zero network
-  All processing happens inside the browser. No network calls, no
-  external API integration, no tracking, no telemetry.
+- Local cleanup, no tracking
+  Cleanup and settings stay inside the browser. Only when you submit the
+  optional contact form are your entered details sent to Kagayoi Support.
+  There is no tracking, analytics, or telemetry.
 
 ■ How to use
 
@@ -102,12 +103,16 @@ Yes
 
 ■ Single purpose description
 Bulk-deletes Chrome's history, cache, cookies, and site storage
-based on the user's selected data types and time range.
+based on the user's selected data types and time range, and provides a
+user-initiated support contact form for this extension.
 
 ■ Data usage disclosures
 
-  - Personally identifiable information collected? No
-  - User data handled? No (only local settings, never leaves the browser)
+  - Personally identifiable information collected? Yes, only when the
+    user submits the optional contact form: email address and optional name
+  - User data handled? Yes, only user-entered contact details, inquiry
+    content, the email verification code, and the support-session access
+    token used to authenticate the support request
 
   - User data handling commitments
     - Will not sell user data
@@ -138,10 +143,18 @@ based on the user's selected data types and time range.
   showing stale content. Tab URLs and titles are never logged, stored,
   or transmitted anywhere.
 
+  host_permissions (https://support.kagayoi.com/*):
+  Used only when the user opens and submits the optional contact form.
+  It sends the email verification request and the support ticket entered
+  by the user to Kagayoi Support over HTTPS. Cleanup settings, browsing
+  history, and tab URLs are never sent.
+
 ■ External server communication
-None. The extension does not talk to any external server. All work is
-done locally through chrome.browsingData / chrome.tabs / chrome.runtime
-standard APIs.
+Cleanup does not communicate with an external server. Only when the user
+submits the optional contact form does the extension send the entered
+email address, optional name, inquiry content, product/version/locale
+metadata, email verification code, and support-session access token to
+https://support.kagayoi.com.
 
 ■ Remote code
 No.
@@ -171,7 +184,7 @@ All regions
 Clean Start
 
 ■ 概要（132文字以内）
-履歴・キャッシュ・Cookie・サイト保存データを 12 種から選んでワンクリックで一掃。期間指定と 2 段階確認で安心して使える、軽量・無料の Chrome 拡張機能。
+履歴・キャッシュ・Cookie・サイト保存データを 10 種から選んでワンクリックで一掃。期間指定と 2 段階確認で安心して使える、軽量・無料の Chrome 拡張機能。
 
 ■ 説明（16,000文字以内）
 Chrome の閲覧データをすばやく整理するための、シンプルで安全なクリーンアップ拡張機能です。
@@ -182,7 +195,7 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 ・ワンクリックの一括削除
   ポップアップから現在の設定でまとめてクリーンアップ。複雑な設定画面を行き来する必要はありません。
 
-・12 種類のデータから選択
+・10 種類のデータから選択
   履歴、キャッシュ、Cookie、ダウンロード履歴、フォームデータに加え、サイトがブラウザ内に保存したデータも対象。必要な項目だけを自由に組み合わせて削除できます。
 
 ・期間指定
@@ -200,8 +213,8 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 ・削除後のタブ自動再読み込み（任意）
   「削除後に全 HTTP タブを自動で再読み込みする」を有効にすると、Clear 押下後に開いている HTTP/HTTPS タブをまとめて自動リロード。削除済みデータを表示したままのタブが残りません。
 
-・ローカル完結
-  すべての処理はブラウザ内で完結。ネットワーク送信・外部 API 連携・トラッキング・テレメトリは一切ありません。
+・クリーンアップはローカル完結
+  削除処理と設定保存はブラウザ内で完結します。任意のお問い合わせフォームを利用者が送信したときだけ、入力内容を Kagayoi Support へ送ります。トラッキング・解析・テレメトリはありません。
 
 ■ 使い方
 
@@ -229,15 +242,15 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 はい
 
 ■ 単一の目的の説明
-ユーザーが選択した期間とデータ型に基づいて、Chrome の履歴・キャッシュ・Cookie・サイト保存データを一括削除する。
+ユーザーが選択した期間とデータ型に基づいて Chrome の履歴・キャッシュ・Cookie・サイト保存データを一括削除し、この拡張機能について利用者が任意で問い合わせできるようにする。
 
 ■ データの使用に関する開示
 
   ・個人を特定できる情報を収集しますか？
-    いいえ
+    はい。任意のお問い合わせフォームを利用者が送信した場合に限り、メールアドレスと任意入力のお名前を受け取ります。
 
   ・ユーザーのデータを取り扱いますか？
-    いいえ（ローカルの設定値以外はブラウザの外に出さない）
+    はい。利用者が入力した問い合わせ内容、連絡先、メール確認コード、お問い合わせ認証用のサポートセッショントークンだけを問い合わせ対応のために取り扱います。クリーンアップ設定はブラウザ内だけに保存します。
 
   ・ユーザーデータをどのように扱いますか？
     - ユーザーデータの販売: しない
@@ -255,8 +268,11 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
   tabs:
   ユーザーが「削除後に全 HTTP タブを自動で再読み込みする」を有効にした場合と、起動時自動削除の後に使用します。開いているタブを列挙して HTTP/HTTPS のものだけを reload し、削除後の最新状態を表示するために使います。chrome.browsingData はプロファイル全体のデータを消すため、アクティブタブだけを reload すると他のタブが古い内容を表示したままになります。タブの URL やタイトルはログ出力・保存・外部送信を一切行いません。
 
+  host_permissions（https://support.kagayoi.com/*）:
+  利用者が任意のお問い合わせフォームを開いて送信したときだけ使用します。メール確認と利用者が入力した問い合わせを HTTPS で Kagayoi Support へ送ります。クリーンアップ設定、閲覧履歴、タブ URL は送信しません。
+
 ■ 外部サーバーとの通信について
-本拡張機能は外部サーバーと一切通信しません。すべての処理は chrome.browsingData / chrome.tabs / chrome.runtime などのブラウザ標準 API を介してローカルで完結します。
+クリーンアップ処理は外部サーバーと通信しません。任意のお問い合わせフォームを利用者が送信したときだけ、メールアドレス、任意入力のお名前、問い合わせ内容、製品・バージョン・ロケール情報、メール確認コード、サポートセッショントークンを https://support.kagayoi.com へ送信します。
 
 ■ リモートコードを使用していますか？
 いいえ
