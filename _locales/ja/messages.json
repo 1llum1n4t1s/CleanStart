@@ -30,7 +30,7 @@
     "message": "現在の削除対象"
   },
   "popup_current_hint": {
-    "message": "いま下の Clean を押すと、この設定で削除します。"
+    "message": "下の「削除する」を押すと、この設定で削除します。"
   },
   "popup_selected_data": {
     "message": "削除する項目"

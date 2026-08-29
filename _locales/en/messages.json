@@ -30,7 +30,7 @@
     "message": "Current Clean Target"
   },
   "popup_current_hint": {
-    "message": "These settings will be used when you press Clean."
+    "message": "These settings will be used when you press Clear."
   },
   "popup_selected_data": {
     "message": "Deletes"

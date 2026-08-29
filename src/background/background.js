@@ -142,31 +142,59 @@ async function reloadAllTabs() {
   }
 }
 
-// clear-active-tab が実行中に再度届いた場合（popup の再送、popup を開き直しての
-// 連打など）に browsingData.remove と全タブリロードが二重に走らないよう、
-// 実行中は同じ Promise を共有して結果だけを配る。
-// reloadStartupTabsRunning と同じく SW モジュールスコープのガード。
+// 手動クリアと起動時クリアが重なっても browsingData.remove を二重に走らせない。
+// 後から合流した呼び出しの reload 意図も共有し、起動時 reload を優先する。
 let inFlightClear = null;
+let inFlightClearIntent = null;
 
 function clearDataWithCurrentSettings() {
+  return runClear(
+    () => CleanStartSettings.load(),
+    { manual: true }
+  );
+}
+
+function clearDataOnStartup(settings) {
+  return runClear(
+    () => Promise.resolve(settings),
+    { startup: true }
+  );
+}
+
+function runClear(loadSettings, intent) {
   if (inFlightClear) {
+    inFlightClearIntent.manual ||= Boolean(intent.manual);
+    inFlightClearIntent.startup ||= Boolean(intent.startup);
     return inFlightClear;
   }
 
+  inFlightClearIntent = {
+    manual: Boolean(intent.manual),
+    startup: Boolean(intent.startup)
+  };
+
   const run = (async () => {
-    const settings = await CleanStartSettings.load();
-    return clearDataWithSettings(settings, { allowReload: true });
+    const settings = await loadSettings();
+    const result = await clearDataWithSettings(settings);
+
+    if (inFlightClearIntent.startup && result.shouldReloadStartupTabs) {
+      await reloadStartupTabs();
+    } else if (inFlightClearIntent.manual && settings.autorefresh) {
+      await reloadAllTabs();
+    }
+
+    return result;
   })();
 
   inFlightClear = run.finally(() => {
     inFlightClear = null;
+    inFlightClearIntent = null;
   });
 
   return inFlightClear;
 }
 
-async function clearDataWithSettings(settings, options = {}) {
-  const { allowReload = true } = options;
+async function clearDataWithSettings(settings) {
   const removeObject = CleanStartSettings.toRemoveObject(settings.dataToRemove);
   const shouldReloadStartupTabs = settings.dataToRemove.some((dataType) =>
     CleanStartSettings.STARTUP_RELOAD_DATA_TYPES.has(dataType)
@@ -177,10 +205,6 @@ async function clearDataWithSettings(settings, options = {}) {
       { since: CleanStartSettings.getSince(settings.timePeriod) },
       removeObject
     );
-  }
-
-  if (allowReload && settings.autorefresh) {
-    await reloadAllTabs();
   }
 
   return {
@@ -210,11 +234,7 @@ chrome.runtime.onStartup.addListener(async () => {
       return;
     }
 
-    const result = await clearDataWithSettings(settings, { allowReload: false });
-
-    if (result?.shouldReloadStartupTabs) {
-      await reloadStartupTabs();
-    }
+    await clearDataOnStartup(settings);
   } catch (error) {
     console.warn("Clean Start startup clear failed:", error.message);
     showErrorBadge();

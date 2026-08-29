@@ -610,4 +610,17 @@ describe("i18n 整合性 (en/ja messages.json)", () => {
       assert.ok(ja[key], `ja に ${key} が無い`);
     }
   });
+
+  test("現在設定の案内が各言語の実際の削除ボタン名を使う", () => {
+    for (const locale of ["en", "ja"]) {
+      const messages = loadLocale(locale);
+      assert.ok(
+        messages.popup_current_hint.message.includes(messages.popup_clear.message),
+        `${locale} の popup_current_hint が popup_clear の表示名と一致していない`
+      );
+    }
+
+    const popup = fs.readFileSync(path.join(__dirname, "..", "popup.html"), "utf8");
+    assert.match(popup, /data-i18n="popup_current_hint">[^<]*Clear[^<]*<\/p>/);
+  });
 });
