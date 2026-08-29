@@ -1,6 +1,6 @@
 # Clean Start
 
-`C:\Users\szk\Work\CleanReload` の構成を参考にしつつ、ローカル拡張 `fidcileobejjkcaoalcnedmgmnegmoic` の機能と画面構成をベースに再実装した Chrome 拡張機能です。
+履歴、キャッシュ、Cookie、各種サイト保存データを、ポップアップからまとめて削除できる Chrome 拡張機能です。
 
 ## できること
 
@@ -27,20 +27,20 @@
 ## 開発メモ
 
 ```bash
-npm install
-npm run build
+pnpm install --frozen-lockfile
+pnpm build
 ```
 
-CI 環境では再現性確保のため `npm ci` を使用してください（`package-lock.json` を尊重した厳密インストール）。
+テストは `pnpm test` で実行できます。依存関係は `pnpm-lock.yaml` を正本とし、CI 相当のインストールでは `pnpm install --frozen-lockfile` を使用します。詳しい作業規約と設計は [AGENTS.md](AGENTS.md) と [DESIGN.md](DESIGN.md) を参照してください。
 
 PowerShell では以下で配布用 ZIP を作成できます。
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File zip.ps1
+pwsh -NoProfile -File zip.ps1
 ```
 
 ## 補足
 
 - Cookie はサイト全体の一括削除のみを行います（ドメイン指定削除はサポートしません）。
-- `host_permissions` および `cookies` 権限は要求しません。`browsingData` のみで Cookie 含むサイトデータを削除します。
+- `cookies` 権限は要求せず、Cookie を含むサイトデータの削除には `browsingData` API を使います。`host_permissions` は、利用者が問い合わせフォームを送信するときに使う `https://support.kagayoi.com/*` だけです。
 - 現在のラインナップでは、実効性の低い `passwords` と `pluginData` を外し、実利用で影響が分かりやすい `cacheStorage` と `serviceWorkers` を追加しています。

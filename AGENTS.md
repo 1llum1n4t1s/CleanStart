@@ -1,10 +1,10 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code and other coding agents working in this repository.
+このファイルは、このリポジトリで作業するコーディングエージェント向けの実行規約です。実装構造と設計判断は [DESIGN.md](DESIGN.md) を正本とします。
 
 ## 概要
 
-Clean Start は MV3 の Chrome 拡張機能。ポップアップから `chrome.browsingData` で履歴・キャッシュ・Cookie・各種サイト保存データをワンクリック削除する。`host_permissions` / `cookies` 権限は要求せず、`storage` / `browsingData` / `tabs` の 3 権限のみで動く（[manifest.json](manifest.json)）。
+Clean Start は MV3 の Chrome 拡張機能。ポップアップから `chrome.browsingData` で履歴・キャッシュ・Cookie・各種サイト保存データをワンクリック削除する。Chrome API は `storage` / `browsingData` / `tabs` の 3 権限を使い、`cookies` 権限は要求しない。`host_permissions` は利用者が問い合わせフォームを送信するときの `https://support.kagayoi.com/*` だけに限定する（[manifest.json](manifest.json)）。
 
 ## 主要コマンド
 
@@ -16,12 +16,12 @@ pnpm generate-icons                        # sharp で icons/ を生成
 pnpm generate-screenshots                  # puppeteer で webstore スクショ生成
 pnpm build                                 # icons + screenshots を両方生成
 bash zip.sh                                # 配布 zip (Git Bash + zip コマンド)
-powershell -ExecutionPolicy Bypass -File zip.ps1   # zip コマンドが無い Windows 用
+pwsh -NoProfile -File zip.ps1                # zip コマンドが無い Windows 用
 ```
 
 - テストランナーは **Node 組み込み** (`node --test`)。外部フレームワーク・ビルドステップ無しでソースをそのまま読む。
 - 拡張のロードは `chrome://extensions` →「パッケージ化されていない拡張機能を読み込む」でリポジトリ直下（`manifest.json` がルートにある）を指定する。バンドラは無いので編集後はリロードだけで反映。
-- パッケージ操作は pnpm を使う（`pnpm-lock.yaml`）。README 内の `npm install` / `npm ci` / `package-lock.json` の記述は移行前の名残なので pnpm 系コマンドに読み替える。
+- パッケージ操作は pnpm を使い、`pnpm-lock.yaml` を正本とする。CI 相当のインストール確認には `pnpm install --frozen-lockfile` を使う。
 
 ## アーキテクチャ（複数ファイルにまたがる勘所）
 
