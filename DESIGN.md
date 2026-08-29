@@ -18,14 +18,14 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 | `src/shared/settings.js` | 設定スキーマ、既定値、正規化、ストレージ入出力、削除対象・期間の変換 |
 | `src/shared/security.js` | Service Worker が受け取るメッセージ送信元の認可 |
 | `src/shared/localize.js` / `_locales/` | DOM の `data-i18n` とプレースホルダーへの翻訳適用 |
-| `src/shared/kagayoi-support-*.js` | 問い合わせフォームとストア評価導線。Kagayoi.Support の共通部品を同梱 |
+| `src/shared/kagayoi-support-*.js` / `*.css` | 問い合わせフォームとストア評価導線。Kagayoi.Support の共通部品を同梱 |
 | `tests/` | 設定契約、送信元認可、i18n、問い合わせ部品と manifest の整合性を Node 組み込みテストで検証 |
 | `scripts/` / `webstore/` | `sharp` によるアイコン生成と `puppeteer` によるストア画像生成 |
 | `.github/workflows/publish.yml` | `release/<manifest version>` push 時の ZIP 作成と Chrome Web Store 公開 |
 
 ## 実行コンテキストと共有コード
 
-拡張はポップアップと Service Worker の2つの実行コンテキストを持ちます。`src/shared/*.js` は IIFE で `globalThis` に公開しつつ CommonJS でも export するため、同じ実装を拡張ページ、`importScripts`、Node テストから利用できます。
+拡張はポップアップと Service Worker の2つの実行コンテキストを持ちます。設定・認可・ローカライズの共有JSは IIFE で `globalThis` に公開しつつ CommonJS でも export し、拡張ページ、`importScripts`、Node テストから同じ実装を利用します。Kagayoi Support の Web Components はポップアップから ES module として読み込み、Shadow DOM 内では `chrome.runtime.getURL` で解決した同梱CSSを参照します。
 
 `localize.js` は DOM に依存するためポップアップ専用です。Service Worker は DOM 非依存の `settings.js` と `security.js` だけを読み込みます。バンドラーは使わず、リポジトリ直下がそのまま拡張のロード単位です。
 
@@ -72,7 +72,7 @@ Service Worker の削除失敗は赤い `!` バッジで残します。ポップ
 
 ### 問い合わせ
 
-ポップアップの共通フッターから問い合わせダイアログを開き、メール認証後に `productId=clean-start` を付けて `https://support.kagayoi.com` へチケットを送信します。必要な host permission はこの通信先だけです。共通部品が読み込めない場合は Web の問い合わせ窓口へフォールバックします。
+ポップアップの共通フッターから問い合わせダイアログを開き、メール認証後に `productId=clean-start` を付けて `https://support.kagayoi.com` へチケットを送信します。確認済みメールアドレス、アクセストークン、有効期限は拡張originの `localStorage` に保存し、期限切れまたは不正な記録は次回読込時に破棄します。必要な host permission はこの通信先だけです。共通部品が読み込めない場合は Web の問い合わせ窓口へフォールバックします。
 
 ## セキュリティと権限
 
@@ -87,9 +87,9 @@ Service Worker の削除失敗は赤い `!` バッジで残します。ポップ
 - `browsingData` はプロファイル全体へ作用するため、手動削除後の再読み込み対象もアクティブタブではなく全 HTTP(S) タブにします。影響を抑えるため batch 間隔を設けます。
 - 起動時はセッション復元が遅れるため、固定の単発 query ではなく時間を空けた2回の discovery を行います。代わりに起動時処理が数秒長くなります。
 - 設定・セキュリティを純関数中心の共有モジュールへ分離し、Chrome API の薄い mock で直接テストできる構成にします。
-- Kagayoi Support の部品は拡張ごとに分岐させず、権威ある共通実装を同梱して契約テストで同期を確認します。
+- Kagayoi Support の部品は拡張ごとに分岐させず、npm package の権威ある共通実装を `pnpm sync:support` で同梱して契約テストで同期を確認します。MV3 CSP に適合させるため、Shadow DOM のスタイルもinline文字列ではなく同梱CSSとして読み込みます。
 - `manifest.json` の version を製品バージョンの正本とし、`package.json` と同期します。公開 workflow は release branch 名との一致を検証してから送信します。
 
 ## 検証と生成物
 
-`pnpm test` は設定の境界値・異常値、prototype pollution 防止、ストレージエラー、送信元認可、i18n キー集合、Kagayoi Support 契約を検証します。`pnpm build` は配布に使う追跡済みアイコンと、Git では無視するストア画像を生成します。依存解決の再現性は `pnpm install --frozen-lockfile` で確認します。
+`pnpm test` は設定の境界値・異常値、prototype pollution 防止、ストレージエラー、送信元認可、i18n キー集合、Kagayoi Support 契約を検証します。`pnpm build` はKagayoi Support部品を同期してから、配布に使う追跡済みアイコンとGitでは無視するストア画像を生成します。依存解決の再現性は `pnpm install --frozen-lockfile` で確認します。

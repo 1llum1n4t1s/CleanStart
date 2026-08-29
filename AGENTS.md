@@ -12,11 +12,12 @@ Clean Start は MV3 の Chrome 拡張機能。ポップアップから `chrome.b
 pnpm test                                  # 全テスト (node --test tests/*.test.js)
 node --test tests/settings.test.js         # 単一ファイルのテスト
 node --test --test-name-pattern="<名前>"   # 名前で 1 テストだけ実行
+pnpm sync:support                          # Kagayoi.Support の共通 JS/CSS を同期
 pnpm generate-icons                        # sharp で icons/ を生成
 pnpm generate-screenshots                  # puppeteer で webstore スクショ生成
-pnpm build                                 # icons + screenshots を両方生成
+pnpm build                                 # support 同期 + icons + screenshots
 bash zip.sh                                # 配布 zip (Git Bash + zip コマンド)
-pwsh -NoProfile -File zip.ps1                # zip コマンドが無い Windows 用
+pwsh -NoProfile -File zip.ps1              # zip コマンドが無い Windows 用
 ```
 
 - テストランナーは **Node 組み込み** (`node --test`)。外部フレームワーク・ビルドステップ無しでソースをそのまま読む。
@@ -27,15 +28,17 @@ pwsh -NoProfile -File zip.ps1                # zip コマンドが無い Windows
 
 ### 3 つの実行コンテキストと共有モジュールのロード方式
 
-`src/shared/*.js` は全て **IIFE で `globalThis` に名前付きオブジェクトを生やしつつ、末尾で `module.exports` も兼ねる** 二重エクスポート形式。これにより同一ソースが 3 経路でロードされる：
+`settings.js` / `security.js` / `localize.js` は **IIFE で `globalThis` に名前付きオブジェクトを生やしつつ、末尾で `module.exports` も兼ねる** 二重エクスポート形式。問い合わせ用の `kagayoi-support-*.js` はブラウザの ES module として読み込み、同梱した `kagayoi-support-*.css` を Shadow DOM から参照する：
 
 | コンテキスト | エントリ | shared のロード方法 |
 |---|---|---|
 | Service Worker | [src/background/background.js](src/background/background.js) | `importScripts("../shared/settings.js" / "security.js")` |
-| ポップアップ | [src/popup/popup.js](src/popup/popup.js) | `popup.html` の `<script>` で settings.js + localize.js |
-| Node テスト | `tests/*.test.js` | `require()`（[tests/chrome-mock.js](tests/chrome-mock.js) の `loadFreshSettings` が require.cache を破棄して都度リロード）|
+| ポップアップ | [src/popup/popup.js](src/popup/popup.js) | classic script で settings.js + localize.js、`type="module"` で Kagayoi Support 部品 |
+| Node テスト | `tests/*.test.js` | 設定・認可は `require()`、問い合わせ部品は同梱契約を静的検証 |
 
 **注意：[src/shared/localize.js](src/shared/localize.js) は `document` 依存なので SW からは importScripts しない**（apply() 内に noop ガードはあるが popup/options 専用）。SW で共有ロジックが要るときは settings.js / security.js を使う。
+
+Kagayoi Support 部品は npm package を正本とし、変更後は `pnpm sync:support` または prebuild を含む `pnpm build` で JS/CSS を同期する。拡張ごとの直接改変ではなく、正本のpackage更新で反映する。
 
 ### データ型の単一の真実の源
 
