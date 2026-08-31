@@ -5,3 +5,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - kagayoi-support-extension@1.0.2
   - kagayoi-support-extension@1.0.3
+  - kagayoi-support-extension@1.0.5
