@@ -1,74 +1,35 @@
 # AGENTS.md
 
-このファイルは、このリポジトリで作業するコーディングエージェント向けの実行規約です。実装構造と設計判断は [DESIGN.md](DESIGN.md) を正本とします。
+このリポジトリのエージェント向け作業規約です。構造・責務・データフロー・設計判断は [DESIGN.md](DESIGN.md)、利用方法は [README.md](README.md) を参照してください。
 
-## 概要
+## 開発と検証
 
-Clean Start は MV3 の Chrome 拡張機能。ポップアップから `chrome.browsingData` で履歴・キャッシュ・Cookie・各種サイト保存データをワンクリック削除する。Chrome API は `storage` / `browsingData` / `tabs` の 3 権限を使い、`cookies` 権限は要求しない。`host_permissions` は利用者が問い合わせフォームを送信するときの `https://support.kagayoi.com/*` だけに限定する（[manifest.json](manifest.json)）。
-
-## 主要コマンド
+CI に合わせる場合は Node.js 22 と pnpm 11 を使い、依存関係は `pnpm-lock.yaml` を正本とします。
 
 ```bash
-pnpm test                                  # 全テスト (node --test tests/*.test.js)
-node --test tests/settings.test.js         # 単一ファイルのテスト
-node --test --test-name-pattern="<名前>"   # 名前で 1 テストだけ実行
-pnpm sync:support                          # Kagayoi.Support の共通 JS/CSS を同期
-pnpm generate-icons                        # sharp で icons/ を生成
-pnpm generate-screenshots                  # puppeteer で webstore スクショ生成
-pnpm build                                 # support 同期 + icons + screenshots
-bash zip.sh                                # 配布 zip (Git Bash + zip コマンド)
-pwsh -NoProfile -File zip.ps1              # zip コマンドが無い Windows 用
+pnpm install --frozen-lockfile             # lockfile に従うインストール
+pnpm test                                 # Node 組み込みの全テスト
+node --test tests/settings.test.js         # 単一ファイル
+node --test --test-name-pattern="<名前>" tests/*.test.js
+pnpm sync:support                         # 共通 JS/CSS を同期
+pnpm sync:support --check                 # 書き換えずに正本との一致を検証
+pnpm generate-icons                       # sharp で icons/ を生成
+pnpm generate-screenshots                 # puppeteer でストア画像を生成
+pnpm build                                # support 同期 + icons + screenshots
+bash zip.sh                               # Git Bash + zip コマンドで配布 ZIP 作成
+pwsh -NoProfile -File zip.ps1              # Windows で配布 ZIP 作成
 ```
 
-- テストランナーは **Node 組み込み** (`node --test`)。外部フレームワーク・ビルドステップ無しでソースをそのまま読む。
-- 拡張のロードは `chrome://extensions` →「パッケージ化されていない拡張機能を読み込む」でリポジトリ直下（`manifest.json` がルートにある）を指定する。バンドラは無いので編集後はリロードだけで反映。
-- パッケージ操作は pnpm を使い、`pnpm-lock.yaml` を正本とする。CI 相当のインストール確認には `pnpm install --frozen-lockfile` を使う。
+- 初回準備は依存インストール後に `pnpm build` を実行します。拡張の動作確認は `chrome://extensions` の「パッケージ化されていない拡張機能を読み込む」でリポジトリ直下を指定し、編集後に拡張をリロードします。
+- 実装変更後は `pnpm test` を実行します。テストは外部フレームワークやビルドを介さずソースを直接読みます。UI の表示・操作は実際のポップアップでも確認します。
+- 共通サポート部品の正本は `@kagayoi/support-extension` です。同梱ファイルの直接改変は行わず、正本の package 更新後に `pnpm sync:support` で反映します。`pnpm sync:support --check` で JS 2 本・CSS 3 本の一致、`pnpm test` で組み込み契約を検証します。
+- ZIP スクリプトと公開 CI は同梱済みの `src/` を梱包し、サポート同期を実行しません。共通部品の更新は梱包前に同期・検証します。`pnpm build` は追跡済みアイコンと ignored の `webstore/images/` を生成します。
 
-## アーキテクチャ（複数ファイルにまたがる勘所）
+## 変更時に維持する契約
 
-### 3 つの実行コンテキストと共有モジュールのロード方式
-
-`settings.js` / `security.js` / `localize.js` は **IIFE で `globalThis` に名前付きオブジェクトを生やしつつ、末尾で `module.exports` も兼ねる** 二重エクスポート形式。問い合わせ用の `kagayoi-support-*.js` はブラウザの ES module として読み込み、同梱した `kagayoi-support-*.css` を Shadow DOM から参照する：
-
-| コンテキスト | エントリ | shared のロード方法 |
-|---|---|---|
-| Service Worker | [src/background/background.js](src/background/background.js) | `importScripts("../shared/settings.js" / "security.js")` |
-| ポップアップ | [src/popup/popup.js](src/popup/popup.js) | classic script で settings.js + localize.js、`type="module"` で Kagayoi Support 部品 |
-| Node テスト | `tests/*.test.js` | 設定・認可は `require()`、問い合わせ部品は同梱契約を静的検証 |
-
-**注意：[src/shared/localize.js](src/shared/localize.js) は `document` 依存なので SW からは importScripts しない**（apply() 内に noop ガードはあるが popup/options 専用）。SW で共有ロジックが要るときは settings.js / security.js を使う。
-
-Kagayoi Support 部品は npm package を正本とし、変更後は `pnpm sync:support` または prebuild を含む `pnpm build` で JS/CSS を同期する。拡張ごとの直接改変ではなく、正本のpackage更新で反映する。
-
-### データ型の単一の真実の源
-
-`CleanStartSettings.DATA_TYPES`（[settings.js:4](src/shared/settings.js)）が削除対象データ型の正本。下記が全てこのリストにキー連動している：
-
-- `DATA_TYPE_MESSAGE_KEYS` … 各型 → i18n キー
-- `STARTUP_RELOAD_DATA_TYPES` … 削除後にタブリロードが要る型の部分集合
-- `normalizeDataToRemove` … 未知の値を捨てる際のフィルタ
-- `popup.html` の各チェックボックスの `value` 属性
-- `_locales/{en,ja}/messages.json` の `options_remove_*` メッセージ
-
-**データ型を増減するときはこの 5 箇所＋必要なら `STARTUP_RELOAD_DATA_TYPES` / デフォルト選択（`DEFAULT_RAW_SETTINGS.dataToRemove`）を同時に揃える**。`cache`（HTTP キャッシュ）と `cacheStorage`（Cache Storage API / PWA）は別物として両方提供している点に注意。
-
-### 削除フロー
-
-設定 → `toRemoveObject(dataToRemove)` が `{ type: true, ... }` を構築 → `getSince(timePeriod)` が期間を timestamp 化 → `chrome.browsingData.remove({ since }, removeObject)`（[background.js:150-172](src/background/background.js)）。設定は `chrome.storage.local` に生値（`dataToRemove` は JSON 文字列）で保存し、読み出し時に `normalizeSettings` で正規化する。`ensureDefaults` は onInstalled / onStartup の二重発火に耐える冪等処理。
-
-### タブリロードの 2 系統
-
-- **手動クリア後**（autorefresh ON）→ `reloadAllTabs`：全 HTTP タブを即リロード。browsingData はプロファイル全体を消すため、アクティブタブだけでは他タブが古いキャッシュ参照のままになるのを避ける設計。
-- **Chrome 起動時クリア後** → `reloadStartupTabs`：1200ms / 2500ms の 2 回に分けてタブを discovery（セッション復元タブの取りこぼし防止）、バッチ実行。`reloadStartupTabsRunning` で並走ガード。選択データ型が `STARTUP_RELOAD_DATA_TYPES` に含まれる場合のみ走る。
-
-### セキュリティ / メッセージ境界
-
-`chrome.runtime.onMessage` は [src/shared/security.js](src/shared/security.js) の純関数 `isAuthorizedSender` でガード（自拡張の特権コンテキスト＝popup/options/SW のみ通す）。background は `message.tab` を信用せず、削除対象を `chrome.storage` の設定だけから決める（browsingData はプロファイル全体に効くため送信元タブの情報は使わない）。純関数化はテスト可能性のため（[tests/security.test.js](tests/security.test.js)）。
-
-### エラー UX の対称契約
-
-SW 側でクリア失敗時 `showErrorBadge()` が赤い「!」バッジを出し、popup を開いた瞬間 `clearActionBadge()` が消す（= ユーザーが気付いた acknowledge とみなす）。popup を開かないユーザーが異常に永久に気付けない問題への対策。
-
-## バージョン管理
-
-`manifest.json` の `version` が正式バージョン。`package.json` も同期する。バージョン更新は明示指示（`/vava` 等）があるときだけ行う。
+- データ型を変更するときは `src/shared/settings.js` の `DATA_TYPES`、`DATA_TYPE_MESSAGE_KEYS`、`normalizeDataToRemove`、`STARTUP_RELOAD_DATA_TYPES`、既定選択を点検し、`popup.html` の checkbox value と `_locales/{en,ja}/messages.json` を揃えます。`cache` と `cacheStorage` は独立した選択肢として維持します。
+- 期間を変更するときは `TIME_PERIODS`、`TIME_PERIOD_MESSAGE_KEYS`、`getSince`、既定値、ポップアップと翻訳を揃えます。
+- Service Worker の共有処理は DOM 非依存の `settings.js` / `security.js` を使います。`localize.js` はポップアップで読み込みます。
+- メッセージ処理の変更では送信元認可と保存設定による削除対象の決定を維持し、`tests/security.test.js` と `tests/background.test.js` で確認します。削除・再読み込みの並行性とエラー通知は [DESIGN.md](DESIGN.md#データフロー) に照合します。
+- 権限と外部通信の変更時は [DESIGN.md](DESIGN.md#セキュリティと権限) の境界に照合し、manifest、問い合わせ契約、利用者向け説明とプライバシーポリシーの整合を確認します。
+- バージョン更新の依頼時は `manifest.json` の `version` を正本として `package.json` と同期します。公開ブランチ名は `release/<manifest version>` に揃えます。
