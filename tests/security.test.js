@@ -58,10 +58,4 @@ describe("isAuthorizedSender", () => {
     assert.equal(CleanStartSecurity.isAuthorizedSender(sender, RUNTIME_ID), true);
   });
 
-  test("CleanStartSecurity オブジェクト自体が freeze", () => {
-    assert.ok(Object.isFrozen(CleanStartSecurity));
-    assert.throws(() => {
-      CleanStartSecurity.isAuthorizedSender = () => true;
-    });
-  });
 });

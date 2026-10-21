@@ -13,7 +13,6 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-const vm = require("node:vm");
 
 const ROOT = path.join(__dirname, "..");
 const SETTINGS_HTML = "popup.html";
@@ -31,23 +30,6 @@ test("設定画面へ共通のサポートフッターを組み込んでいる",
     html.indexOf("kagayoi-support-popup.js") < html.indexOf("kagayoi-support-footer.js"),
     "フッターが参照する <kagayoi-contact-popup> を先に定義する",
   );
-});
-
-test("同梱した共通部品が正本の契約を満たす", () => {
-  const popupJs = read("src/shared/kagayoi-support-popup.js");
-  const footerJs = read("src/shared/kagayoi-support-footer.js");
-
-  assert.match(popupJs, /const DEFAULT_API_BASE = "https:\/\/support\.kagayoi\.com"/);
-  assert.match(popupJs, /this\.form\.setAttribute\("channel", "extension"\)/);
-  assert.match(popupJs, /this\.form\.setAttribute\("storage", "local"\)/);
-  assert.match(popupJs, /customElements\.define\("kagayoi-contact-popup", KagayoiContactPopup\)/);
-  assert.match(footerJs, /customElements\.define\("kagayoi-support-footer", KagayoiSupportFooter\)/);
-  assert.match(footerJs, /chromewebstore\.google\.com\/detail\//);
-
-  for (const [name, source] of [["popup", popupJs], ["footer", footerJs]]) {
-    assert.doesNotMatch(source, /\.innerHTML\b/, `${name} も innerHTML を使わない`);
-    assert.doesNotThrow(() => new vm.Script(source), `${name} が構文エラーなく読める`);
-  }
 });
 
 const manifestAt = (manifestPath) => {

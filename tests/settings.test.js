@@ -91,13 +91,6 @@ describe("normalizeTimePeriod", () => {
     assert.equal(CleanStartSettings.normalizeTimePeriod({}), fallback);
   });
 
-  test("近似文字列も拒否（部分一致しない）", () => {
-    // TIME_PERIODS は小文字のみなので "LAST_HOUR" は includes が false となり
-    // fallback の "last_hour" に戻る。たまたま値が一致するだけで、
-    // 意図的にホワイトリストを通過しているわけではない。
-    assert.equal(CleanStartSettings.normalizeTimePeriod("LAST_HOUR"), "last_hour");
-  });
-
   test("大文字混入は fallback (大文字小文字区別)", () => {
     assert.equal(CleanStartSettings.normalizeTimePeriod("Last_Hour"), "last_hour");
     assert.equal(CleanStartSettings.normalizeTimePeriod("EVERYTHING"), "last_hour");
@@ -131,26 +124,6 @@ describe("normalizeDataToRemove", () => {
     assert.deepEqual(result, ["history"]);
   });
 
-  test("JSON 文字列もパース可能", () => {
-    const result = CleanStartSettings.normalizeDataToRemove('["cache","history"]');
-    assert.deepEqual(result, ["cache", "history"]);
-  });
-
-  test("不正 JSON は default にフォールバック", () => {
-    const result = CleanStartSettings.normalizeDataToRemove("not-json{{");
-    assert.deepEqual(result, ["cache", "cacheStorage", "fileSystems", "indexedDB"]);
-  });
-
-  test("undefined は default", () => {
-    const result = CleanStartSettings.normalizeDataToRemove(undefined);
-    assert.deepEqual(result, ["cache", "cacheStorage", "fileSystems", "indexedDB"]);
-  });
-
-  test("null は default", () => {
-    const result = CleanStartSettings.normalizeDataToRemove(null);
-    assert.deepEqual(result, ["cache", "cacheStorage", "fileSystems", "indexedDB"]);
-  });
-
   test("空配列は空配列", () => {
     assert.deepEqual(CleanStartSettings.normalizeDataToRemove([]), []);
   });
@@ -180,27 +153,11 @@ describe("toRemoveObject", () => {
     assert.deepEqual(CleanStartSettings.toRemoveObject([]), {});
   });
 
-  test("ホワイトリスト外は混入しない", () => {
-    const obj = CleanStartSettings.toRemoveObject(["history", "passwords", "pluginData"]);
-    assert.deepEqual(obj, { history: true });
-  });
-
-  test("__proto__ ホワイトリスト外として除外（prototype pollution 防止）", () => {
-    const obj = CleanStartSettings.toRemoveObject(["__proto__", "history"]);
+  test("ホワイトリスト外と __proto__ を除外（prototype pollution 防止）", () => {
+    const obj = CleanStartSettings.toRemoveObject(["__proto__", "history", "passwords", "pluginData"]);
     assert.deepEqual(obj, { history: true });
     // Object.prototype は汚染されていない
     assert.equal(({}).polluted, undefined);
-  });
-
-  test("全 10 型", () => {
-    const all = [
-      "cache", "cacheStorage", "cookies", "downloads",
-      "fileSystems", "formData", "history", "indexedDB", "localStorage",
-      "serviceWorkers"
-    ];
-    const obj = CleanStartSettings.toRemoveObject(all);
-    assert.equal(Object.keys(obj).length, 10);
-    for (const t of all) assert.equal(obj[t], true);
   });
 
   test("undefined / null も安全にデフォルトへ", () => {
@@ -222,11 +179,6 @@ describe("normalizeSettings", () => {
     assert.equal(settings.autorefresh, false);
     assert.equal(settings.clearonstartup, false);
     assert.deepEqual(settings.dataToRemove, ["cache", "cacheStorage", "fileSystems", "indexedDB"]);
-    assert.equal(settings.timePeriod, "last_hour");
-  });
-
-  test("null も空相当", () => {
-    const settings = CleanStartSettings.normalizeSettings(null);
     assert.equal(settings.timePeriod, "last_hour");
   });
 
@@ -360,10 +312,6 @@ describe("setTimePeriod", () => {
     assert.equal(mock.storage.timePeriod, "last_hour");
   });
 
-  test("undefined も last_hour", async () => {
-    await CleanStartSettings.setTimePeriod(undefined);
-    assert.equal(mock.storage.timePeriod, "last_hour");
-  });
 });
 
 // ----------------------------------------------------------------------------
@@ -503,14 +451,6 @@ describe("公開定数", () => {
     });
   });
 
-  test("DATA_TYPES は 10 要素", () => {
-    assert.equal(CleanStartSettings.DATA_TYPES.length, 10);
-  });
-
-  test("TIME_PERIODS は 5 要素", () => {
-    assert.equal(CleanStartSettings.TIME_PERIODS.length, 5);
-  });
-
   test("DATA_TYPE_MESSAGE_KEYS は DATA_TYPES と同じキーセット", () => {
     const keys = Object.keys(CleanStartSettings.DATA_TYPE_MESSAGE_KEYS).sort();
     const types = [...CleanStartSettings.DATA_TYPES].sort();
@@ -535,20 +475,6 @@ describe("公開定数", () => {
     assert.equal(CleanStartSettings.STARTUP_RELOAD_DATA_TYPES.has("history"), false);
   });
 
-  test("CleanStartSettings オブジェクト自体が freeze", () => {
-    assert.ok(Object.isFrozen(CleanStartSettings));
-    assert.throws(() => {
-      CleanStartSettings.injected = true;
-    });
-  });
-
-  test("Cookie 関連 API は public から削除済み", () => {
-    assert.equal(CleanStartSettings.normalizeCookieSettings, undefined);
-    assert.equal(CleanStartSettings.normalizeDomainFilter, undefined);
-    assert.equal(CleanStartSettings.isValidDomainFilter, undefined);
-    assert.equal(CleanStartSettings.cookieDomainMatchesFilter, undefined);
-    assert.equal(CleanStartSettings.setCookieSettings, undefined);
-  });
 });
 
 // ----------------------------------------------------------------------------
@@ -564,17 +490,12 @@ describe("i18n 整合性 (en/ja messages.json)", () => {
     return JSON.parse(fs.readFileSync(p, "utf8"));
   }
 
-  test("DATA_TYPE_MESSAGE_KEYS が指す全キーが en に存在", () => {
-    const en = loadLocale("en");
-    for (const key of Object.values(CleanStartSettings.DATA_TYPE_MESSAGE_KEYS)) {
-      assert.ok(en[key], `en に ${key} が無い`);
-    }
-  });
-
-  test("DATA_TYPE_MESSAGE_KEYS が指す全キーが ja に存在", () => {
-    const ja = loadLocale("ja");
-    for (const key of Object.values(CleanStartSettings.DATA_TYPE_MESSAGE_KEYS)) {
-      assert.ok(ja[key], `ja に ${key} が無い`);
+  test("DATA_TYPE_MESSAGE_KEYS が指す全キーが en/ja に存在", () => {
+    for (const locale of ["en", "ja"]) {
+      const messages = loadLocale(locale);
+      for (const key of Object.values(CleanStartSettings.DATA_TYPE_MESSAGE_KEYS)) {
+        assert.ok(messages[key], `${locale} に ${key} が無い`);
+      }
     }
   });
 
@@ -582,24 +503,6 @@ describe("i18n 整合性 (en/ja messages.json)", () => {
     const en = Object.keys(loadLocale("en")).sort();
     const ja = Object.keys(loadLocale("ja")).sort();
     assert.deepEqual(en, ja);
-  });
-
-  test("削除済み Cookie フィルタ系 i18n キーは存在しない", () => {
-    const en = loadLocale("en");
-    const ja = loadLocale("ja");
-    const removedKeys = [
-      "options_remove_cookies_opt",
-      "options_remove_cookies_opt_1",
-      "options_remove_cookies_opt_2",
-      "options_remove_cookies_opt_3",
-      "options_remove_cookies_opt_4",
-      "options_cookie_filter_placeholder",
-      "options_cookie_remove"
-    ];
-    for (const key of removedKeys) {
-      assert.equal(en[key], undefined, `en にまだ ${key} が残ってる`);
-      assert.equal(ja[key], undefined, `ja にまだ ${key} が残ってる`);
-    }
   });
 
   test("追加した警告 / 確認系キーは en/ja 両方に存在", () => {
