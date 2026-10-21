@@ -87,40 +87,17 @@ function isHttpTab(tab) {
   return /^https?:\/\//i.test(getTabNavigationUrl(tab));
 }
 
-// onInstalled と onStartup の二重発火等で並走しないよう SW モジュールスコープでガード。
-let reloadStartupTabsRunning = false;
+async function reloadStartupTabs(reloadedTabs) {
+  for (const delayMs of STARTUP_RELOAD_DISCOVERY_DELAYS) {
+    await sleep(delayMs);
 
-async function reloadStartupTabs() {
-  if (reloadStartupTabsRunning) {
-    return;
-  }
-  reloadStartupTabsRunning = true;
-  try {
-    const reloadedTabs = new Set();
+    // url パターンで API 側フィルタ → JS 側の isHttpTab は重複排除のフォールバック扱い
+    const tabs = await queryTabs({ url: ["http://*/*", "https://*/*"] });
+    const reloadTargets = tabs.filter((tab) =>
+      isHttpTab(tab) && !reloadedTabs.has(tab.id)
+    );
 
-    for (const delayMs of STARTUP_RELOAD_DISCOVERY_DELAYS) {
-      await sleep(delayMs);
-
-      // url パターンで API 側フィルタ → JS 側の isHttpTab は重複排除のフォールバック扱い
-      const tabs = await queryTabs({ url: ["http://*/*", "https://*/*"] });
-      const reloadTargets = tabs.filter((tab) =>
-        isHttpTab(tab) && !reloadedTabs.has(tab.id)
-      );
-
-      for (let i = 0; i < reloadTargets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
-        const batch = reloadTargets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
-        await Promise.all(batch.map((tab) => {
-          reloadedTabs.add(tab.id);
-          return reloadTab(tab.id);
-        }));
-
-        if (i + STARTUP_RELOAD_BATCH_SIZE < reloadTargets.length) {
-          await sleep(STARTUP_RELOAD_INTERVAL_MS);
-        }
-      }
-    }
-  } finally {
-    reloadStartupTabsRunning = false;
+    await reloadTabsInBatches(reloadTargets, reloadedTabs);
   }
 }
 
@@ -128,13 +105,20 @@ async function reloadStartupTabs() {
 // browsingData.remove はプロファイル全体のキャッシュ等を消すため、
 // アクティブタブだけリロードしても他タブは古いキャッシュ参照のままになる。
 // ユーザー想定の挙動と揃えるため tabs 権限の範囲で全 HTTP タブを対象とする。
-async function reloadAllTabs() {
+async function reloadAllTabs(reloadedTabs) {
   const tabs = await queryTabs({ url: ["http://*/*", "https://*/*"] });
   const targets = tabs.filter(isHttpTab);
 
+  await reloadTabsInBatches(targets, reloadedTabs);
+}
+
+async function reloadTabsInBatches(targets, reloadedTabs) {
   for (let i = 0; i < targets.length; i += STARTUP_RELOAD_BATCH_SIZE) {
     const batch = targets.slice(i, i + STARTUP_RELOAD_BATCH_SIZE);
-    await Promise.all(batch.map((tab) => reloadTab(tab.id)));
+    await Promise.all(batch.map((tab) => {
+      reloadedTabs.add(tab.id);
+      return reloadTab(tab.id);
+    }));
 
     if (i + STARTUP_RELOAD_BATCH_SIZE < targets.length) {
       await sleep(STARTUP_RELOAD_INTERVAL_MS);
@@ -176,11 +160,17 @@ function runClear(loadSettings, intent) {
   const run = (async () => {
     const settings = await loadSettings();
     const result = await clearDataWithSettings(settings);
+    const reloadedTabs = new Set();
 
     if (inFlightClearIntent.startup && result.shouldReloadStartupTabs) {
-      await reloadStartupTabs();
+      await reloadStartupTabs(reloadedTabs);
     } else if (inFlightClearIntent.manual && settings.autorefresh) {
-      await reloadAllTabs();
+      await reloadAllTabs(reloadedTabs);
+
+      // 手動の探索・再読み込み待ちに合流した起動処理も、復元タブを再探索する。
+      if (inFlightClearIntent.startup && result.shouldReloadStartupTabs) {
+        await reloadStartupTabs(reloadedTabs);
+      }
     }
 
     return result;

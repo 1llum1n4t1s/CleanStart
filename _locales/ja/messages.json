@@ -26,6 +26,9 @@
   "popup_clear_failed": {
     "message": "失敗しました - タップで再試行"
   },
+  "popup_settings_failed": {
+    "message": "設定の保存・読み込みに失敗しました。ポップアップを開き直して、保存済みの設定を確認してください。"
+  },
   "popup_current_settings": {
     "message": "現在の削除対象"
   },

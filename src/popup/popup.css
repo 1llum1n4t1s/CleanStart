@@ -11,7 +11,6 @@
   --bg: #f4f4f5;
   --bg-grad: radial-gradient(120% 80% at 50% -10%, #ffffff 0%, #f4f4f5 60%, #ececef 100%);
   --surface: #ffffff;
-  --surface-soft: #fafafa;
   --surface-inset: #f4f4f5;
   --border: #e4e4e7;
   --border-strong: #d4d4d8;
@@ -36,7 +35,6 @@
   --confirm-hover: #b91c1c;
 
   --success: #15803d;
-  --success-hover: #166534;
 
   --star: #ca8a04;
 
@@ -53,8 +51,6 @@
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --dur: 160ms;
@@ -70,7 +66,6 @@
     --bg: #09090b;
     --bg-grad: radial-gradient(120% 80% at 50% -10%, #1a1a1f 0%, #0e0e11 55%, #09090b 100%);
     --surface: #131317;
-    --surface-soft: #16161b;
     --surface-inset: #1c1c22;
     --border: #27272a;
     --border-strong: #3f3f46;
@@ -95,7 +90,6 @@
     --confirm-hover: #fca5a5;
 
     --success: #34d399;
-    --success-hover: #6ee7b7;
 
     --star: #facc15;
 

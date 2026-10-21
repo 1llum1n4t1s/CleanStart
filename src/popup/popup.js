@@ -10,8 +10,18 @@
   const timePeriodInputs = Array.from(document.querySelectorAll("#time-period input[type='radio']"));
   const selectionTags = document.getElementById("selection-tags");
   const periodChip = document.getElementById("period-chip");
+  const settingsError = document.getElementById("settings-error");
+  const settingsInputs = [autorefresh, clearOnStartup, ...removeInputs, ...timePeriodInputs];
 
   let currentSettings = null;
+  let settingsReady = false;
+  let settingsSavePending = false;
+
+  function updateControlAvailability() {
+    const disabled = !settingsReady || settingsSavePending || clearButton.dataset.state === "busy";
+    clearButton.disabled = disabled;
+    settingsInputs.forEach((input) => { input.disabled = disabled; });
+  }
 
   function getLabel(messageKey, fallback) {
     return chrome.i18n.getMessage(messageKey) || fallback;
@@ -73,6 +83,7 @@
 
   function render(settings) {
     currentSettings = settings;
+    settingsReady = true;
     autorefresh.checked = settings.autorefresh;
     clearOnStartup.checked = settings.clearonstartup;
     updateClearOnStartupWarning();
@@ -86,6 +97,37 @@
     });
 
     updateSelectionSummary();
+    updateControlAvailability();
+  }
+
+  async function saveSettings(write) {
+    if (!settingsReady || settingsSavePending || clearButton.dataset.state === "busy") {
+      return;
+    }
+
+    settingsSavePending = true;
+    cancelConfirmTimer();
+    setClearButtonStateExtended("idle");
+    let failed = false;
+    try {
+      markSelfWrite();
+      await write();
+    } catch (error) {
+      failed = true;
+      console.warn("Clean Start settings save failed:", error?.message || error);
+    }
+
+    // 成否にかかわらず保存値を読み直し、表示と実際の削除対象を一致させる。
+    try {
+      await loadSettingsIntoPopup();
+    } catch (error) {
+      failed = true;
+      console.warn("Clean Start settings reload failed:", error?.message || error);
+    } finally {
+      settingsError.hidden = !failed;
+      settingsSavePending = false;
+      updateControlAvailability();
+    }
   }
 
   function safeAsync(handler) {
@@ -157,7 +199,7 @@
 
   function setClearButtonStateExtended(state) {
     clearButton.dataset.state = state;
-    clearButton.disabled = state === "busy";
+    updateControlAvailability();
 
     if (state === "confirming") {
       clearLabel.textContent = getLabel("popup_confirm", "Tap again to clear");
@@ -197,6 +239,9 @@
   }
 
   async function handleClearClick() {
+    if (!settingsReady || settingsSavePending) {
+      return;
+    }
     const currentState = clearButton.dataset.state;
 
     if (currentState === "confirming") {
@@ -220,8 +265,15 @@
 
   async function loadSettingsIntoPopup() {
     // background SW の onInstalled で ensureDefaults() 済み。popup は load() のみ。
-    const settings = await CleanStartSettings.load();
-    render(settings);
+    try {
+      const settings = await CleanStartSettings.load();
+      render(settings);
+    } catch (error) {
+      settingsReady = false;
+      settingsError.hidden = false;
+      updateControlAvailability();
+      throw error;
+    }
   }
 
   // SW がエラー時にセットした ! バッジを popup を開いたタイミングで消す。
@@ -251,7 +303,7 @@
     if (areaName !== "local") {
       return;
     }
-    if (Date.now() < selfWriteSuppressUntil) {
+    if (settingsSavePending || Date.now() < selfWriteSuppressUntil) {
       return;
     }
     loadSettingsIntoPopup().catch((error) => {
@@ -269,49 +321,26 @@
 
   clearButton.addEventListener("click", safeAsync(handleClearClick));
   autorefresh.addEventListener("change", safeAsync(async (event) => {
-    if (!currentSettings) {
-      return;
-    }
-
-    currentSettings.autorefresh = event.target.checked;
-    markSelfWrite();
-    await CleanStartSettings.setFlag("autorefresh", event.target.checked);
+    const value = event.target.checked;
+    await saveSettings(() => CleanStartSettings.setFlag("autorefresh", value));
   }));
   clearOnStartup.addEventListener("change", safeAsync(async (event) => {
-    if (!currentSettings) {
-      return;
-    }
-
-    currentSettings.clearonstartup = event.target.checked;
-    updateClearOnStartupWarning();
-    markSelfWrite();
-    await CleanStartSettings.setFlag("clearonstartup", event.target.checked);
+    const value = event.target.checked;
+    await saveSettings(() => CleanStartSettings.setFlag("clearonstartup", value));
   }));
   removeInputs.forEach((input) => {
     input.addEventListener("change", safeAsync(async () => {
-      if (!currentSettings) {
-        return;
-      }
-
-      currentSettings.dataToRemove = removeInputs
+      const value = removeInputs
         .filter((item) => item.checked)
         .map((item) => item.value);
 
-      markSelfWrite();
-      await CleanStartSettings.setDataToRemove(currentSettings.dataToRemove);
-      updateSelectionSummary();
+      await saveSettings(() => CleanStartSettings.setDataToRemove(value));
     }));
   });
   timePeriodInputs.forEach((input) => {
     input.addEventListener("change", safeAsync(async (event) => {
-      if (!currentSettings) {
-        return;
-      }
-
-      currentSettings.timePeriod = event.target.value;
-      markSelfWrite();
-      await CleanStartSettings.setTimePeriod(event.target.value);
-      updateSelectionSummary();
+      const value = event.target.value;
+      await saveSettings(() => CleanStartSettings.setTimePeriod(value));
     }));
   });
 

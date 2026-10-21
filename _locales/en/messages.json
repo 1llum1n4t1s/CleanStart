@@ -26,6 +26,9 @@
   "popup_clear_failed": {
     "message": "Failed - tap to retry"
   },
+  "popup_settings_failed": {
+    "message": "Settings could not be saved or loaded. Reopen this popup to check your saved settings."
+  },
   "popup_current_settings": {
     "message": "Current Clean Target"
   },
