@@ -13,38 +13,33 @@ const HTML_CONFIGS = [
     input: path.join(TEMPLATE_DIR, '01-feature-overview.html'),
     output: '01-feature-overview-1280x800.png',
     width: 1280,
-    height: 800,
-    type: 'screenshot'
+    height: 800
   },
   {
     input: path.join(TEMPLATE_DIR, '02-how-to-use.html'),
     output: '02-how-to-use-1280x800.png',
     width: 1280,
-    height: 800,
-    type: 'screenshot'
+    height: 800
   },
   {
     input: path.join(TEMPLATE_DIR, '03-hero-promo.html'),
     output: '03-hero-promo-1280x800.png',
     width: 1280,
-    height: 800,
-    type: 'screenshot'
+    height: 800
   },
   // プロモーションタイル (小): 440x280
   {
     input: path.join(TEMPLATE_DIR, '04-promo-small.html'),
     output: 'promo-small-440x280.png',
     width: 440,
-    height: 280,
-    type: 'promo-small'
+    height: 280
   },
   // マーキープロモーションタイル: 1400x560
   {
     input: path.join(TEMPLATE_DIR, '05-promo-marquee.html'),
     output: 'promo-marquee-1400x560.png',
     width: 1400,
-    height: 560,
-    type: 'promo-marquee'
+    height: 560
   }
 ];
 
@@ -64,7 +59,7 @@ async function generateScreenshot(browser, htmlPath, outputPath, width, height) 
       timeout: 30000
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await page.evaluate(() => document.fonts.ready);
 
     await page.screenshot({
       path: outputPath,
@@ -76,7 +71,7 @@ async function generateScreenshot(browser, htmlPath, outputPath, width, height) 
     console.log(`✅ 生成完了: ${outputPath} (${width}x${height})`);
   } catch (error) {
     console.error(`❌ エラー: ${htmlPath} -> ${outputPath}`);
-    console.error(error);
+    throw error;
   } finally {
     await page.close();
   }
@@ -90,7 +85,7 @@ async function main() {
   // --no-sandbox は CI のコンテナ環境でのみ必要。
   // ローカル端末では Chrome のサンドボックスを有効に保つ。
   const browser = await puppeteer.launch({
-    headless: 'new',
+    headless: true,
     args: process.env.CI ? ['--no-sandbox', '--disable-setuid-sandbox'] : [],
     protocolTimeout: 300000
   });
