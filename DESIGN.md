@@ -19,7 +19,7 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 | `src/shared/security.js` | Service Worker が受け取るメッセージ送信元の認可 |
 | `src/shared/localize.js` / `_locales/` | DOM の `data-i18n` とプレースホルダーへの翻訳適用 |
 | `src/shared/kagayoi-support-*.js` / `*.css` | 問い合わせフォームとストア評価導線。`@kagayoi/support-extension` の共通部品を同梱 |
-| `tests/` | 設定契約、送信元認可、i18n、問い合わせ部品と manifest の整合性を Node 組み込みテストで検証 |
+| `tests/` | 設定契約、送信元認可、削除・再読み込みの並行性、i18n、問い合わせ部品と manifest の整合性を Node 組み込みテストで検証 |
 | `scripts/` / `webstore/` | `sharp` によるアイコン生成と `puppeteer` によるストア画像生成 |
 | `.github/workflows/publish.yml` | `release/<manifest version>` push 時の ZIP 作成と Chrome Web Store 公開 |
 
@@ -47,8 +47,9 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 ### 設定変更
 
 1. ポップアップが正規化済み設定を読み込み、チェックボックス・期間・要約を描画します。
-2. 利用者の変更を `CleanStartSettings` の setter 経由で `chrome.storage.local` へ保存します。
-3. ポップアップ自身の書き込み直後は storage change の再読込を短時間抑制し、抑制期間外の local storage 変更で設定を再読込します。抑制中は外部変更も区別せず無視します。
+2. 利用者の変更は削除確認を解除してから、`CleanStartSettings` の setter 経由で `chrome.storage.local` へ保存します。初回読込前・保存中・削除中は設定入力と削除ボタンを無効にします。
+3. 保存の成否にかかわらず保存値を再読込し、表示と削除対象を揃えます。保存または再読込の失敗を設定エラーとして表示し、読込に失敗した場合は設定入力と削除ボタンを無効にします。保存失敗後も再読込に成功すれば保存済み設定で操作を再開できます。
+4. 保存中および自身の書き込み開始から200 ms以内の storage change は外部変更も区別せず無視し、それ以外の local storage 変更で設定を再読込します。
 
 ### 手動削除
 
@@ -58,7 +59,7 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 4. 期間を `since` timestamp、対象配列を `{ type: true }` へ変換し、`chrome.browsingData.remove` を実行します。
 5. `autorefresh` が有効なら、全 HTTP(S) タブを5件ずつ再読み込みし、batch 間に 250 ms の間隔を置きます。起動時も同じ batch サイズと間隔です。
 
-手動削除と起動時削除を含め、同時に複数の削除要求が届いた場合は `inFlightClear` の同じ Promise を共有します。合流した要求の再読み込み意図も統合し、起動時の2段階 discovery を優先することで、プロファイル全体への削除とタブ再読み込みの二重実行を防ぎます。Service Worker の cold start による配送失敗だけはポップアップ側で1回再試行し、処理継続中の可能性がある timeout は再送しません。
+手動削除と起動時削除を含め、同時に複数の削除要求が届いた場合は `inFlightClear` の同じ Promise を共有し、先に始まった要求の設定で削除します。合流した要求の再読み込み意図も統合し、起動時の2段階 discovery を優先します。手動の探索・再読み込み中に起動時要求が合流した場合も、対象データ型に応じて2段階 discovery を追加します。手動・起動時で再読み込みを試行したタブ ID の集合を共有し、追加探索での同じタブの再読み込みを防ぎます。Service Worker の cold start による配送失敗だけはポップアップ側で1回再試行し、処理継続中の可能性がある timeout は再送しません。
 
 ### 起動時削除
 
@@ -92,4 +93,4 @@ Service Worker の削除失敗は赤い `!` バッジで残します。ポップ
 
 ## 配布境界
 
-公開 CI は依存インストール、アイコン生成、テスト後に、manifest、popup、ロケール、アイコン、`src/` を ZIP 化して Chrome Web Store へ公開を要求します。同梱サポート資産は CI 内では再同期されません。ローカル ZIP スクリプトも同梱済みソースを使用します。同期・ビルド・検証コマンドは [AGENTS.md](AGENTS.md#開発と検証) を参照してください。
+公開 CI は依存インストール、アイコン生成、テスト後に、manifest、popup、ロケール、アイコン、`src/` を ZIP 化して Chrome Web Store へ公開を要求します。同梱サポート資産は CI 内では再同期されません。ローカル ZIP スクリプトも依存インストールとアイコン生成を行い、同梱済みソースを使用しますが、テストは実行しません。いずれの梱包経路も配布用 manifest から開発用の `key` を除去します。同期・ビルド・検証コマンドは [AGENTS.md](AGENTS.md#開発と検証) を参照してください。

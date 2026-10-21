@@ -31,5 +31,6 @@ pwsh -NoProfile -File zip.ps1              # Windows で配布 ZIP 作成
 - 期間を変更するときは `TIME_PERIODS`、`TIME_PERIOD_MESSAGE_KEYS`、`getSince`、既定値、ポップアップと翻訳を揃えます。
 - Service Worker の共有処理は DOM 非依存の `settings.js` / `security.js` を使います。`localize.js` はポップアップで読み込みます。
 - メッセージ処理の変更では送信元認可と保存設定による削除対象の決定を維持し、`tests/security.test.js` と `tests/background.test.js` で確認します。削除・再読み込みの並行性とエラー通知は [DESIGN.md](DESIGN.md#データフロー) に照合します。
+- ポップアップの設定処理を変更した場合は、保存遅延・保存失敗・読込失敗を実際のポップアップで確認します。保存中と削除中の操作抑止、変更時の削除確認解除、保存後の再読込とエラー表示を維持します。
 - 権限と外部通信の変更時は [DESIGN.md](DESIGN.md#セキュリティと権限) の境界に照合し、manifest、問い合わせ契約、利用者向け説明とプライバシーポリシーの整合を確認します。
 - バージョン更新の依頼時は `manifest.json` の `version` を正本として `package.json` と同期します。公開ブランチ名は `release/<manifest version>` に揃えます。
