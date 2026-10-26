@@ -14,7 +14,7 @@
   "devDependencies": {
     "@kagayoi/support-extension": "1.0.8",
     "chrome-webstore-upload-cli": "4.0.2",
-    "puppeteer": "25.15.0",
+    "puppeteer": "25.16.0",
     "sharp": "0.35.5"
   },
   "keywords": [
