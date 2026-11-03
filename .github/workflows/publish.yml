@@ -8,19 +8,33 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: publish-${{ github.repository }}
+  cancel-in-progress: false
+  queue: max
+
 jobs:
   publish:
     name: Chrome Web Store 公開
     runs-on: ubuntu-latest
     steps:
-      - name: リポジトリをチェックアウト
-        # actions/checkout v7.0.1 (commit SHA で固定)
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Checkout release commit with native git
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $auth" fetch --no-tags --depth=1 origin "$GITHUB_SHA"
+          git checkout --detach FETCH_HEAD
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $auth" submodule update --init --recursive
 
       - name: バージョンを取得
         id: version
         run: |
-          version=$(node -p "require('./manifest.json').version")
+          version=$(bun -p "require('./manifest.json').version")
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "📦 公開対象バージョン: $version"
 
@@ -36,34 +50,25 @@ jobs:
           fi
           echo "✅ ブランチ名と manifest バージョン一致: $expected"
 
-      - name: pnpm セットアップ
-        # pnpm/action-setup v6.1.0 (commit SHA で固定)
-        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413
-        with:
-          version: 11
-
-      - name: Node セットアップ
-        # actions/setup-node v7.1.0 (commit SHA で固定)
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
-        with:
-          node-version: '22'
-          cache: 'pnpm'
+      - name: Prepare native Bun build toolchain
+        shell: pwsh
+        run: ./scripts/Initialize-BunBuild.ps1 -VersionFile 'package.json'
 
       - name: 依存インストール
-        # lockfile 整合性を強制するため pnpm install --frozen-lockfile のみ。
-        run: pnpm install --frozen-lockfile
+        # lockfile 整合性を強制するため bun run deps のみ。
+        run: bun run deps
 
       - name: アイコン生成
-        run: node scripts/generate-icons.js
+        run: bun scripts/generate-icons.js
 
       - name: テスト実行
-        run: pnpm test
+        run: bun --bun run test
 
       - name: zip パッケージを作成
         run: |
           # manifest.json から key フィールドを除去 (key はローカル開発専用、ストアアップロード時は不要)
           BUILD_DIR=$(mktemp -d)
-          node -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('$BUILD_DIR/manifest.json',JSON.stringify(m,null,2))"
+          bun -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('$BUILD_DIR/manifest.json',JSON.stringify(m,null,2))"
           mkdir -p "$BUILD_DIR/icons"
           cp icons/icon-16.png icons/icon-48.png icons/icon-128.png "$BUILD_DIR/icons/"
           cp popup.html "$BUILD_DIR/"
@@ -73,13 +78,6 @@ jobs:
           ls -lh clean-start.zip
 
       - name: Chrome Web Store にアップロード & 公開
-        # chrome-webstore-upload-cli はローカル devDep にインストール済 (package.json で固定)。
-        # secrets を持つステップでレジストリから未検証コードを取得しない方針のため
-        # `pnpm exec` を指定し、node_modules 内のローカル版だけを呼ぶ (無ければ失敗する)。
-        # v4 以降は --client-id 等の CLI フラグが廃止され、環境変数 (CLIENT_ID 等) が必須。
-        # PUBLISHER_ID も新規必須項目。コマンド (upload/publish) を省略すると
-        # upload → publish の両方が自動実行される (旧 --auto-publish 相当)。
-        # バイナリ名は `chrome-webstore-upload` (npm パッケージ名 chrome-webstore-upload-cli とは別名)。
         env:
           CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
@@ -87,19 +85,5 @@ jobs:
           EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
           PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
         run: |
-          # 同 version 再 push（release ブランチ再 push 等）では既にアップロード/審査中で
-          # cli が exit 1 になる。これは無害な重複なので warning 化して CI を green に保つ。
-          set +e
-          pnpm exec chrome-webstore-upload \
-            --source clean-start.zip 2>&1 | tee /tmp/cws.log
-          rc=${PIPESTATUS[0]}
-          set -e
-          if [ "$rc" -ne 0 ]; then
-          if grep -qiE "ITEM_NOT_UPDATABLE|pending review|ready to publish|cannot be updated|already (published|exists|uploaded)|currently in review|item that is in review|in_review|version already|DUPLICATE_VERSION" /tmp/cws.log; then
-              echo "::warning::Chrome Web Store に同 version が既にアップロード/公開済み。CI green 化のため exit 0 扱いに変換します"
-            else
-              echo "::error::chrome-webstore-upload が同 version 重複以外の理由で失敗しました (rc=$rc)。ログ確認要"
-              exit "$rc"
-            fi
-          fi
-          echo "🎉 Chrome Web Store への公開リクエストを送信したよ〜"
+          pwsh -NoProfile -File scripts/Test-PublishCws.ps1 -WorkDirectory "$RUNNER_TEMP/cws-publisher-tests"
+          pwsh -NoProfile -File scripts/Publish-Cws.ps1 -Archive "clean-start.zip"

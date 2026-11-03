@@ -45,10 +45,10 @@ if ($scriptDir) { Set-Location $scriptDir }
 
 Write-Host "Packaging Clean Start..." -ForegroundColor Cyan
 
-pnpm install --frozen-lockfile
-if ($LASTEXITCODE -ne 0) { throw "pnpm install --frozen-lockfile failed." }
+bun run deps
+if ($LASTEXITCODE -ne 0) { throw "bun run deps failed." }
 
-node scripts/generate-icons.js
+bun scripts/generate-icons.js
 if ($LASTEXITCODE -ne 0) { throw "Icon generation failed." }
 
 $zipName = "clean-start.zip"
@@ -64,7 +64,7 @@ if (Test-Path $tempDir) {
 
 New-Item -ItemType Directory -Path $tempDir | Out-Null
 
-node -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('temp-build/manifest.json',JSON.stringify(m,null,2))"
+bun -e "const m=require('./manifest.json');delete m.key;require('fs').writeFileSync('temp-build/manifest.json',JSON.stringify(m,null,2))"
 if ($LASTEXITCODE -ne 0) { throw "Manifest preparation failed." }
 Copy-Item "popup.html" -Destination $tempDir
 Copy-Item "_locales" -Destination $tempDir -Recurse
