@@ -1,9 +1,11 @@
 <!doctype html>
-<html lang="">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <!-- 共通 i18n モジュール。<head> の最初の script として classic で読む（Kagayoi フッターが参照する lang を module より先に確定させるため）。 -->
+  <script src="src/shared/ui-localizer.js"></script>
   <title data-i18n="app_name">Clean Start</title>
   <!-- 外部フォント (Google Fonts) は読み込まない。
        CSP に default-src / style-src が無いため外部 stylesheet は実際に取得されてしまい、
@@ -20,6 +22,7 @@
         <h1 data-i18n="app_name">Clean Start</h1>
         <p class="header-hint" data-i18n="popup_hint">Clear browser data from the current profile with one click.</p>
       </div>
+      <select id="uiLanguage" class="language-select" data-i18n-attr="aria-label:languageSelectLabel;title:languageSelectTitle"></select>
     </header>
 
     <section class="action-panel surface-card">
@@ -49,7 +52,7 @@
         <li>
           <label class="checkbox-row" for="autorefresh">
             <input type="checkbox" name="autorefresh" id="autorefresh">
-            <span data-i18n="options_common_1">Automatically reload the active tab after clearing</span>
+            <span data-i18n="options_common_1">Automatically reload all HTTP tabs after clearing</span>
           </label>
         </li>
         <li>
@@ -190,7 +193,6 @@
   </main>
 
   <script src="src/shared/settings.js"></script>
-  <script src="src/shared/localize.js"></script>
   <script src="src/popup/popup.js"></script>
   <script type="module" src="src/shared/kagayoi-support-popup.js"></script>
   <script type="module" src="src/shared/kagayoi-support-footer.js"></script>

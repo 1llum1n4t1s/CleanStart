@@ -1,0 +1,7 @@
+{
+  "localesDir": "_locales",
+  "manifests": ["manifest.json"],
+  "localizerPath": "src/shared/ui-localizer.js",
+  "languageSwitcher": true,
+  "i18nFunctions": ["getLabel"]
+}

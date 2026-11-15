@@ -17,17 +17,17 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 | `src/background/background.js` | 設定に基づく削除、起動時削除、HTTP(S) タブの再読み込み、エラーバッジ |
 | `src/shared/settings.js` | 設定スキーマ、既定値、正規化、ストレージ入出力、削除対象・期間の変換 |
 | `src/shared/security.js` | Service Worker が受け取るメッセージ送信元の認可 |
-| `src/shared/localize.js` / `_locales/` | DOM の `data-i18n` とプレースホルダーへの翻訳適用 |
+| `src/shared/ui-localizer.js` / `_locales/` | 共通 `Localizer`（`data-i18n` / `data-i18n-attr` の翻訳適用、言語切替セレクト）と 9 言語の messages.json |
 | `src/shared/kagayoi-support-*.js` / `*.css` | 問い合わせフォームとストア評価導線。`@kagayoi/support-extension` の共通部品を同梱 |
 | `tests/` | 設定契約、送信元認可、削除・再読み込みの並行性、i18n、問い合わせ部品と manifest の整合性を Bun の node:test 互換テストで検証 |
-| `scripts/` / `webstore/` | `sharp` によるアイコン生成と `puppeteer` によるストア画像生成 |
+| `scripts/` / `webstore/` | `sharp` によるアイコン生成と、共通キット `webstore/vitrina/`（`puppeteer` で実拡張の popup を9言語で撮影・合成。設定は `webstore/store-assets.json`）によるストア画像生成 |
 | `.github/workflows/publish.yml` | `release/<manifest version>` push 時の ZIP 作成と Chrome Web Store 公開 |
 
 ## 実行コンテキストと共有コード
 
-拡張はポップアップと Service Worker の2つの実行コンテキストを持ちます。設定・認可の共有 JS は IIFE で `globalThis` に公開しつつ CommonJS でも export し、classic script、`importScripts`、Bun テストの `require()` から利用します。ローカライズは IIFE で `globalThis.Localize` に公開するブラウザ用コードです。Kagayoi Support の Web Components はポップアップから ES module として読み込み、Shadow DOM 内では `chrome.runtime.getURL` で解決した同梱CSSを参照します。
+拡張はポップアップと Service Worker の2つの実行コンテキストを持ちます。設定・認可の共有 JS は IIFE で `globalThis` に公開しつつ CommonJS でも export し、classic script、`importScripts`、Bun テストの `require()` から利用します。ローカライズは Kagayoi.Support 正本の共通モジュールが `globalThis.Localizer` に公開します（選択言語は `storage.local` の `uiLanguage` 等に保存）。Kagayoi Support の Web Components はポップアップから ES module として読み込み、Shadow DOM 内では `chrome.runtime.getURL` で解決した同梱CSSを参照します。
 
-`localize.js` は DOM に依存するためポップアップ専用です。Service Worker は DOM 非依存の `settings.js` と `security.js` だけを読み込みます。バンドラーは使わず、リポジトリ直下がそのまま拡張のロード単位です。
+`ui-localizer.js` はポップアップで `<head>` 先頭に読み込みます（UI 文言を持たない Service Worker には読み込みません）。Service Worker は DOM 非依存の `settings.js` と `security.js` だけを読み込みます。バンドラーは使わず、リポジトリ直下がそのまま拡張のロード単位です。
 
 ## 設定モデル
 

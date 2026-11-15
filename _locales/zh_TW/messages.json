@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "透過可設定的選項，清除 Chrome 的瀏覽記錄、快取、Cookie 和網站儲存資料。"
+  },
+  "popup_brand_subtitle": {
+    "message": "瀏覽記錄與快取清理工具"
+  },
+  "popup_hint": {
+    "message": "一鍵清除目前設定檔中的瀏覽資料。"
+  },
+  "popup_clear": {
+    "message": "清除"
+  },
+  "popup_confirm": {
+    "message": "再按一次以確認"
+  },
+  "popup_clearing": {
+    "message": "清除中…"
+  },
+  "popup_clean": {
+    "message": "完成"
+  },
+  "popup_clear_failed": {
+    "message": "失敗 - 按一下重試"
+  },
+  "popup_settings_failed": {
+    "message": "無法儲存或載入設定。請重新開啟此快顯視窗，檢查已儲存的設定。"
+  },
+  "popup_current_settings": {
+    "message": "目前的清除目標"
+  },
+  "popup_current_hint": {
+    "message": "按下「清除」後，將依這些設定執行。"
+  },
+  "popup_selected_data": {
+    "message": "將清除的項目"
+  },
+  "popup_nothing_selected": {
+    "message": "未選取任何項目"
+  },
+  "options_common": {
+    "message": "一般設定"
+  },
+  "options_common_1": {
+    "message": "清除後自動重新整理所有 HTTP 分頁"
+  },
+  "options_common_2": {
+    "message": "Chrome 啟動時自動清除"
+  },
+  "options_clearonstartup_warning": {
+    "message": "注意：啟用後，每次 Chrome 啟動時都會自動清除所選的全部資料。可能會登出各網站，並遺失工作階段資料。"
+  },
+  "options_remove": {
+    "message": "要清除的資料"
+  },
+  "options_time_period": {
+    "message": "時間範圍"
+  },
+  "options_last_hour": {
+    "message": "最近 1 小時"
+  },
+  "options_last_day": {
+    "message": "最近 24 小時"
+  },
+  "options_last_week": {
+    "message": "最近 1 週"
+  },
+  "options_last_month": {
+    "message": "最近 4 週"
+  },
+  "options_everything": {
+    "message": "全部"
+  },
+  "options_remove_cache": {
+    "message": "快取"
+  },
+  "options_remove_cache_desc": {
+    "message": "清除 Chrome 為加快網站載入速度而儲存的圖片、CSS 和 JavaScript 等暫存檔案。下次載入頁面時可能會稍慢一些，但登入資訊和已儲存的表單內容通常會保留。"
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "清除現代網頁應用程式和 PWA 為支援離線使用及加快載入而使用的 Cache Storage 資料。不會刪除書籤或已儲存的密碼，但部分網站可能需要重新下載應用程式資源或重建離線資料。"
+  },
+  "options_remove_cookies": {
+    "message": "Cookie"
+  },
+  "options_remove_cookies_desc": {
+    "message": "清除用來儲存登入工作階段、網站偏好設定、購物車狀態等資料的 Cookie。這可能會登出網站或重設網站設定。不會刪除已儲存的密碼本身。"
+  },
+  "options_remove_downloads": {
+    "message": "下載記錄"
+  },
+  "options_remove_downloads_desc": {
+    "message": "僅清除 Chrome 的下載記錄清單，不會刪除儲存在電腦上的實際檔案。"
+  },
+  "options_remove_fsys": {
+    "message": "檔案系統"
+  },
+  "options_remove_fsys_desc": {
+    "message": "清除舊版瀏覽器檔案系統 API 所建立的網站資料。不會刪除一般的本機檔案或文件。在新版 Chrome 中，只有少數舊版網頁應用程式會受影響。"
+  },
+  "options_remove_forms": {
+    "message": "表單資料"
+  },
+  "options_remove_forms_desc": {
+    "message": "清除已儲存的表單建議，例如姓名、地址和先前輸入過的值。這可能會減少自動填入建議，但不會直接刪除已儲存的密碼或目前的登入工作階段。"
+  },
+  "options_remove_history": {
+    "message": "瀏覽記錄"
+  },
+  "options_remove_history_desc": {
+    "message": "刪除所選時間範圍內的瀏覽記錄。網址列建議和「歷史記錄」頁面將不再包含這些項目。不會關閉目前已開啟的分頁。"
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "刪除網站和網頁應用程式建立的 IndexedDB 資料庫。這可能會清除離線資料、快取的應用程式狀態，或某些網站儲存在本機的未完成內容。可能需要重新登入，或讓網站重新同步。"
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "清除網站儲存的 Local Storage 資料，例如少量設定、介面偏好和輕量的工作階段狀態。部分網站可能會重設顯示選項，或遺失儲存在本機的狀態。"
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "清除網站用於背景更新、通知和離線功能的 Service Worker 註冊。許多網站會在下次造訪時重新建立，但離線功能、推播行為或應用程式狀態可能需要重新初始化。"
+  },
+  "languageAuto": {
+    "message": "自動（跟隨瀏覽器）"
+  },
+  "languageSelectLabel": {
+    "message": "語言"
+  },
+  "languageSelectTitle": {
+    "message": "語言（已開啟的頁面需重新整理後生效）"
+  },
+  "kagayoiSupportContact": {
+    "message": "聯絡支援"
+  },
+  "kagayoiSupportRate": {
+    "message": "請為我們評分！"
+  }
+}

@@ -133,5 +133,20 @@
   },
   "options_remove_service_workers_desc": {
     "message": "Removes Service Worker registrations that sites use for background updates, notifications, and offline behavior. Many sites will recreate them on the next visit, but offline features, push behavior, or app state may need to initialize again."
+  },
+  "languageAuto": {
+    "message": "Auto (browser)"
+  },
+  "languageSelectLabel": {
+    "message": "Language"
+  },
+  "languageSelectTitle": {
+    "message": "Language. Open pages need a reload to update."
+  },
+  "kagayoiSupportContact": {
+    "message": "Contact support"
+  },
+  "kagayoiSupportRate": {
+    "message": "Please rate us!"
   }
 }

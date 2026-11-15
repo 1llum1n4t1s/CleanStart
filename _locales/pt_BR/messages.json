@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Limpe o histórico, o cache, os cookies e os dados de sites do Chrome com opções configuráveis."
+  },
+  "popup_brand_subtitle": {
+    "message": "Limpador de histórico e cache"
+  },
+  "popup_hint": {
+    "message": "Limpe os dados de navegação do perfil atual com um clique."
+  },
+  "popup_clear": {
+    "message": "Limpar"
+  },
+  "popup_confirm": {
+    "message": "Toque novamente para confirmar"
+  },
+  "popup_clearing": {
+    "message": "Limpando…"
+  },
+  "popup_clean": {
+    "message": "Concluído"
+  },
+  "popup_clear_failed": {
+    "message": "Falha - toque para tentar novamente"
+  },
+  "popup_settings_failed": {
+    "message": "Não foi possível salvar ou carregar as configurações. Reabra este pop-up para verificar as configurações salvas."
+  },
+  "popup_current_settings": {
+    "message": "Alvo da limpeza atual"
+  },
+  "popup_current_hint": {
+    "message": "Estas configurações serão usadas ao pressionar Limpar."
+  },
+  "popup_selected_data": {
+    "message": "Itens a limpar"
+  },
+  "popup_nothing_selected": {
+    "message": "Nada selecionado"
+  },
+  "options_common": {
+    "message": "Configurações comuns"
+  },
+  "options_common_1": {
+    "message": "Recarregar automaticamente todas as abas HTTP após a limpeza"
+  },
+  "options_common_2": {
+    "message": "Limpar automaticamente ao iniciar o Chrome"
+  },
+  "options_clearonstartup_warning": {
+    "message": "Aviso: ao ativar esta opção, todos os tipos de dados selecionados serão apagados automaticamente sempre que o Chrome for iniciado. Você pode ser desconectado de sites e perder dados de sessão."
+  },
+  "options_remove": {
+    "message": "Dados a remover"
+  },
+  "options_time_period": {
+    "message": "Período"
+  },
+  "options_last_hour": {
+    "message": "Última hora"
+  },
+  "options_last_day": {
+    "message": "Último dia"
+  },
+  "options_last_week": {
+    "message": "Última semana"
+  },
+  "options_last_month": {
+    "message": "Últimas 4 semanas"
+  },
+  "options_everything": {
+    "message": "Tudo"
+  },
+  "options_remove_cache": {
+    "message": "Cache"
+  },
+  "options_remove_cache_desc": {
+    "message": "Remove arquivos temporários, como imagens, CSS e JavaScript, que o Chrome salvou para carregar os sites mais rápido. As páginas podem carregar um pouco mais devagar na próxima vez, mas seus logins e as entradas de formulário salvas normalmente são mantidos."
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "Remove os dados do Cache Storage usados por aplicativos web modernos e PWAs para suporte offline e carregamento mais rápido. Não remove favoritos nem senhas salvas, mas alguns sites podem precisar baixar novamente os recursos do aplicativo ou recriar os dados offline."
+  },
+  "options_remove_cookies": {
+    "message": "Cookies"
+  },
+  "options_remove_cookies_desc": {
+    "message": "Remove os cookies que armazenam sessões de login, preferências de sites, estado do carrinho de compras e dados semelhantes. Isso pode desconectar você de sites ou redefinir as configurações deles. As senhas salvas em si não são excluídas."
+  },
+  "options_remove_downloads": {
+    "message": "Downloads"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Limpa apenas a lista do histórico de downloads do Chrome. Os arquivos salvos no seu computador não são excluídos."
+  },
+  "options_remove_fsys": {
+    "message": "Sistemas de arquivos"
+  },
+  "options_remove_fsys_desc": {
+    "message": "Remove dados de sites criados pelas APIs antigas de sistema de arquivos do navegador. Não exclui seus arquivos locais nem documentos normais. No Chrome atual, isso afeta apenas um pequeno número de aplicativos web antigos."
+  },
+  "options_remove_forms": {
+    "message": "Dados de formulários"
+  },
+  "options_remove_forms_desc": {
+    "message": "Remove sugestões de formulários salvas, como nomes, endereços e valores digitados anteriormente. Isso pode reduzir as sugestões de preenchimento automático, mas não exclui diretamente suas senhas salvas nem suas sessões de login atuais."
+  },
+  "options_remove_history": {
+    "message": "Histórico"
+  },
+  "options_remove_history_desc": {
+    "message": "Exclui os registros das páginas que você visitou no período selecionado. As sugestões da barra de endereços e a página Histórico perderão essas entradas. Isso não fecha suas abas atuais."
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "Exclui os bancos de dados IndexedDB criados por sites e aplicativos web. Isso pode remover dados offline, o estado de aplicativos em cache ou dados de trabalho em andamento que alguns sites armazenam localmente. Talvez seja necessário fazer login novamente ou deixar o site sincronizar de novo."
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "Limpa os dados do Local Storage salvos pelos sites, como pequenas configurações, preferências de interface e estados de sessão leves. Alguns sites podem redefinir as opções de exibição ou esquecer o estado armazenado localmente."
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "Remove os registros de Service Worker que os sites usam para atualizações em segundo plano, notificações e comportamento offline. Muitos sites os recriarão na próxima visita, mas recursos offline, notificações push ou o estado do aplicativo podem precisar ser inicializados novamente."
+  },
+  "languageAuto": {
+    "message": "Automático (navegador)"
+  },
+  "languageSelectLabel": {
+    "message": "Idioma"
+  },
+  "languageSelectTitle": {
+    "message": "Idioma (páginas abertas atualizam ao recarregar)"
+  },
+  "kagayoiSupportContact": {
+    "message": "Falar com o suporte"
+  },
+  "kagayoiSupportRate": {
+    "message": "Avalie-nos!"
+  }
+}

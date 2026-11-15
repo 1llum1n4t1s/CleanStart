@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Borre el historial, la caché, las cookies y los datos de sitios de Chrome con opciones configurables."
+  },
+  "popup_brand_subtitle": {
+    "message": "Limpiador de historial y caché"
+  },
+  "popup_hint": {
+    "message": "Borre los datos de navegación del perfil actual con un solo clic."
+  },
+  "popup_clear": {
+    "message": "Borrar"
+  },
+  "popup_confirm": {
+    "message": "Pulse de nuevo para confirmar"
+  },
+  "popup_clearing": {
+    "message": "Borrando…"
+  },
+  "popup_clean": {
+    "message": "Listo"
+  },
+  "popup_clear_failed": {
+    "message": "Error - pulse para reintentar"
+  },
+  "popup_settings_failed": {
+    "message": "No se pudieron guardar o cargar los ajustes. Vuelva a abrir esta ventana emergente para comprobar los ajustes guardados."
+  },
+  "popup_current_settings": {
+    "message": "Objetivo de borrado actual"
+  },
+  "popup_current_hint": {
+    "message": "Estos ajustes se usarán al pulsar Borrar."
+  },
+  "popup_selected_data": {
+    "message": "Se borrará"
+  },
+  "popup_nothing_selected": {
+    "message": "Nada seleccionado"
+  },
+  "options_common": {
+    "message": "Ajustes comunes"
+  },
+  "options_common_1": {
+    "message": "Recargar automáticamente todas las pestañas HTTP tras borrar"
+  },
+  "options_common_2": {
+    "message": "Borrar automáticamente al iniciar Chrome"
+  },
+  "options_clearonstartup_warning": {
+    "message": "Advertencia: al activar esta opción, se borrarán automáticamente todos los tipos de datos seleccionados cada vez que se inicie Chrome. Es posible que se cierre su sesión en los sitios web y que se pierdan datos de sesión."
+  },
+  "options_remove": {
+    "message": "Datos que borrar"
+  },
+  "options_time_period": {
+    "message": "Período de tiempo"
+  },
+  "options_last_hour": {
+    "message": "Última hora"
+  },
+  "options_last_day": {
+    "message": "Último día"
+  },
+  "options_last_week": {
+    "message": "Última semana"
+  },
+  "options_last_month": {
+    "message": "Últimas 4 semanas"
+  },
+  "options_everything": {
+    "message": "Todo"
+  },
+  "options_remove_cache": {
+    "message": "Caché"
+  },
+  "options_remove_cache_desc": {
+    "message": "Elimina archivos temporales, como imágenes, CSS y JavaScript, que Chrome guardó para cargar los sitios más rápido. Es posible que la próxima vez las páginas tarden un poco más en cargarse, pero los inicios de sesión y los datos de formularios guardados normalmente se conservan."
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "Elimina los datos de Cache Storage que usan las aplicaciones web modernas y las PWA para funcionar sin conexión y cargar más rápido. No elimina los marcadores ni las contraseñas guardadas, pero algunos sitios pueden tener que volver a descargar recursos de la aplicación o reconstruir los datos sin conexión."
+  },
+  "options_remove_cookies": {
+    "message": "Cookies"
+  },
+  "options_remove_cookies_desc": {
+    "message": "Elimina las cookies que almacenan sesiones iniciadas, preferencias del sitio, el estado del carrito de la compra y datos similares. Esto puede cerrar su sesión en sitios web o restablecer sus ajustes. No elimina las contraseñas guardadas en sí."
+  },
+  "options_remove_downloads": {
+    "message": "Descargas"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Borra solo la lista del historial de descargas de Chrome. No elimina los archivos guardados en su equipo."
+  },
+  "options_remove_fsys": {
+    "message": "Sistemas de archivos"
+  },
+  "options_remove_fsys_desc": {
+    "message": "Elimina los datos de sitios creados por las API antiguas de sistema de archivos del navegador. No elimina sus archivos locales normales ni sus documentos. En las versiones actuales de Chrome, solo afecta a un pequeño número de aplicaciones web antiguas."
+  },
+  "options_remove_forms": {
+    "message": "Datos de formularios"
+  },
+  "options_remove_forms_desc": {
+    "message": "Elimina las sugerencias de formularios guardadas, como nombres, direcciones y valores introducidos anteriormente. Esto puede reducir las sugerencias de autocompletado, pero no elimina directamente sus contraseñas guardadas ni sus sesiones iniciadas."
+  },
+  "options_remove_history": {
+    "message": "Historial"
+  },
+  "options_remove_history_desc": {
+    "message": "Elimina los registros de las páginas que visitó en el intervalo de tiempo seleccionado. Las sugerencias de la barra de direcciones y la página Historial perderán esas entradas. No cierra sus pestañas actuales."
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "Elimina las bases de datos IndexedDB creadas por sitios web y aplicaciones web. Esto puede borrar datos sin conexión, el estado almacenado de aplicaciones o trabajos en curso que algunos sitios guardan localmente. Puede que deba iniciar sesión de nuevo o dejar que el sitio se vuelva a sincronizar."
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "Borra los datos de Local Storage guardados por los sitios web, como pequeños ajustes, preferencias de la interfaz y estados de sesión ligeros. Algunos sitios pueden restablecer las opciones de visualización o perder el estado almacenado localmente."
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "Elimina los registros de Service Worker que los sitios usan para actualizaciones en segundo plano, notificaciones y funcionamiento sin conexión. Muchos sitios los volverán a crear en la siguiente visita, pero es posible que las funciones sin conexión, las notificaciones push o el estado de la aplicación deban inicializarse de nuevo."
+  },
+  "languageAuto": {
+    "message": "Automático (navegador)"
+  },
+  "languageSelectLabel": {
+    "message": "Idioma"
+  },
+  "languageSelectTitle": {
+    "message": "Idioma (las páginas abiertas se actualizan al recargar)"
+  },
+  "kagayoiSupportContact": {
+    "message": "Contactar con soporte"
+  },
+  "kagayoiSupportRate": {
+    "message": "¡Déjenos su valoración!"
+  }
+}

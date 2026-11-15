@@ -60,6 +60,18 @@
              "Noto Sans JP", system-ui, sans-serif;
 }
 
+/* 言語ごとの CJK 書体。IBM Plex Sans JP や Hiragino/Yu Gothic が先に当たると、
+   中国語・韓国語の文言が日本語向け字形で描かれるため、lang に合わせて先頭を差し替える。 */
+:root:lang(zh-CN) {
+  --font-ui: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", "Segoe UI", system-ui, sans-serif;
+}
+:root:lang(zh-TW) {
+  --font-ui: "Microsoft JhengHei UI", "PingFang TC", "Noto Sans TC", "Segoe UI", system-ui, sans-serif;
+}
+:root:lang(ko) {
+  --font-ui: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", system-ui, sans-serif;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     /* ---- Dark theme ------------------------------------------------- */
@@ -156,6 +168,28 @@ h1, h2, h3, p { margin: 0; }
    ===================================================================== */
 .popup-header {
   padding: var(--space-2) var(--space-1) 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* 言語切替セレクト（Localizer.mountLanguageSelect が option を生成する） */
+.language-select {
+  flex: 0 0 auto;
+  max-width: 150px;
+  padding: 4px 6px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink-body);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.language-select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 .brand-copy {

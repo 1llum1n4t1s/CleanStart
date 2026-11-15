@@ -1,3 +1,6 @@
+// <html lang> を同期で合わせる。Kagayoi フッター（module script）が最寄りの lang を読む前に確定させる。
+Localizer.applyDocumentLang();
+
 (function initializePopup() {
   const CLEAR_DONE_DISPLAY_MS = 1600;
 
@@ -23,16 +26,21 @@
     settingsInputs.forEach((input) => { input.disabled = disabled; });
   }
 
+  // 文言は共通モジュール Localizer 経由で引く（選択言語 → ブラウザ言語 → 英語 fallback）。
   function getLabel(messageKey, fallback) {
-    return chrome.i18n.getMessage(messageKey) || fallback;
+    return Localizer.t(messageKey, undefined, fallback);
   }
 
-  const labels = {
-    idle: getLabel("popup_clear", "Clear"),
-    busy: getLabel("popup_clearing", "Clearing..."),
-    done: getLabel("popup_clean", "Done"),
-    error: getLabel("popup_clear_failed", "Failed - tap to retry")
-  };
+  // Localizer.ready の後（init）で getLabel から作る。選択言語の辞書が入る前に固定しないため。
+  let labels = {};
+  function buildLabels() {
+    labels = {
+      idle: getLabel("popup_clear", "Clear"),
+      busy: getLabel("popup_clearing", "Clearing..."),
+      done: getLabel("popup_clean", "Done"),
+      error: getLabel("popup_clear_failed", "Failed - tap to retry")
+    };
+  }
 
   function createSelectionChip(text, variant) {
     const tag = document.createElement("span");
@@ -311,8 +319,18 @@
     });
   }
 
-  const localization = new Localize();
-  localization.apply();
+  async function initLocalization() {
+    // 保存済みの選択言語の読み込みと chrome.i18n.getMessage の差し替えを待つ。
+    await Localizer.ready;
+    await Localizer.ensureFresh();
+    Localizer.localizeDocument();
+    // 言語切替 UI。変更時は Localizer が location.reload() で全体へ反映する。
+    Localizer.mountLanguageSelect(document.getElementById("uiLanguage"));
+    buildLabels();
+  }
+
+  // 同期の初回描画。ネイティブの getMessage（ブラウザ言語）で仮表示し、init 後に選択言語へ更新する。
+  buildLabels();
   setClearButtonStateExtended("idle");
   // SW がセットしたエラーバッジ (!) を popup 起動時に消す。
   // background.js:showErrorBadge との対称契約。
@@ -345,7 +363,17 @@
   });
 
   // お問い合わせ / 評価ボタンとストア URL の解決は <kagayoi-support-footer> が自前で行う。
-  loadSettingsIntoPopup().catch((error) => {
-    console.warn("Clean Start popup init failed:", error?.message || error);
-  });
+  // 文言の初期化が済んでから設定を描画し、ボタン文言・チップを選択言語で出す。
+  initLocalization()
+    .catch((error) => {
+      console.warn("Clean Start localization init failed:", error?.message || error);
+      buildLabels();
+    })
+    .then(() => {
+      setClearButtonStateExtended("idle");
+      return loadSettingsIntoPopup();
+    })
+    .catch((error) => {
+      console.warn("Clean Start popup init failed:", error?.message || error);
+    });
 })();

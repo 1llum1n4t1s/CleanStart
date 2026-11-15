@@ -6,7 +6,7 @@
     "message": "Chrome の履歴、キャッシュ、Cookie、サイト保存データを細かく選んで削除できる拡張機能です。"
   },
   "popup_brand_subtitle": {
-    "message": "History & Cache Cleaner"
+    "message": "履歴とキャッシュのクリーナー"
   },
   "popup_hint": {
     "message": "現在の Chrome プロファイル内の閲覧データをワンクリックで整理します。"
@@ -75,7 +75,7 @@
     "message": "すべて"
   },
   "options_remove_cache": {
-    "message": "Cache"
+    "message": "キャッシュ"
   },
   "options_remove_cache_desc": {
     "message": "画像、CSS、JavaScript など、サイトを速く開くために一時保存されたファイルを削除します。次回の表示は一度だけ少し遅くなることがありますが、ログイン情報や保存した入力内容そのものは通常消えません。"
@@ -87,31 +87,31 @@
     "message": "主に PWA や最近の Web アプリが、オフライン表示や高速化のために保存したキャッシュ領域を削除します。通常のブックマークや保存済みパスワードは消えませんが、サイトによってはオフラインデータや再利用用のリソースをもう一度取得し直します。"
   },
   "options_remove_cookies": {
-    "message": "Cookies"
+    "message": "Cookie"
   },
   "options_remove_cookies_desc": {
     "message": "ログイン状態、サイトごとの設定、カート情報、セッション情報などを保存している Cookie を削除します。これを消すとサイトからログアウトされたり、言語設定や表示設定が初期化されたりすることがあります。保存済みパスワードそのものは、この項目では削除されません。"
   },
   "options_remove_downloads": {
-    "message": "Downloads"
+    "message": "ダウンロード履歴"
   },
   "options_remove_downloads_desc": {
     "message": "Chrome のダウンロード履歴一覧だけを削除します。PC に保存された実際のファイル本体は削除しません。『ダウンロードした記録だけを消したい』場合の項目です。"
   },
   "options_remove_fsys": {
-    "message": "File Systems"
+    "message": "ファイルシステム"
   },
   "options_remove_fsys_desc": {
     "message": "一部の古いサイトや Web アプリが、ブラウザ内に保存していたファイルシステム系データを削除します。通常のローカルファイルや、PC 上のドキュメントを直接消すものではありません。現在では影響するケースはかなり少なめです。"
   },
   "options_remove_forms": {
-    "message": "Form Data"
+    "message": "フォームデータ"
   },
   "options_remove_forms_desc": {
     "message": "フォームに入力した名前、住所、検索語句などの候補履歴を削除します。フォーム入力時のサジェストが減りますが、保存済みパスワードそのものや現在のログイン状態を直接消す項目ではありません。"
   },
   "options_remove_history": {
-    "message": "History"
+    "message": "閲覧履歴"
   },
   "options_remove_history_desc": {
     "message": "閲覧したページの履歴を削除します。アドレスバーの候補や履歴画面に出る訪問記録が減ります。開いているタブそのものは閉じませんが、あとから『どのページを見たか』を辿りにくくなります。"
@@ -133,5 +133,20 @@
   },
   "options_remove_service_workers_desc": {
     "message": "サイトがバックグラウンド更新、通知、オフライン動作などに使う Service Worker の登録を削除します。多くのサイトでは次回アクセス時に再登録されますが、一時的に通知やオフライン機能が効かなくなったり、Web アプリが再初期化されたりすることがあります。"
+  },
+  "languageAuto": {
+    "message": "自動（ブラウザ）"
+  },
+  "languageSelectLabel": {
+    "message": "言語"
+  },
+  "languageSelectTitle": {
+    "message": "言語（開いているページは再読み込みで反映）"
+  },
+  "kagayoiSupportContact": {
+    "message": "お問い合わせ"
+  },
+  "kagayoiSupportRate": {
+    "message": "評価をお願いします！"
   }
 }

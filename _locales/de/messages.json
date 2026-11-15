@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Löschen Sie Verlauf, Cache, Cookies und Websitedaten in Chrome mit konfigurierbaren Optionen."
+  },
+  "popup_brand_subtitle": {
+    "message": "Verlauf- und Cache-Bereinigung"
+  },
+  "popup_hint": {
+    "message": "Löschen Sie die Browserdaten des aktuellen Profils mit einem Klick."
+  },
+  "popup_clear": {
+    "message": "Löschen"
+  },
+  "popup_confirm": {
+    "message": "Zum Bestätigen erneut tippen"
+  },
+  "popup_clearing": {
+    "message": "Wird gelöscht…"
+  },
+  "popup_clean": {
+    "message": "Fertig"
+  },
+  "popup_clear_failed": {
+    "message": "Fehlgeschlagen - zum Wiederholen tippen"
+  },
+  "popup_settings_failed": {
+    "message": "Die Einstellungen konnten nicht gespeichert oder geladen werden. Öffnen Sie dieses Popup erneut, um die gespeicherten Einstellungen zu prüfen."
+  },
+  "popup_current_settings": {
+    "message": "Aktuelles Löschziel"
+  },
+  "popup_current_hint": {
+    "message": "Diese Einstellungen werden beim Drücken von Löschen verwendet."
+  },
+  "popup_selected_data": {
+    "message": "Zu löschen"
+  },
+  "popup_nothing_selected": {
+    "message": "Nichts ausgewählt"
+  },
+  "options_common": {
+    "message": "Allgemeine Einstellungen"
+  },
+  "options_common_1": {
+    "message": "Alle HTTP-Tabs nach dem Löschen automatisch neu laden"
+  },
+  "options_common_2": {
+    "message": "Beim Start von Chrome automatisch löschen"
+  },
+  "options_clearonstartup_warning": {
+    "message": "Warnung: Wenn Sie dies aktivieren, werden bei jedem Start von Chrome automatisch alle ausgewählten Datentypen gelöscht. Möglicherweise werden Sie von Websites abgemeldet und verlieren Sitzungsdaten."
+  },
+  "options_remove": {
+    "message": "Zu löschende Daten"
+  },
+  "options_time_period": {
+    "message": "Zeitraum"
+  },
+  "options_last_hour": {
+    "message": "Letzte Stunde"
+  },
+  "options_last_day": {
+    "message": "Letzter Tag"
+  },
+  "options_last_week": {
+    "message": "Letzte Woche"
+  },
+  "options_last_month": {
+    "message": "Letzte 4 Wochen"
+  },
+  "options_everything": {
+    "message": "Alles"
+  },
+  "options_remove_cache": {
+    "message": "Cache"
+  },
+  "options_remove_cache_desc": {
+    "message": "Entfernt temporäre Dateien wie Bilder, CSS und JavaScript, die Chrome gespeichert hat, damit Websites schneller laden. Seiten laden beim nächsten Mal eventuell etwas langsamer, aber Anmeldungen und gespeicherte Formulareingaben bleiben in der Regel erhalten."
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "Entfernt Cache-Storage-Daten, die moderne Web-Apps und PWAs für Offlinefunktionen und schnelleres Laden verwenden. Lesezeichen und gespeicherte Passwörter bleiben erhalten, aber einige Websites müssen App-Ressourcen eventuell erneut herunterladen oder Offlinedaten neu aufbauen."
+  },
+  "options_remove_cookies": {
+    "message": "Cookies"
+  },
+  "options_remove_cookies_desc": {
+    "message": "Entfernt Cookies, die Anmeldesitzungen, Websiteeinstellungen, den Warenkorbstatus und ähnliche Daten speichern. Dadurch werden Sie möglicherweise von Websites abgemeldet oder Websiteeinstellungen zurückgesetzt. Gespeicherte Passwörter selbst werden nicht gelöscht."
+  },
+  "options_remove_downloads": {
+    "message": "Downloads"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Löscht nur die Download-Verlaufsliste von Chrome. Die auf Ihrem Computer gespeicherten Dateien werden nicht gelöscht."
+  },
+  "options_remove_fsys": {
+    "message": "Dateisysteme"
+  },
+  "options_remove_fsys_desc": {
+    "message": "Entfernt Websitedaten, die von älteren Dateisystem-APIs des Browsers erstellt wurden. Ihre normalen lokalen Dateien und Dokumente werden nicht gelöscht. In aktuellen Chrome-Versionen betrifft dies nur wenige ältere Web-Apps."
+  },
+  "options_remove_forms": {
+    "message": "Formulardaten"
+  },
+  "options_remove_forms_desc": {
+    "message": "Entfernt gespeicherte Formularvorschläge wie Namen, Adressen und zuvor eingegebene Werte. Es gibt dann weniger Autofill-Vorschläge, aber gespeicherte Passwörter und aktuelle Anmeldesitzungen werden nicht direkt gelöscht."
+  },
+  "options_remove_history": {
+    "message": "Verlauf"
+  },
+  "options_remove_history_desc": {
+    "message": "Löscht die Einträge der im gewählten Zeitraum besuchten Seiten. Vorschläge in der Adressleiste und die Verlaufsseite verlieren diese Einträge. Ihre aktuell geöffneten Tabs werden nicht geschlossen."
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "Löscht IndexedDB-Datenbanken, die von Websites und Web-Apps erstellt wurden. Dadurch können Offlinedaten, zwischengespeicherte App-Zustände oder lokal gespeicherte unfertige Daten einiger Websites verloren gehen. Eventuell müssen Sie sich erneut anmelden oder die Website neu synchronisieren lassen."
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "Löscht Local-Storage-Daten, die Websites gespeichert haben, etwa kleine Einstellungen, Oberflächenpräferenzen und einfache Sitzungszustände. Einige Websites setzen eventuell Anzeigeoptionen zurück oder vergessen lokal gespeicherte Zustände."
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "Entfernt Service-Worker-Registrierungen, die Websites für Hintergrundaktualisierungen, Benachrichtigungen und Offlineverhalten nutzen. Viele Websites erstellen sie beim nächsten Besuch neu, aber Offlinefunktionen, Push-Verhalten oder der App-Zustand müssen eventuell neu initialisiert werden."
+  },
+  "languageAuto": {
+    "message": "Automatisch (Browser)"
+  },
+  "languageSelectLabel": {
+    "message": "Sprache"
+  },
+  "languageSelectTitle": {
+    "message": "Sprache (geöffnete Seiten übernehmen sie nach dem Neuladen)"
+  },
+  "kagayoiSupportContact": {
+    "message": "Support kontaktieren"
+  },
+  "kagayoiSupportRate": {
+    "message": "Bitte bewerten Sie uns!"
+  }
+}

@@ -481,41 +481,71 @@ describe("公開定数", () => {
 // i18n キーと DATA_TYPES の整合（ローカルファイル直読）
 // ----------------------------------------------------------------------------
 
-describe("i18n 整合性 (en/ja messages.json)", () => {
+describe("i18n 整合性 (9 言語 messages.json)", () => {
   const fs = require("node:fs");
   const path = require("node:path");
+
+  // README (Kagayoi.Support l10n) の対応 9 言語。en が正本。
+  const LOCALES = ["en", "ja", "zh_CN", "zh_TW", "ko", "es", "fr", "de", "pt_BR"];
+  const COMMON_KEYS = [
+    "languageAuto",
+    "languageSelectLabel",
+    "languageSelectTitle",
+    "kagayoiSupportContact",
+    "kagayoiSupportRate"
+  ];
 
   function loadLocale(name) {
     const p = path.join(__dirname, "..", "_locales", name, "messages.json");
     return JSON.parse(fs.readFileSync(p, "utf8"));
   }
 
-  test("DATA_TYPE_MESSAGE_KEYS が指す全キーが en/ja に存在", () => {
-    for (const locale of ["en", "ja"]) {
+  test("_locales は 9 言語ちょうど", () => {
+    const dirs = fs.readdirSync(path.join(__dirname, "..", "_locales")).sort();
+    assert.deepEqual(dirs, [...LOCALES].sort());
+  });
+
+  test("DATA_TYPE_MESSAGE_KEYS / TIME_PERIOD_MESSAGE_KEYS が指す全キーが全言語に存在", () => {
+    const keys = [
+      ...Object.values(CleanStartSettings.DATA_TYPE_MESSAGE_KEYS),
+      ...Object.values(CleanStartSettings.TIME_PERIOD_MESSAGE_KEYS)
+    ];
+    for (const locale of LOCALES) {
       const messages = loadLocale(locale);
-      for (const key of Object.values(CleanStartSettings.DATA_TYPE_MESSAGE_KEYS)) {
-        assert.ok(messages[key], `${locale} に ${key} が無い`);
+      for (const key of keys) {
+        assert.ok(messages[key]?.message, `${locale} に ${key} が無い`);
       }
     }
   });
 
-  test("en と ja のキーセットが完全一致", () => {
-    const en = Object.keys(loadLocale("en")).sort();
-    const ja = Object.keys(loadLocale("ja")).sort();
-    assert.deepEqual(en, ja);
+  test("全言語のキー集合と順序が en と一致し、空の訳が無い", () => {
+    const en = Object.keys(loadLocale("en"));
+    for (const locale of LOCALES) {
+      const messages = loadLocale(locale);
+      assert.deepEqual(Object.keys(messages), en, `${locale} のキーが en と違う`);
+      for (const [key, entry] of Object.entries(messages)) {
+        assert.ok(entry.message.trim(), `${locale}.${key} が空`);
+      }
+    }
   });
 
-  test("追加した警告 / 確認系キーは en/ja 両方に存在", () => {
-    const en = loadLocale("en");
-    const ja = loadLocale("ja");
-    for (const key of ["options_clearonstartup_warning", "popup_confirm"]) {
-      assert.ok(en[key], `en に ${key} が無い`);
-      assert.ok(ja[key], `ja に ${key} が無い`);
+  test("警告 / 確認 / 共通キーは全言語に存在", () => {
+    for (const locale of LOCALES) {
+      const messages = loadLocale(locale);
+      for (const key of ["options_clearonstartup_warning", "popup_confirm", ...COMMON_KEYS]) {
+        assert.ok(messages[key]?.message, `${locale} に ${key} が無い`);
+      }
+    }
+  });
+
+  test("拡張名は全言語でブランド名のまま", () => {
+    for (const locale of LOCALES) {
+      assert.equal(loadLocale(locale).app_name.message, "Clean Start");
     }
   });
 
   test("現在設定の案内が各言語の実際の削除ボタン名を使う", () => {
-    for (const locale of ["en", "ja"]) {
+    for (const locale of LOCALES) {
       const messages = loadLocale(locale);
       assert.ok(
         messages.popup_current_hint.message.includes(messages.popup_clear.message),
@@ -525,5 +555,14 @@ describe("i18n 整合性 (en/ja messages.json)", () => {
 
     const popup = fs.readFileSync(path.join(__dirname, "..", "popup.html"), "utf8");
     assert.match(popup, /data-i18n="popup_current_hint">[^<]*Clear[^<]*<\/p>/);
+  });
+
+  test("popup.html は共通 Localizer を先頭で読み、旧 Localize を使わない", () => {
+    const popup = fs.readFileSync(path.join(__dirname, "..", "popup.html"), "utf8");
+    const scripts = [...popup.matchAll(/<script[^>]*src="([^"]+)"/g)].map((m) => m[1]);
+    assert.equal(scripts[0], "src/shared/ui-localizer.js");
+    assert.ok(!scripts.some((src) => src.includes("localize.js")));
+    assert.match(popup, /<select id="uiLanguage"[^>]*data-i18n-attr="aria-label:languageSelectLabel;title:languageSelectTitle"/);
+    assert.ok(!fs.existsSync(path.join(__dirname, "..", "src", "shared", "localize.js")));
   });
 });

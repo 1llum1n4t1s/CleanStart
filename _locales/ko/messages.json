@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Chrome의 방문 기록, 캐시, 쿠키, 사이트 저장 데이터를 세부 옵션으로 선택해 삭제하는 확장 프로그램입니다."
+  },
+  "popup_brand_subtitle": {
+    "message": "방문 기록 및 캐시 정리 도구"
+  },
+  "popup_hint": {
+    "message": "현재 프로필의 브라우징 데이터를 한 번의 클릭으로 정리합니다."
+  },
+  "popup_clear": {
+    "message": "삭제"
+  },
+  "popup_confirm": {
+    "message": "한 번 더 눌러 확인"
+  },
+  "popup_clearing": {
+    "message": "삭제 중…"
+  },
+  "popup_clean": {
+    "message": "완료"
+  },
+  "popup_clear_failed": {
+    "message": "실패 - 눌러서 다시 시도"
+  },
+  "popup_settings_failed": {
+    "message": "설정을 저장하거나 불러오지 못했습니다. 이 팝업을 다시 열어 저장된 설정을 확인하세요."
+  },
+  "popup_current_settings": {
+    "message": "현재 삭제 대상"
+  },
+  "popup_current_hint": {
+    "message": "삭제를 누르면 이 설정이 사용됩니다."
+  },
+  "popup_selected_data": {
+    "message": "삭제할 항목"
+  },
+  "popup_nothing_selected": {
+    "message": "선택된 항목이 없습니다"
+  },
+  "options_common": {
+    "message": "공통 설정"
+  },
+  "options_common_1": {
+    "message": "삭제 후 모든 HTTP 탭을 자동으로 새로고침"
+  },
+  "options_common_2": {
+    "message": "Chrome 시작 시 자동으로 삭제"
+  },
+  "options_clearonstartup_warning": {
+    "message": "주의: 사용하면 Chrome을 시작할 때마다 선택한 모든 데이터가 자동으로 삭제됩니다. 웹사이트에서 로그아웃되거나 세션 데이터가 사라질 수 있습니다."
+  },
+  "options_remove": {
+    "message": "삭제할 데이터"
+  },
+  "options_time_period": {
+    "message": "기간"
+  },
+  "options_last_hour": {
+    "message": "최근 1시간"
+  },
+  "options_last_day": {
+    "message": "최근 24시간"
+  },
+  "options_last_week": {
+    "message": "최근 1주"
+  },
+  "options_last_month": {
+    "message": "최근 4주"
+  },
+  "options_everything": {
+    "message": "전체"
+  },
+  "options_remove_cache": {
+    "message": "캐시"
+  },
+  "options_remove_cache_desc": {
+    "message": "사이트를 더 빠르게 불러오기 위해 Chrome이 저장한 이미지, CSS, JavaScript 등의 임시 파일을 삭제합니다. 다음에 페이지를 열 때 조금 느려질 수 있지만 로그인 정보와 저장된 입력 내용은 대개 유지됩니다."
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "최신 웹 앱과 PWA가 오프라인 지원과 빠른 로딩을 위해 사용하는 Cache Storage 데이터를 삭제합니다. 북마크나 저장된 비밀번호는 삭제되지 않지만, 일부 사이트는 앱 리소스를 다시 다운로드하거나 오프라인 데이터를 다시 만들어야 할 수 있습니다."
+  },
+  "options_remove_cookies": {
+    "message": "쿠키"
+  },
+  "options_remove_cookies_desc": {
+    "message": "로그인 세션, 사이트 환경설정, 장바구니 상태 등을 저장하는 쿠키를 삭제합니다. 웹사이트에서 로그아웃되거나 사이트 설정이 초기화될 수 있습니다. 저장된 비밀번호 자체는 삭제되지 않습니다."
+  },
+  "options_remove_downloads": {
+    "message": "다운로드"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Chrome의 다운로드 기록 목록만 삭제합니다. 컴퓨터에 저장된 실제 파일은 삭제되지 않습니다."
+  },
+  "options_remove_fsys": {
+    "message": "파일 시스템"
+  },
+  "options_remove_fsys_desc": {
+    "message": "오래된 브라우저 파일 시스템 API가 만든 사이트 데이터를 삭제합니다. 일반 로컬 파일이나 문서는 삭제되지 않습니다. 최신 Chrome에서는 일부 오래된 웹 앱에만 영향을 줍니다."
+  },
+  "options_remove_forms": {
+    "message": "양식 데이터"
+  },
+  "options_remove_forms_desc": {
+    "message": "이름, 주소, 이전에 입력한 값 등 저장된 양식 제안을 삭제합니다. 자동 완성 제안이 줄어들 수 있지만, 저장된 비밀번호나 현재 로그인 세션은 직접 삭제되지 않습니다."
+  },
+  "options_remove_history": {
+    "message": "방문 기록"
+  },
+  "options_remove_history_desc": {
+    "message": "선택한 기간에 방문한 페이지의 기록을 삭제합니다. 주소 표시줄 제안과 방문 기록 페이지에서 해당 항목이 사라집니다. 현재 열려 있는 탭은 닫히지 않습니다."
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "웹사이트와 웹 앱이 만든 IndexedDB 데이터베이스를 삭제합니다. 오프라인 데이터, 캐시된 앱 상태, 일부 사이트가 로컬에 저장한 작업 중인 데이터가 사라질 수 있습니다. 다시 로그인하거나 사이트가 다시 동기화되어야 할 수 있습니다."
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "웹사이트가 저장한 소규모 설정, UI 환경설정, 간단한 세션 상태 등의 Local Storage 데이터를 삭제합니다. 일부 사이트는 표시 옵션이 초기화되거나 로컬에 저장된 상태를 잃을 수 있습니다."
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "사이트가 백그라운드 업데이트, 알림, 오프라인 동작에 사용하는 Service Worker 등록을 삭제합니다. 많은 사이트가 다음 방문 시 다시 등록하지만, 오프라인 기능, 푸시 동작, 앱 상태를 다시 초기화해야 할 수 있습니다."
+  },
+  "languageAuto": {
+    "message": "자동(브라우저)"
+  },
+  "languageSelectLabel": {
+    "message": "언어"
+  },
+  "languageSelectTitle": {
+    "message": "언어(열려 있는 페이지는 새로고침 후 적용)"
+  },
+  "kagayoiSupportContact": {
+    "message": "문의하기"
+  },
+  "kagayoiSupportRate": {
+    "message": "평가해 주세요!"
+  }
+}

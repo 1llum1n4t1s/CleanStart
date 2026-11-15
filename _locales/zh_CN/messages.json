@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "通过可配置的选项，清除 Chrome 的历史记录、缓存、Cookie 和网站存储数据。"
+  },
+  "popup_brand_subtitle": {
+    "message": "历史记录与缓存清理工具"
+  },
+  "popup_hint": {
+    "message": "一键清除当前配置文件中的浏览数据。"
+  },
+  "popup_clear": {
+    "message": "清除"
+  },
+  "popup_confirm": {
+    "message": "再次点击以确认"
+  },
+  "popup_clearing": {
+    "message": "正在清除…"
+  },
+  "popup_clean": {
+    "message": "完成"
+  },
+  "popup_clear_failed": {
+    "message": "失败 - 点击重试"
+  },
+  "popup_settings_failed": {
+    "message": "无法保存或加载设置。请重新打开此弹出窗口，检查已保存的设置。"
+  },
+  "popup_current_settings": {
+    "message": "当前清除目标"
+  },
+  "popup_current_hint": {
+    "message": "点击“清除”后，将按这些设置执行。"
+  },
+  "popup_selected_data": {
+    "message": "将清除的项目"
+  },
+  "popup_nothing_selected": {
+    "message": "未选择任何项目"
+  },
+  "options_common": {
+    "message": "通用设置"
+  },
+  "options_common_1": {
+    "message": "清除后自动重新加载所有 HTTP 标签页"
+  },
+  "options_common_2": {
+    "message": "Chrome 启动时自动清除"
+  },
+  "options_clearonstartup_warning": {
+    "message": "注意：启用后，每次 Chrome 启动时都会自动清除所选的全部数据。可能会退出各网站的登录，并丢失会话数据。"
+  },
+  "options_remove": {
+    "message": "要清除的数据"
+  },
+  "options_time_period": {
+    "message": "时间范围"
+  },
+  "options_last_hour": {
+    "message": "最近 1 小时"
+  },
+  "options_last_day": {
+    "message": "最近 24 小时"
+  },
+  "options_last_week": {
+    "message": "最近 1 周"
+  },
+  "options_last_month": {
+    "message": "最近 4 周"
+  },
+  "options_everything": {
+    "message": "全部"
+  },
+  "options_remove_cache": {
+    "message": "缓存"
+  },
+  "options_remove_cache_desc": {
+    "message": "清除 Chrome 为加快网站加载速度而保存的图片、CSS 和 JavaScript 等临时文件。下次加载页面时可能会稍慢一些，但登录信息和已保存的表单内容通常会保留。"
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "清除现代网络应用和 PWA 为支持离线使用和加快加载而使用的 Cache Storage 数据。不会删除书签或已保存的密码，但部分网站可能需要重新下载应用资源或重建离线数据。"
+  },
+  "options_remove_cookies": {
+    "message": "Cookie"
+  },
+  "options_remove_cookies_desc": {
+    "message": "清除用于保存登录会话、网站偏好、购物车状态等信息的 Cookie。这可能会导致退出网站登录或重置网站设置。不会删除已保存的密码本身。"
+  },
+  "options_remove_downloads": {
+    "message": "下载记录"
+  },
+  "options_remove_downloads_desc": {
+    "message": "仅清除 Chrome 的下载记录列表，不会删除保存在电脑上的实际文件。"
+  },
+  "options_remove_fsys": {
+    "message": "文件系统"
+  },
+  "options_remove_fsys_desc": {
+    "message": "清除旧版浏览器文件系统 API 创建的网站数据。不会删除普通的本地文件或文档。在新版 Chrome 中，只有少数旧版网络应用会受影响。"
+  },
+  "options_remove_forms": {
+    "message": "表单数据"
+  },
+  "options_remove_forms_desc": {
+    "message": "清除已保存的表单建议，例如姓名、地址和之前输入过的值。这可能会减少自动填充建议，但不会直接删除已保存的密码或当前的登录会话。"
+  },
+  "options_remove_history": {
+    "message": "历史记录"
+  },
+  "options_remove_history_desc": {
+    "message": "删除所选时间范围内的浏览记录。地址栏建议和“历史记录”页面将不再包含这些条目。不会关闭当前已打开的标签页。"
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "删除网站和网络应用创建的 IndexedDB 数据库。这可能会清除离线数据、缓存的应用状态，或某些网站保存在本地的未完成内容。可能需要重新登录，或让网站重新同步。"
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "清除网站保存的 Local Storage 数据，例如少量设置、界面偏好和轻量的会话状态。部分网站可能会重置显示选项，或丢失本地保存的状态。"
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "清除网站用于后台更新、通知和离线功能的 Service Worker 注册。许多网站会在下次访问时重新创建，但离线功能、推送行为或应用状态可能需要重新初始化。"
+  },
+  "languageAuto": {
+    "message": "自动（跟随浏览器）"
+  },
+  "languageSelectLabel": {
+    "message": "语言"
+  },
+  "languageSelectTitle": {
+    "message": "语言（已打开的页面需刷新后生效）"
+  },
+  "kagayoiSupportContact": {
+    "message": "联系支持"
+  },
+  "kagayoiSupportRate": {
+    "message": "请给我们评分！"
+  }
+}

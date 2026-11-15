@@ -12,14 +12,14 @@ const { DATA_TYPES } = require("../src/shared/settings.js");
 test("利用者向けページとストア画像のデータ種別数が実装と一致する", () => {
   assert.equal(DATA_TYPES.length, 10);
 
-  for (const screenshot of [
-    "webstore/01-feature-overview.html",
-    "webstore/03-hero-promo.html",
-    "webstore/05-promo-marquee.html"
-  ]) {
-    const html = read(screenshot);
-    assert.match(html, new RegExp(`${DATA_TYPES.length}\\s*種`));
-    assert.doesNotMatch(html, /12\s*種/);
+  // ストア画像の文言は webstore/store-assets.json（vitrina 設定）が正本。ヒーローのチップに種別数が入る。
+  const config = JSON.parse(read("webstore/store-assets.json"));
+  const hero = config.slides.find((slide) => slide.layout === "hero");
+  const chip = hero.chips[0];
+  assert.match(chip.en, new RegExp(`^${DATA_TYPES.length}\\s`));
+  assert.match(chip.ja, new RegExp(`^${DATA_TYPES.length}種`));
+  for (const text of Object.values(chip)) {
+    assert.doesNotMatch(text, /12\s*(種|kinds)/);
   }
 });
 

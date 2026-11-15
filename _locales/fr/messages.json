@@ -1,0 +1,152 @@
+{
+  "app_name": {
+    "message": "Clean Start"
+  },
+  "app_description": {
+    "message": "Effacez l’historique, le cache, les cookies et les données de sites de Chrome grâce à des options configurables."
+  },
+  "popup_brand_subtitle": {
+    "message": "Nettoyeur d’historique et de cache"
+  },
+  "popup_hint": {
+    "message": "Effacez les données de navigation du profil actuel en un seul clic."
+  },
+  "popup_clear": {
+    "message": "Effacer"
+  },
+  "popup_confirm": {
+    "message": "Appuyez à nouveau pour confirmer"
+  },
+  "popup_clearing": {
+    "message": "Effacement…"
+  },
+  "popup_clean": {
+    "message": "Terminé"
+  },
+  "popup_clear_failed": {
+    "message": "Échec - appuyez pour réessayer"
+  },
+  "popup_settings_failed": {
+    "message": "Les paramètres n’ont pas pu être enregistrés ou chargés. Rouvrez cette fenêtre contextuelle pour vérifier les paramètres enregistrés."
+  },
+  "popup_current_settings": {
+    "message": "Cible d’effacement actuelle"
+  },
+  "popup_current_hint": {
+    "message": "Ces paramètres seront utilisés lorsque vous appuierez sur Effacer."
+  },
+  "popup_selected_data": {
+    "message": "Données effacées"
+  },
+  "popup_nothing_selected": {
+    "message": "Aucune sélection"
+  },
+  "options_common": {
+    "message": "Paramètres communs"
+  },
+  "options_common_1": {
+    "message": "Recharger automatiquement tous les onglets HTTP après l’effacement"
+  },
+  "options_common_2": {
+    "message": "Effacer automatiquement au démarrage de Chrome"
+  },
+  "options_clearonstartup_warning": {
+    "message": "Avertissement : si vous activez cette option, tous les types de données sélectionnés seront effacés automatiquement à chaque démarrage de Chrome. Vous risquez d’être déconnecté des sites web et de perdre des données de session."
+  },
+  "options_remove": {
+    "message": "Données à effacer"
+  },
+  "options_time_period": {
+    "message": "Période"
+  },
+  "options_last_hour": {
+    "message": "Dernière heure"
+  },
+  "options_last_day": {
+    "message": "Dernier jour"
+  },
+  "options_last_week": {
+    "message": "Dernière semaine"
+  },
+  "options_last_month": {
+    "message": "4 dernières semaines"
+  },
+  "options_everything": {
+    "message": "Tout"
+  },
+  "options_remove_cache": {
+    "message": "Cache"
+  },
+  "options_remove_cache_desc": {
+    "message": "Supprime les fichiers temporaires, comme les images, le CSS et le JavaScript, que Chrome a enregistrés pour accélérer le chargement des sites. Les pages peuvent se charger un peu plus lentement la prochaine fois, mais vos connexions et les données de formulaire enregistrées sont généralement conservées."
+  },
+  "options_remove_cache_storage": {
+    "message": "Cache Storage"
+  },
+  "options_remove_cache_storage_desc": {
+    "message": "Supprime les données Cache Storage utilisées par les applications web modernes et les PWA pour fonctionner hors connexion et se charger plus vite. Cela ne supprime ni les favoris ni les mots de passe enregistrés, mais certains sites devront peut-être télécharger de nouveau leurs ressources ou recréer leurs données hors connexion."
+  },
+  "options_remove_cookies": {
+    "message": "Cookies"
+  },
+  "options_remove_cookies_desc": {
+    "message": "Supprime les cookies qui conservent les sessions de connexion, les préférences des sites, le contenu du panier et d’autres données similaires. Vous risquez d’être déconnecté de sites web ou de voir leurs paramètres réinitialisés. Les mots de passe enregistrés eux-mêmes ne sont pas supprimés."
+  },
+  "options_remove_downloads": {
+    "message": "Téléchargements"
+  },
+  "options_remove_downloads_desc": {
+    "message": "Efface uniquement la liste de l’historique des téléchargements de Chrome. Les fichiers enregistrés sur votre ordinateur ne sont pas supprimés."
+  },
+  "options_remove_fsys": {
+    "message": "Systèmes de fichiers"
+  },
+  "options_remove_fsys_desc": {
+    "message": "Supprime les données de sites créées par les anciennes API de système de fichiers du navigateur. Vos fichiers locaux et documents habituels ne sont pas supprimés. Dans les versions récentes de Chrome, seules quelques anciennes applications web sont concernées."
+  },
+  "options_remove_forms": {
+    "message": "Données de formulaires"
+  },
+  "options_remove_forms_desc": {
+    "message": "Supprime les suggestions de formulaires enregistrées, comme les noms, les adresses et les valeurs saisies précédemment. Il peut y avoir moins de suggestions de saisie automatique, mais vos mots de passe enregistrés et vos sessions de connexion actuelles ne sont pas supprimés directement."
+  },
+  "options_remove_history": {
+    "message": "Historique"
+  },
+  "options_remove_history_desc": {
+    "message": "Supprime les enregistrements des pages visitées dans la période sélectionnée. Les suggestions de la barre d’adresse et la page Historique perdront ces entrées. Vos onglets actuels ne sont pas fermés."
+  },
+  "options_remove_db": {
+    "message": "Indexed DB"
+  },
+  "options_remove_db_desc": {
+    "message": "Supprime les bases de données IndexedDB créées par les sites web et les applications web. Cela peut effacer des données hors connexion, l’état mis en cache d’applications ou des données de travail en cours que certains sites stockent localement. Vous devrez peut-être vous reconnecter ou laisser le site se resynchroniser."
+  },
+  "options_remove_storage": {
+    "message": "Local Storage"
+  },
+  "options_remove_storage_desc": {
+    "message": "Efface les données Local Storage enregistrées par les sites web, comme de petits paramètres, des préférences d’interface et des états de session légers. Certains sites peuvent réinitialiser leurs options d’affichage ou oublier l’état stocké localement."
+  },
+  "options_remove_service_workers": {
+    "message": "Service Workers"
+  },
+  "options_remove_service_workers_desc": {
+    "message": "Supprime les enregistrements de Service Worker que les sites utilisent pour les mises à jour en arrière-plan, les notifications et le fonctionnement hors connexion. De nombreux sites les recréeront lors de la prochaine visite, mais les fonctions hors connexion, les notifications push ou l’état de l’application devront peut-être être réinitialisés."
+  },
+  "languageAuto": {
+    "message": "Automatique (navigateur)"
+  },
+  "languageSelectLabel": {
+    "message": "Langue"
+  },
+  "languageSelectTitle": {
+    "message": "Langue (les pages ouvertes se mettent à jour au rechargement)"
+  },
+  "kagayoiSupportContact": {
+    "message": "Contacter le support"
+  },
+  "kagayoiSupportRate": {
+    "message": "Évaluez-nous !"
+  }
+}
