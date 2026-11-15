@@ -37,7 +37,8 @@ jobs:
       - name: バージョンを取得
         id: version
         run: |
-          version=$(bun -p "require('./manifest.json').version")
+          # Bun の準備はこの後の工程。ここで bun を呼ぶと command not found になるため grep で取り出す。
+          version=$(grep -oP '(?<="version": ")[^"]+' manifest.json)
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "📦 公開対象バージョン: $version"
 
