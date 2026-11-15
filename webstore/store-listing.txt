@@ -47,7 +47,7 @@ then tap the button twice — that's it.
   sites keep inside the browser. Combine only the ones you need.
 
 - Time-range selection
-  Choose from "Last hour", "Last 24 hours", "Last week", "Last 4 weeks",
+  Choose from "Last Hour", "Last Day", "Last Week", "Last 4 weeks",
   or "Everything" for the deletion window.
 
 - Two-tap confirm to prevent accidents
@@ -61,9 +61,9 @@ then tap the button twice — that's it.
   accidentally.
 
 - Auto-reload startup tabs
-  When auto-clear runs cache- or cookie-related deletions on startup,
-  open web tabs are reloaded in batches so you immediately see fresh
-  pages.
+  When auto-clear on startup removes cache, cookies, or other data that
+  sites keep inside the browser, open web tabs are reloaded in batches so
+  you immediately see fresh pages.
 
 - Optional tab reload after Clear
   Enable "Automatically reload all HTTP tabs after clearing" and every
@@ -79,7 +79,7 @@ then tap the button twice — that's it.
 
 1. Install from the Chrome Web Store.
 2. Click the Clean Start icon in the toolbar.
-3. Tick the data types you want to delete under "Deletes".
+3. Tick the data types you want to delete under "Data to Remove".
 4. Pick a time range under "Time Period".
 5. Tap the Clear button. When it changes to "Tap again to confirm",
    tap it again within 5 seconds.
@@ -102,20 +102,28 @@ English, 日本語 (Japanese)
 Yes
 
 ■ Single purpose description
-Bulk-deletes Chrome's history, cache, cookies, and site storage
-based on the user's selected data types and time range, and provides a
-user-initiated support contact form for this extension.
+Bulk-deletes Chrome's history, cache, cookies, and site storage, based on the
+time range and data types the user selects, either by a button press or at
+Chrome startup.
 
 ■ Data usage disclosures
 
-  - Personally identifiable information collected? Yes, only when the
-    user submits the optional contact form: email address and optional name
-  - User data handled? Yes, only user-entered contact details, inquiry
-    content, the email verification code, and the support-session access
-    token used to authenticate the support request
+  - Data types collected (checked):
+    - Personally identifiable information
+    - Authentication information
+    - Personal communications
+    Only when the user submits the optional contact form: email address,
+    optional name, inquiry content, email verification code, and the
+    support-session access token used to authenticate the support request.
+    These are handled solely to respond to the inquiry. Cleanup settings
+    are stored only inside the browser.
 
-  - User data handling commitments
-    - Will not sell user data
+  - Data types not collected:
+    Health information, Financial and payment information, Location, Web history, User activity, Website content
+
+  - User data handling commitments (all three checked)
+    - Will not sell or transfer user data to third parties, outside of the
+      approved use cases
     - Will not use or transfer user data for purposes unrelated to the
       item's single purpose
     - Will not use or transfer user data to determine creditworthiness
@@ -124,30 +132,28 @@ user-initiated support contact form for this extension.
 ■ Permission justifications
 
   storage:
-  Used to persist the user's choices locally via chrome.storage.local:
-  selected data types (dataToRemove), time range (timePeriod), the
-  "auto-reload after clear" flag (autorefresh), and the "clear on Chrome
-  startup" flag (clearonstartup). Nothing is transmitted externally.
+  Used to persist the user-selected items to delete (dataToRemove), time
+  range (timePeriod), auto-reload flag (autorefresh), and clear-on-Chrome-
+  startup flag (clearonstartup) locally in chrome.storage.local. The data
+  is not sent externally.
 
   browsingData:
-  Core feature. Calls chrome.browsingData.remove() to delete the data
-  types the user selected (history, cache, cookies, IndexedDB, service
-  workers, etc.) for the chosen time range.
+  Core feature of this extension. Used to call chrome.browsingData.remove()
+  to delete, in bulk, the time range and data types the user specified
+  (history, cache, cookies, IndexedDB, Service Workers, etc.).
 
   tabs:
-  Used only when the user has enabled "Automatically reload all HTTP
-  tabs after clearing", and on startup auto-clear. Open tabs are
-  enumerated to filter HTTP/HTTPS targets and reload them so the user
-  sees a fresh state. chrome.browsingData clears data for the whole
-  profile, so reloading only the active tab would leave other tabs
-  showing stale content. Tab URLs and titles are never logged, stored,
-  or transmitted anywhere.
+  Used to enumerate the open http/https tabs and reload them when "reload
+  after clearing" is enabled for manual clearing, and when cache, cookies,
+  or site storage were deleted by the automatic clear at Chrome startup.
+  Tab URLs are referenced only to narrow down the targets and are never
+  stored or sent externally.
 
   host_permissions (https://support.kagayoi.com/*):
-  Used only when the user opens and submits the optional contact form.
-  It sends the email verification request and the support ticket entered
-  by the user to Kagayoi Support over HTTPS. Cleanup settings, browsing
-  history, and tab URLs are never sent.
+  Used only when the user opens and submits the optional contact form. The
+  email verification and the inquiry entered by the user are sent to
+  Kagayoi Support over HTTPS. Cleanup settings, browsing history, and tab
+  URLs are not sent.
 
 ■ External server communication
 Cleanup does not communicate with an external server. Only when the user
@@ -202,16 +208,16 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
   「1時間以内」「24時間以内」「1週間以内」「4週間以内」「すべて」の 5 段階から削除対象期間を選べます。
 
 ・2段階タップで誤操作防止
-  Clear ボタンは初回タップで「もう一度タップで削除」状態に切り替わり、5 秒以内に 2 回目をタップすると実行されます。誤クリックでセッションが消えるリスクを大幅に低減。
+  「削除する」ボタンは初回タップで「もう一度タップで削除」状態に切り替わり、5 秒以内に 2 回目をタップすると実行されます。誤クリックでセッションが消えるリスクを大幅に低減。
 
 ・Chrome 起動時の自動削除
-  「Chrome 起動時に削除する」を有効にすると、ブラウザを起動するたびに自動でクリーンアップを実行。設定画面には destructive 性を伝える警告バナーを併記。
+  「Chrome起動時に削除する」を有効にすると、ブラウザを起動するたびに自動でクリーンアップを実行。有効にしている間は、ログアウトなどの影響を伝える注意書きをポップアップに表示します。
 
 ・起動時タブの自動リロード
-  起動時自動削除でキャッシュ系・Cookie 系を消した場合、開いていた通常の Web タブをバッチで段階的にリロードして、消去後の最新状態に自動で更新。
+  起動時自動削除でキャッシュ・Cookie・サイトがブラウザ内に保存したデータを消した場合、開いていた通常の Web タブをバッチで段階的にリロードして、消去後の最新状態に自動で更新。
 
 ・削除後のタブ自動再読み込み（任意）
-  「削除後に全 HTTP タブを自動で再読み込みする」を有効にすると、Clear 押下後に開いている HTTP/HTTPS タブをまとめて自動リロード。削除済みデータを表示したままのタブが残りません。
+  「削除後に全 HTTP タブを自動で再読み込みする」を有効にすると、削除の完了後に開いている HTTP/HTTPS タブをまとめて自動リロード。削除済みデータを表示したままのタブが残りません。
 
 ・クリーンアップはローカル完結
   削除処理と設定保存はブラウザ内で完結します。任意のお問い合わせフォームを利用者が送信したときだけ、入力内容を Kagayoi Support へ送ります。トラッキング・解析・テレメトリはありません。
@@ -220,9 +226,9 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 
 1. Chrome Web Store からインストール
 2. ツールバーの Clean Start アイコンをクリック
-3. 「削除する項目」のチェックボックスで対象データ型を選ぶ
-4. 「対象期間」のラジオボタンで時間範囲を選ぶ
-5. Clear ボタンをタップ → 「もう一度タップで削除」が出たら 5 秒以内にもう一度タップ
+3. 「削除対象データ」のチェックボックスで対象データ型を選ぶ
+4. 「対象期間」で時間範囲を選ぶ
+5. 「削除する」ボタンをタップ → 「もう一度タップで削除」が出たら 5 秒以内にもう一度タップ
 6. 完了！
 
 すべての設定はポップアップ内で完結します。設定値はブラウザ内に保存され、次回ポップアップを開いた際もそのまま保持されます。
@@ -242,20 +248,23 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
 はい
 
 ■ 単一の目的の説明
-ユーザーが選択した期間とデータ型に基づいて Chrome の履歴・キャッシュ・Cookie・サイト保存データを一括削除し、この拡張機能について利用者が任意で問い合わせできるようにする。
+ユーザーが選択した期間とデータ型に基づいて、Chrome の履歴・キャッシュ・Cookie・サイト保存データを、ボタン操作または Chrome 起動時に一括削除する。
 
 ■ データの使用に関する開示
 
-  ・個人を特定できる情報を収集しますか？
-    はい。任意のお問い合わせフォームを利用者が送信した場合に限り、メールアドレスと任意入力のお名前を受け取ります。
+  ・収集するデータの種類（チェックを入れるもの）:
+    - 個人を特定できる情報
+    - 認証に関する情報
+    - 個人的コミュニケーション
+    任意のお問い合わせフォームを利用者が送信した場合に限り、メールアドレス、任意入力のお名前、問い合わせ内容、メール確認コード、お問い合わせ認証用のサポートセッショントークンを受け取り、問い合わせ対応のためだけに取り扱います。クリーンアップ設定はブラウザ内だけに保存します。
 
-  ・ユーザーのデータを取り扱いますか？
-    はい。利用者が入力した問い合わせ内容、連絡先、メール確認コード、お問い合わせ認証用のサポートセッショントークンだけを問い合わせ対応のために取り扱います。クリーンアップ設定はブラウザ内だけに保存します。
+  ・収集しないデータの種類:
+    健康に関する情報、財務状況や支払いに関する情報、位置情報、ウェブ履歴、ユーザーのアクティビティ、ウェブサイトのコンテンツ
 
-  ・ユーザーデータをどのように扱いますか？
-    - ユーザーデータの販売: しない
-    - ユーザーデータの本来の目的以外への使用や転送: しない
-    - 信用力の判定や貸付目的での使用や転送: しない
+  ・ユーザーデータをどのように扱いますか？（3 つともチェック）
+    - ユーザーデータの販売: しない（承認されている以外の用途で第三者にユーザーデータを販売、転送しません）
+    - ユーザーデータの本来の目的以外への使用や転送: しない（アイテムの唯一の目的と関係のない目的でユーザーデータを使用または転送しません）
+    - 信用力の判定や貸付目的での使用や転送: しない（信用力を判断する目的または融資目的でユーザーデータを使用または転送しません）
 
 ■ 権限の正当性
 
@@ -266,7 +275,7 @@ Chrome の閲覧データをすばやく整理するための、シンプルで�
   本拡張機能の中核機能です。chrome.browsingData.remove() を呼び出して、ユーザーが指定した期間とデータ型（履歴、キャッシュ、Cookie、IndexedDB、Service Workers など）をまとめて削除するために使用します。
 
   tabs:
-  ユーザーが「削除後に全 HTTP タブを自動で再読み込みする」を有効にした場合と、起動時自動削除の後に使用します。開いているタブを列挙して HTTP/HTTPS のものだけを reload し、削除後の最新状態を表示するために使います。chrome.browsingData はプロファイル全体のデータを消すため、アクティブタブだけを reload すると他のタブが古い内容を表示したままになります。タブの URL やタイトルはログ出力・保存・外部送信を一切行いません。
+  手動削除で「削除後に再読み込み」が有効な場合と、Chrome 起動時の自動削除でキャッシュ・Cookie・サイト保存データを削除した場合に、開いている http/https タブを列挙して再読み込みするために使用します。タブの URL は対象の絞り込みにだけ参照し、保存・外部送信は行いません。
 
   host_permissions（https://support.kagayoi.com/*）:
   利用者が任意のお問い合わせフォームを開いて送信したときだけ使用します。メール確認と利用者が入力した問い合わせを HTTPS で Kagayoi Support へ送ります。クリーンアップ設定、閲覧履歴、タブ URL は送信しません。
