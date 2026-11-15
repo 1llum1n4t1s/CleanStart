@@ -1,0 +1,39 @@
+Uma extensão de limpeza simples e segura para organizar rapidamente os dados de navegação do Chrome.
+Clique no ícone da barra de ferramentas, escolha o que excluir e o período, e toque duas vezes no botão: pronto.
+
+■ Principais recursos
+
+・Limpeza em massa com um clique
+  Faça a limpeza com as configurações atuais diretamente no pop-up. Você não precisa navegar entre telas de configuração complicadas.
+
+・Escolha entre 10 tipos de dados
+  Histórico, cache, cookies, downloads e dados de formulários, além dos dados que os sites guardam dentro do navegador. Combine livremente só os itens de que você precisa.
+
+・Seleção de período
+  Escolha o período a ser limpo entre cinco opções: “Última hora”, “Último dia”, “Última semana”, “Últimas 4 semanas” e “Tudo”.
+
+・Dois toques para evitar enganos
+  O botão “Limpar” muda para “Toque novamente para confirmar” no primeiro toque, e a limpeza é executada se você tocar de novo em até 5 segundos. Isso reduz bastante o risco de perder sessões por um clique acidental.
+
+・Limpeza automática ao iniciar o Chrome
+  Se você ativar “Limpar automaticamente ao iniciar o Chrome”, a limpeza é executada toda vez que o navegador é aberto. Enquanto a opção estiver ativada, o pop-up mostra um aviso sobre os efeitos, como o logout de sites.
+
+・Recarga automática das abas ao iniciar
+  Quando a limpeza automática ao iniciar remove o cache, os cookies ou os dados que os sites guardam dentro do navegador, as abas da web abertas são recarregadas em lotes, de forma gradual, para mostrar o estado atualizado após a limpeza.
+
+・Recarga das abas após a limpeza (opcional)
+  Se você ativar “Recarregar automaticamente todas as abas HTTP após a limpeza”, as abas HTTP/HTTPS abertas são recarregadas de uma vez ao fim da limpeza. Nenhuma aba continua exibindo dados que já foram excluídos.
+
+・Limpeza totalmente local
+  A limpeza e o salvamento das configurações acontecem dentro do navegador. Somente quando você envia o formulário de contato opcional, o que você digitou é enviado ao Kagayoi Support. Não há rastreamento, análise nem telemetria.
+
+■ Como usar
+
+1. Instale pela Chrome Web Store
+2. Clique no ícone do Clean Start na barra de ferramentas
+3. Marque os tipos de dados a excluir em “Dados a remover”
+4. Escolha o intervalo em “Período”
+5. Toque no botão “Limpar” → quando aparecer “Toque novamente para confirmar”, toque de novo em até 5 segundos
+6. Pronto!
+
+Todas as configurações são feitas dentro do pop-up. Os valores ficam salvos no navegador e continuam iguais na próxima vez que você abrir o pop-up.

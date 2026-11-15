@@ -1,0 +1,39 @@
+Eine einfache, sichere Bereinigungserweiterung, mit der Sie die Browserdaten von Chrome schnell aufräumen.
+Klicken Sie auf das Symbol in der Symbolleiste, wählen Sie aus, was gelöscht werden soll und für welchen Zeitraum, und tippen Sie zweimal auf die Schaltfläche – fertig.
+
+■ Hauptfunktionen
+
+・Löschen mit einem Klick
+  Führen Sie die Bereinigung mit den aktuellen Einstellungen direkt im Popup durch. Sie müssen nicht zwischen verschachtelten Einstellungsseiten wechseln.
+
+・Auswahl aus 10 Datenarten
+  Verlauf, Cache, Cookies, Downloads und Formulardaten sowie die Daten, die Websites im Browser speichern. Kombinieren Sie frei nur die Elemente, die Sie benötigen.
+
+・Zeitraum wählen
+  Wählen Sie den zu löschenden Zeitraum aus fünf Stufen: „Letzte Stunde“, „Letzter Tag“, „Letzte Woche“, „Letzte 4 Wochen“ und „Alles“.
+
+・Zweimal tippen gegen Fehlbedienung
+  Die Schaltfläche „Löschen“ wechselt beim ersten Tippen zu „Zum Bestätigen erneut tippen“. Tippen Sie innerhalb von 5 Sekunden ein zweites Mal, wird die Bereinigung ausgeführt. So sinkt das Risiko, durch einen versehentlichen Klick Sitzungen zu verlieren, erheblich.
+
+・Automatisches Löschen beim Start von Chrome
+  Wenn Sie „Beim Start von Chrome automatisch löschen“ aktivieren, wird bei jedem Start des Browsers automatisch bereinigt. Solange die Option aktiv ist, zeigt das Popup einen Hinweis auf die Folgen an, etwa dass Sie von Websites abgemeldet werden.
+
+・Automatisches Neuladen der Tabs beim Start
+  Hat das automatische Löschen beim Start Cache, Cookies oder die im Browser gespeicherten Daten von Websites entfernt, werden die geöffneten Web-Tabs in Gruppen nacheinander neu geladen und zeigen automatisch den aktuellen Stand nach der Bereinigung.
+
+・Tabs nach dem Löschen neu laden (optional)
+  Wenn Sie „Alle HTTP-Tabs nach dem Löschen automatisch neu laden“ aktivieren, werden nach Abschluss des Löschens alle geöffneten HTTP/HTTPS-Tabs gesammelt neu geladen. Es bleibt kein Tab zurück, der bereits gelöschte Daten anzeigt.
+
+・Bereinigung rein lokal
+  Löschen und Speichern der Einstellungen finden im Browser statt. Nur wenn Sie das optionale Kontaktformular absenden, werden Ihre Eingaben an Kagayoi Support gesendet. Es gibt kein Tracking, keine Analyse und keine Telemetrie.
+
+■ So geht’s
+
+1. Aus dem Chrome Web Store installieren
+2. In der Symbolleiste auf das Clean-Start-Symbol klicken
+3. Unter „Zu löschende Daten“ die gewünschten Datenarten ankreuzen
+4. Unter „Zeitraum“ den Zeitraum wählen
+5. Auf „Löschen“ tippen → sobald „Zum Bestätigen erneut tippen“ erscheint, innerhalb von 5 Sekunden noch einmal tippen
+6. Fertig!
+
+Alle Einstellungen nehmen Sie im Popup vor. Die Werte werden im Browser gespeichert und bleiben beim nächsten Öffnen des Popups erhalten.

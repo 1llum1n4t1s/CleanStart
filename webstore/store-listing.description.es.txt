@@ -1,0 +1,39 @@
+Una extensión de limpieza sencilla y segura para ordenar rápidamente los datos de navegación de Chrome.
+Haga clic en el icono de la barra de herramientas, elija qué borrar y en qué período, y pulse el botón dos veces: eso es todo.
+
+■ Funciones principales
+
+・Borrado masivo con un clic
+  Realice la limpieza con los ajustes actuales directamente desde la ventana emergente. No es necesario moverse por pantallas de ajustes complicadas.
+
+・Elija entre 10 tipos de datos
+  Historial, caché, cookies, descargas y datos de formularios, además de los datos que los sitios guardan dentro del navegador. Combine libremente solo los elementos que necesite.
+
+・Selección del período
+  Elija el período que se borrará entre cinco opciones: «Última hora», «Último día», «Última semana», «Últimas 4 semanas» y «Todo».
+
+・Doble pulsación para evitar errores
+  El botón «Borrar» pasa a «Pulse de nuevo para confirmar» tras la primera pulsación, y la limpieza se ejecuta si pulsa por segunda vez en un plazo de 5 segundos. Reduce en gran medida el riesgo de perder sesiones por un clic accidental.
+
+・Borrado automático al iniciar Chrome
+  Si activa «Borrar automáticamente al iniciar Chrome», la limpieza se ejecuta cada vez que abre el navegador. Mientras esté activada, la ventana emergente muestra un aviso sobre sus efectos, como el cierre de sesión.
+
+・Recarga automática de pestañas al iniciar
+  Cuando el borrado automático al iniciar elimina la caché, las cookies o los datos que los sitios guardan dentro del navegador, las pestañas web abiertas se recargan por lotes y de forma gradual para mostrar el estado actualizado tras la limpieza.
+
+・Recarga de pestañas tras borrar (opcional)
+  Si activa «Recargar automáticamente todas las pestañas HTTP tras borrar», al terminar el borrado se recargan de una vez las pestañas HTTP/HTTPS abiertas. No queda ninguna pestaña mostrando datos ya eliminados.
+
+・Limpieza completamente local
+  El borrado y el guardado de los ajustes se realizan dentro del navegador. Solo cuando usted envía el formulario de contacto opcional se envía lo que ha escrito a Kagayoi Support. No hay rastreo, análisis ni telemetría.
+
+■ Cómo se usa
+
+1. Instale la extensión desde Chrome Web Store
+2. Haga clic en el icono de Clean Start en la barra de herramientas
+3. Marque los tipos de datos que desea borrar en «Datos que borrar»
+4. Elija el intervalo en «Período de tiempo»
+5. Pulse el botón «Borrar» → cuando aparezca «Pulse de nuevo para confirmar», púlselo otra vez en un plazo de 5 segundos
+6. ¡Listo!
+
+Todos los ajustes se realizan dentro de la ventana emergente. Los valores se guardan en el navegador y se conservan la próxima vez que abra la ventana emergente.

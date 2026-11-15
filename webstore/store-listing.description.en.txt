@@ -1,0 +1,39 @@
+A simple, safe cleanup extension for tidying up Chrome's browsing data.
+Click the toolbar icon, choose what to delete and over which time range, then tap the button twice — that's it.
+
+■ Key features
+
+・One-click bulk cleanup
+  Run a full cleanup with the current settings directly from the popup. No need to navigate through nested settings screens.
+
+・Pick from 10 data types
+  History, cache, cookies, downloads, and form data, plus the data that sites keep inside the browser. Combine only the ones you need.
+
+・Time-range selection
+  Choose from "Last Hour", "Last Day", "Last Week", "Last 4 weeks", or "Everything" for the deletion window.
+
+・Two-tap confirm to prevent accidents
+  The Clear button switches to a "Tap again to confirm" state on the first tap. The second tap within 5 seconds runs the actual cleanup. Greatly reduces the risk of accidentally wiping sessions.
+
+・Optional auto-clear on Chrome startup
+  Enable "Clear automatically when Chrome starts" to wipe data on every launch. While it is enabled, the popup shows a notice about the effects, such as being signed out.
+
+・Auto-reload startup tabs
+  When auto-clear on startup removes cache, cookies, or other data that sites keep inside the browser, open web tabs are reloaded in batches so you immediately see fresh pages.
+
+・Optional tab reload after Clear
+  Enable "Automatically reload all HTTP tabs after clearing" and every open HTTP/HTTPS tab refreshes automatically once cleanup completes, so no tab is left showing data that was just deleted.
+
+・Local cleanup, no tracking
+  Cleanup and settings stay inside the browser. Only when you submit the optional contact form are your entered details sent to Kagayoi Support. There is no tracking, analytics, or telemetry.
+
+■ How to use
+
+1. Install from the Chrome Web Store
+2. Click the Clean Start icon in the toolbar
+3. Tick the data types you want to delete under "Data to Remove"
+4. Pick a time range under "Time Period"
+5. Tap the Clear button. When it changes to "Tap again to confirm", tap it again within 5 seconds
+6. Done!
+
+All settings live inside the popup. Your selections are stored in the browser and remain in place the next time you open the popup.

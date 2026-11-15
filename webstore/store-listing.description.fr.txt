@@ -1,0 +1,39 @@
+Une extension de nettoyage simple et sûre pour mettre rapidement de l’ordre dans les données de navigation de Chrome.
+Cliquez sur l’icône de la barre d’outils, choisissez ce qu’il faut effacer et sur quelle période, puis appuyez deux fois sur le bouton : c’est tout.
+
+■ Fonctions principales
+
+・Effacement groupé en un clic
+  Lancez le nettoyage avec les paramètres actuels directement depuis la fenêtre contextuelle. Inutile de naviguer entre des écrans de paramètres compliqués.
+
+・Choix parmi 10 types de données
+  Historique, cache, cookies, téléchargements et données de formulaires, ainsi que les données que les sites enregistrent dans le navigateur. Combinez librement uniquement les éléments dont vous avez besoin.
+
+・Choix de la période
+  Choisissez la période à effacer parmi cinq options : « Dernière heure », « Dernier jour », « Dernière semaine », « 4 dernières semaines » et « Tout ».
+
+・Double appui pour éviter les erreurs
+  Le bouton « Effacer » passe à « Appuyez à nouveau pour confirmer » au premier appui, et le nettoyage s’exécute si vous appuyez une seconde fois dans les 5 secondes. Cela réduit fortement le risque de perdre vos sessions par un clic accidentel.
+
+・Effacement automatique au démarrage de Chrome
+  Si vous activez « Effacer automatiquement au démarrage de Chrome », le nettoyage s’exécute à chaque lancement du navigateur. Tant que l’option est activée, la fenêtre contextuelle affiche un avertissement sur ses effets, comme la déconnexion des sites.
+
+・Rechargement automatique des onglets au démarrage
+  Lorsque l’effacement automatique au démarrage supprime le cache, les cookies ou les données que les sites enregistrent dans le navigateur, les onglets web ouverts sont rechargés par lots, progressivement, pour afficher l’état à jour après le nettoyage.
+
+・Rechargement des onglets après l’effacement (facultatif)
+  Si vous activez « Recharger automatiquement tous les onglets HTTP après l’effacement », les onglets HTTP/HTTPS ouverts sont rechargés en une fois à la fin de l’effacement. Aucun onglet ne continue d’afficher des données déjà supprimées.
+
+・Nettoyage entièrement local
+  L’effacement et l’enregistrement des paramètres se font dans le navigateur. Ce que vous saisissez dans le formulaire de contact facultatif n’est envoyé à Kagayoi Support que lorsque vous l’envoyez. Il n’y a ni suivi, ni analyse, ni télémétrie.
+
+■ Mode d’emploi
+
+1. Installez l’extension depuis le Chrome Web Store
+2. Cliquez sur l’icône Clean Start dans la barre d’outils
+3. Cochez les types de données à effacer sous « Données à effacer »
+4. Choisissez la période sous « Période »
+5. Appuyez sur le bouton « Effacer » → lorsque « Appuyez à nouveau pour confirmer » s’affiche, appuyez de nouveau dans les 5 secondes
+6. Terminé !
+
+Tous les réglages se font dans la fenêtre contextuelle. Les valeurs sont enregistrées dans le navigateur et conservées à la prochaine ouverture de la fenêtre contextuelle.
