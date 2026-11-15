@@ -1,0 +1,292 @@
+{
+  "brand": "Clean Start",
+  "icon": "icons/icon.svg",
+  "extensionDir": ".",
+  "palette": {
+    "primary": "#2F8CFF",
+    "secondary": "#FFC83D"
+  },
+  "locales": [
+    "en",
+    "ja",
+    "zh_CN",
+    "zh_TW",
+    "ko",
+    "es",
+    "fr",
+    "de",
+    "pt_BR"
+  ],
+  "captures": [
+    {
+      "id": "popup-top",
+      "kind": "popup",
+      "page": "popup.html",
+      "storage": {
+        "dataToRemove": "[\"cache\",\"cookies\",\"formData\",\"history\"]",
+        "timePeriod": "last_week"
+      }
+    },
+    {
+      "id": "popup-data",
+      "kind": "popup",
+      "page": "popup.html",
+      "storage": {
+        "dataToRemove": "[\"cache\",\"cookies\",\"formData\",\"history\"]",
+        "timePeriod": "last_week"
+      }
+    },
+    {
+      "id": "popup-period",
+      "kind": "popup",
+      "page": "popup.html",
+      "storage": {
+        "dataToRemove": "[\"cache\",\"cookies\",\"formData\",\"history\"]",
+        "timePeriod": "last_week",
+        "autorefresh": true
+      }
+    }
+  ],
+  "slides": [
+    {
+      "layout": "hero",
+      "capture": "popup-top",
+      "tagline": {
+        "msg": "app_description"
+      },
+      "chips": [
+        {
+          "en": "10 kinds of data",
+          "ja": "10種類のデータを選択",
+          "zh_CN": "可选择10种数据",
+          "zh_TW": "可選擇10種資料",
+          "ko": "10가지 데이터 선택",
+          "es": "10 tipos de datos",
+          "fr": "10 types de données",
+          "de": "10 Datenarten",
+          "pt_BR": "10 tipos de dados"
+        },
+        {
+          "en": "5 time ranges",
+          "ja": "5つの期間から指定",
+          "zh_CN": "5种时间范围",
+          "zh_TW": "5種時間範圍",
+          "ko": "5가지 기간 선택",
+          "es": "5 períodos de tiempo",
+          "fr": "5 périodes au choix",
+          "de": "5 Zeiträume",
+          "pt_BR": "5 períodos de tempo"
+        },
+        {
+          "en": "Tap twice to confirm",
+          "ja": "2回タップで確実に削除",
+          "zh_CN": "点击两次确认清除",
+          "zh_TW": "點兩下確認清除",
+          "ko": "두 번 눌러 확인",
+          "es": "Pulse dos veces para confirmar",
+          "fr": "Deux appuis pour confirmer",
+          "de": "Zweimal tippen zum Bestätigen",
+          "pt_BR": "Toque duas vezes para confirmar"
+        }
+      ]
+    },
+    {
+      "layout": "feature",
+      "capture": "popup-data",
+      "kicker": {
+        "msg": "options_remove"
+      },
+      "title": {
+        "en": "Choose exactly what to clear",
+        "ja": "消すデータを、自分で選ぶ",
+        "zh_CN": "自行选择要清除的数据",
+        "zh_TW": "自行選擇要清除的資料",
+        "ko": "삭제할 데이터를 직접 선택",
+        "es": "Elija exactamente qué borrar",
+        "fr": "Choisissez précisément quoi effacer",
+        "de": "Genau auswählen, was gelöscht wird",
+        "pt_BR": "Escolha exatamente o que limpar"
+      },
+      "body": {
+        "en": "Pick from history, cookies, downloads, form data and more. Each option explains what it removes.",
+        "ja": "履歴・Cookie・ダウンロード履歴・フォームデータなどから選べます。各項目に削除内容の説明があります。",
+        "zh_CN": "可从历史记录、Cookie、下载记录、表单数据等中选择，每个选项都说明了清除的内容。",
+        "zh_TW": "可從瀏覽記錄、Cookie、下載記錄、表單資料等項目中選擇，每個選項都附有清除內容的說明。",
+        "ko": "방문 기록, 쿠키, 다운로드 기록, 양식 데이터 등에서 선택할 수 있습니다. 각 항목에 삭제 내용 설명이 있습니다.",
+        "es": "Elija entre historial, cookies, descargas, datos de formularios y más. Cada opción explica qué elimina.",
+        "fr": "Choisissez parmi l’historique, les cookies, les téléchargements, les données de formulaires et plus. Chaque option explique ce qu’elle supprime.",
+        "de": "Wählen Sie unter Verlauf, Cookies, Downloads, Formulardaten und mehr. Jede Option erklärt, was sie entfernt.",
+        "pt_BR": "Escolha entre histórico, cookies, downloads, dados de formulários e mais. Cada opção explica o que remove."
+      },
+      "bullets": [
+        {
+          "en": "Downloads clears only the list, never your files",
+          "ja": "ダウンロード履歴は一覧のみ消去、ファイルは残ります",
+          "zh_CN": "下载记录只清除列表，不会删除文件",
+          "zh_TW": "下載記錄只清除清單，不會刪除檔案",
+          "ko": "다운로드는 목록만 지우며 파일은 삭제되지 않습니다",
+          "es": "Descargas borra solo la lista, no sus archivos",
+          "fr": "Téléchargements : seule la liste est effacée, pas vos fichiers",
+          "de": "Downloads löscht nur die Liste, nie Ihre Dateien",
+          "pt_BR": "Downloads limpa só a lista, nunca os seus arquivos"
+        },
+        {
+          "en": "Your choices are saved for next time",
+          "ja": "選択内容は次回も保存されます",
+          "zh_CN": "所选内容会保存，下次继续使用",
+          "zh_TW": "所選內容會儲存，下次沿用",
+          "ko": "선택한 내용은 다음에도 유지됩니다",
+          "es": "Sus opciones se guardan para la próxima vez",
+          "fr": "Vos choix sont conservés pour la prochaine fois",
+          "de": "Ihre Auswahl bleibt für das nächste Mal gespeichert",
+          "pt_BR": "Suas escolhas ficam salvas para a próxima vez"
+        }
+      ]
+    },
+    {
+      "layout": "feature",
+      "capture": "popup-period",
+      "kicker": {
+        "msg": "options_time_period"
+      },
+      "title": {
+        "en": "Decide how far back to clear",
+        "ja": "削除する期間を選ぶ",
+        "zh_CN": "选择要清除的时间范围",
+        "zh_TW": "選擇要清除的時間範圍",
+        "ko": "삭제할 기간을 선택",
+        "es": "Decida qué período borrar",
+        "fr": "Choisissez la période à effacer",
+        "de": "Zeitraum zum Löschen festlegen",
+        "pt_BR": "Defina o período a limpar"
+      },
+      "body": {
+        "en": "Clear the last hour, day, week, 4 weeks, or everything.",
+        "ja": "直近1時間・1日・1週間・4週間、またはすべてから選べます。",
+        "zh_CN": "可选择最近1小时、1天、1周、4周或全部时间。",
+        "zh_TW": "可選擇最近1小時、1天、1週、4週或全部時間。",
+        "ko": "최근 1시간, 1일, 1주, 4주 또는 전체 기간 중에서 선택합니다.",
+        "es": "Elija la última hora, el último día, la última semana, 4 semanas o todo.",
+        "fr": "Choisissez la dernière heure, le dernier jour, la dernière semaine, 4 semaines ou tout.",
+        "de": "Wählen Sie die letzte Stunde, den letzten Tag, die letzte Woche, 4 Wochen oder alles.",
+        "pt_BR": "Escolha a última hora, o último dia, a última semana, 4 semanas ou tudo."
+      },
+      "bullets": [
+        {
+          "en": "Reloads open tabs after clearing, if you wish",
+          "ja": "削除後に開いているタブを自動で再読み込み（任意）",
+          "zh_CN": "可选在清除后自动刷新已打开的标签页",
+          "zh_TW": "可選擇在清除後自動重新整理已開啟的分頁",
+          "ko": "삭제 후 열린 탭을 자동으로 새로고침(선택)",
+          "es": "Recarga las pestañas abiertas tras borrar (opcional)",
+          "fr": "Recharge les onglets ouverts après l’effacement (facultatif)",
+          "de": "Lädt offene Tabs nach dem Löschen neu (optional)",
+          "pt_BR": "Recarrega as abas abertas após limpar (opcional)"
+        },
+        {
+          "en": "Can also clear automatically when Chrome starts",
+          "ja": "Chrome起動時の自動削除も設定できます",
+          "zh_CN": "还可设置在 Chrome 启动时自动清除",
+          "zh_TW": "也可設定在 Chrome 啟動時自動清除",
+          "ko": "Chrome 시작 시 자동 삭제도 설정할 수 있습니다",
+          "es": "También puede borrar automáticamente al iniciar Chrome",
+          "fr": "Peut aussi effacer automatiquement au démarrage de Chrome",
+          "de": "Auf Wunsch auch automatisch beim Start von Chrome",
+          "pt_BR": "Também pode limpar automaticamente ao iniciar o Chrome"
+        }
+      ]
+    },
+    {
+      "layout": "steps",
+      "title": {
+        "en": "Clear in three steps",
+        "ja": "3ステップで削除",
+        "zh_CN": "三步完成清除",
+        "zh_TW": "三步完成清除",
+        "ko": "세 단계로 삭제",
+        "es": "Borre en tres pasos",
+        "fr": "Effacez en trois étapes",
+        "de": "In drei Schritten löschen",
+        "pt_BR": "Limpe em três etapas"
+      },
+      "steps": [
+        {
+          "title": {
+            "en": "Pick the data",
+            "ja": "データを選ぶ",
+            "zh_CN": "选择数据",
+            "zh_TW": "選擇資料",
+            "ko": "데이터 선택",
+            "es": "Elija los datos",
+            "fr": "Choisissez les données",
+            "de": "Daten wählen",
+            "pt_BR": "Escolha os dados"
+          },
+          "body": {
+            "en": "Check the kinds of data to remove.",
+            "ja": "削除する種類にチェックを入れます。",
+            "zh_CN": "勾选要清除的数据类型。",
+            "zh_TW": "勾選要清除的資料類型。",
+            "ko": "삭제할 데이터 종류를 체크합니다.",
+            "es": "Marque los tipos de datos que quiere borrar.",
+            "fr": "Cochez les types de données à effacer.",
+            "de": "Haken Sie die zu löschenden Datenarten an.",
+            "pt_BR": "Marque os tipos de dados a remover."
+          }
+        },
+        {
+          "title": {
+            "en": "Pick the period",
+            "ja": "期間を選ぶ",
+            "zh_CN": "选择时间范围",
+            "zh_TW": "選擇時間範圍",
+            "ko": "기간 선택",
+            "es": "Elija el período",
+            "fr": "Choisissez la période",
+            "de": "Zeitraum wählen",
+            "pt_BR": "Escolha o período"
+          },
+          "body": {
+            "en": "Choose how far back to clear.",
+            "ja": "どこまでさかのぼるかを選びます。",
+            "zh_CN": "选择要清除的时间范围。",
+            "zh_TW": "選擇要清除的時間範圍。",
+            "ko": "삭제할 기간을 선택합니다.",
+            "es": "Seleccione cuánto tiempo atrás borrar.",
+            "fr": "Sélectionnez jusqu’où remonter.",
+            "de": "Legen Sie fest, wie weit zurück gelöscht wird.",
+            "pt_BR": "Defina até quando limpar."
+          }
+        },
+        {
+          "title": {
+            "en": "Tap Clear twice",
+            "ja": "削除を2回タップ",
+            "zh_CN": "点击清除两次",
+            "zh_TW": "按兩下清除",
+            "ko": "삭제를 두 번 누르기",
+            "es": "Pulse Borrar dos veces",
+            "fr": "Appuyez deux fois sur Effacer",
+            "de": "Zweimal auf Löschen tippen",
+            "pt_BR": "Toque em Limpar duas vezes"
+          },
+          "body": {
+            "en": "Tap once, then tap again to confirm.",
+            "ja": "1回目で確認表示、もう一度タップで実行します。",
+            "zh_CN": "点击一次后，再次点击以确认。",
+            "zh_TW": "按一次後，再按一次以確認。",
+            "ko": "한 번 누른 뒤 한 번 더 눌러 확인합니다.",
+            "es": "Pulse una vez y de nuevo para confirmar.",
+            "fr": "Appuyez une fois, puis une seconde fois pour confirmer.",
+            "de": "Einmal tippen, dann zur Bestätigung erneut.",
+            "pt_BR": "Toque uma vez e de novo para confirmar."
+          }
+        }
+      ]
+    }
+  ],
+  "tiles": {
+    "tagline": "Clear history, cache and cookies",
+    "capture": "popup-top"
+  }
+}
