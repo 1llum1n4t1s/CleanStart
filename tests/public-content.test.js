@@ -25,15 +25,16 @@ test("利用者向けページとストア画像のデータ種別数が実装�
 
 test("Chrome Web Store 原稿が問い合わせ通信と利用者データを開示する", () => {
   const listing = read("webstore/store-listing.txt");
+  const listingEn = read("webstore/store-listing.en.txt");
 
   assert.match(listing, /support\.kagayoi\.com/);
-  assert.match(listing, /support-session access token/);
+  assert.match(listingEn, /support-session access token/);
   assert.match(listing, /サポートセッショントークン/);
   // 掲載情報の「データの使用に関する開示」は、収集する種類のチェック項目として個人を特定できる情報を挙げる。
-  assert.match(listing, /Data types collected \(checked\):[\s\S]*?Personally identifiable information/);
+  assert.match(listingEn, /Data types collected \(checked\):[\s\S]*?Personally identifiable information/);
   assert.match(listing, /収集するデータの種類（チェックを入れるもの）:[\s\S]*?個人を特定できる情報/);
-  assert.doesNotMatch(listing, /12 data types|12 種類/);
-  assert.doesNotMatch(listing, /Local-only, zero network|外部サーバーと一切通信しません/);
+  assert.doesNotMatch(listing + listingEn, /12 data types|12 種類/);
+  assert.doesNotMatch(listing + listingEn, /Local-only, zero network|外部サーバーと一切通信しません/);
 });
 
 test("プライバシーポリシーが保存先と自動削除を開示する", () => {

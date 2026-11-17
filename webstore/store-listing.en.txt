@@ -1,0 +1,159 @@
+============================================================
+Chrome Web Store listing copy (English)
+============================================================
+
+[Store Listing]
+------------------------------------------------------------
+
+■ Name (max 30 chars)
+Clean Start
+
+■ Summary (max 132 chars)
+One-click cleanup for history, cache, cookies, and site data. 10 data types, 5 time ranges, two-tap confirm to prevent accidents.
+
+■ Description (max 16,000 chars)
+A simple, safe cleanup extension for tidying up Chrome's browsing data.
+Click the toolbar icon, choose what to delete and over which time range,
+then tap the button twice — that's it.
+
+■ Key features
+
+- One-click bulk cleanup
+  Run a full cleanup with the current settings directly from the popup.
+  No need to navigate through nested settings screens.
+
+- Pick from 10 data types
+  History, cache, cookies, downloads, and form data, plus the data that
+  sites keep inside the browser. Combine only the ones you need.
+
+- Time-range selection
+  Choose from "Last Hour", "Last Day", "Last Week", "Last 4 weeks",
+  or "Everything" for the deletion window.
+
+- Two-tap confirm to prevent accidents
+  The Clear button switches to a "Tap again to confirm" state on the
+  first tap. The second tap within 5 seconds runs the actual cleanup.
+  Greatly reduces the risk of accidentally wiping sessions.
+
+- Optional auto-clear on Chrome startup
+  Enable "Clear automatically when Chrome starts" to wipe data on every
+  launch. A warning banner appears in the popup so you don't enable it
+  accidentally.
+
+- Auto-reload startup tabs
+  When auto-clear on startup removes cache, cookies, or other data that
+  sites keep inside the browser, open web tabs are reloaded in batches so
+  you immediately see fresh pages.
+
+- Optional tab reload after Clear
+  Enable "Automatically reload all HTTP tabs after clearing" and every
+  open HTTP/HTTPS tab refreshes automatically once cleanup completes,
+  so no tab is left showing data that was just deleted.
+
+- Local cleanup, no tracking
+  Cleanup and settings stay inside the browser. Only when you submit the
+  optional contact form are your entered details sent to Kagayoi Support.
+  There is no tracking, analytics, or telemetry.
+
+■ How to use
+
+1. Install from the Chrome Web Store.
+2. Click the Clean Start icon in the toolbar.
+3. Tick the data types you want to delete under "Data to Remove".
+4. Pick a time range under "Time Period".
+5. Tap the Clear button. When it changes to "Tap again to confirm",
+   tap it again within 5 seconds.
+6. Done!
+
+All settings live inside the popup. Your selections are stored locally
+and remain in place the next time you open the popup.
+
+■ Category
+Productivity
+
+■ Languages
+English, 日本語 (Japanese)
+
+
+[Privacy Practices]
+------------------------------------------------------------
+
+■ Single purpose
+Yes
+
+■ Single purpose description
+Bulk-deletes Chrome's history, cache, cookies, and site storage, based on the
+time range and data types the user selects, either by a button press or at
+Chrome startup.
+
+■ Data usage disclosures
+
+  - Data types collected (checked):
+    - Personally identifiable information
+    - Authentication information
+    - Personal communications
+    Only when the user submits the optional contact form: email address,
+    optional name, inquiry content, email verification code, and the
+    support-session access token used to authenticate the support request.
+    These are handled solely to respond to the inquiry. Cleanup settings
+    are stored only inside the browser.
+
+  - Data types not collected:
+    Health information, Financial and payment information, Location, Web history, User activity, Website content
+
+  - User data handling commitments (all three checked)
+    - Will not sell or transfer user data to third parties, outside of the
+      approved use cases
+    - Will not use or transfer user data for purposes unrelated to the
+      item's single purpose
+    - Will not use or transfer user data to determine creditworthiness
+      or for lending purposes
+
+■ Permission justifications
+
+  storage:
+  Used to persist the user-selected items to delete (dataToRemove), time
+  range (timePeriod), auto-reload flag (autorefresh), and clear-on-Chrome-
+  startup flag (clearonstartup) locally in chrome.storage.local. The data
+  is not sent externally.
+
+  browsingData:
+  Core feature of this extension. Used to call chrome.browsingData.remove()
+  to delete, in bulk, the time range and data types the user specified
+  (history, cache, cookies, IndexedDB, Service Workers, etc.).
+
+  tabs:
+  Used to enumerate the open http/https tabs and reload them when "reload
+  after clearing" is enabled for manual clearing, and when cache, cookies,
+  or site storage were deleted by the automatic clear at Chrome startup.
+  Tab URLs are referenced only to narrow down the targets and are never
+  stored or sent externally.
+
+  host_permissions (https://support.kagayoi.com/*):
+  Used only when the user opens and submits the optional contact form. The
+  email verification and the inquiry entered by the user are sent to
+  Kagayoi Support over HTTPS. Cleanup settings, browsing history, and tab
+  URLs are not sent.
+
+■ External server communication
+Cleanup does not communicate with an external server. Only when the user
+submits the optional contact form does the extension send the entered
+email address, optional name, inquiry content, product/version/locale
+metadata, email verification code, and support-session access token to
+https://support.kagayoi.com.
+
+■ Remote code
+No.
+All code is bundled inside the extension package; no remote scripts are
+loaded. Content Security Policy is set explicitly to
+`script-src 'self'; object-src 'self'`.
+
+
+[Distribution]
+------------------------------------------------------------
+
+■ Visibility
+Public
+
+■ Regions
+All regions
