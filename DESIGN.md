@@ -21,7 +21,7 @@ Clean Start は Manifest V3 の Chrome 拡張機能で、現在の Chrome プロ
 | `src/shared/kagayoi-support-*.js` / `*.css` | 問い合わせフォームとストア評価導線。`@kagayoi/support-extension` の共通部品を同梱 |
 | `tests/` | 設定契約、送信元認可、削除・再読み込みの並行性、i18n、問い合わせ部品と manifest の整合性を Bun の node:test 互換テストで検証 |
 | `scripts/` / `webstore/` | `sharp` によるアイコン生成と、共通キット `webstore/vitrina/`（`puppeteer` で実拡張の popup を9言語で撮影・合成。設定は `webstore/store-assets.json`）によるストア画像生成 |
-| `.github/workflows/publish.yml` | `release/<manifest version>` push 時の ZIP 作成と Chrome Web Store 公開 |
+| `.github/workflows/publish.yml` | 版タグ `v<manifest version>` push 時の ZIP 作成と Chrome Web Store 公開 |
 
 ## 実行コンテキストと共有コード
 
@@ -89,7 +89,7 @@ Service Worker の削除失敗は赤い `!` バッジで残します。ポップ
 - 起動時はセッション復元が遅れるため、固定の単発 query ではなく時間を空けた2回の discovery を行います。代わりに起動時処理が数秒長くなります。
 - 設定・セキュリティを純関数中心の共有モジュールへ分離し、Chrome API の薄い mock で直接テストできる構成にします。
 - Kagayoi Support の部品は拡張ごとに分岐させず、`@kagayoi/support-extension` の配布資産を同梱します。同期 CLI の `--check` が正本との全文一致を確認し、契約テストは読み込み順・product ID・送信先・manifest などの組み込み条件を確認します。Shadow DOM のスタイルも同梱 CSS として読み込み、実行時の外部資産取得を避けます。
-- `manifest.json` の version を製品バージョンの正本とし、`package.json` と同期します。公開 workflow は release branch 名との一致を検証してから送信します。
+- `manifest.json` の version を製品バージョンの正本とし、`package.json` と同期します。公開 workflow は 版タグ名との一致を検証してから送信します。
 
 ## 配布境界
 
